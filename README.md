@@ -33,6 +33,7 @@ A project to act as and AWS refresher and Terraform deployment repo
 
 * A implement a worker
 * Introduce multiple fromtends and a LoadBalencer
+* Implement across multiple AZs
 
 ## Terraform
 
@@ -47,6 +48,7 @@ A project to act as and AWS refresher and Terraform deployment repo
 ## K8s
 
 * A implement a database alongside a cluster IP
+* Implement across multiple AWS Regions
 
 ## Prometheus
 
