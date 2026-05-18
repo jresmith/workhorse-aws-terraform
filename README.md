@@ -9,7 +9,8 @@ A project to act as and AWS refresher and Terraform deployment repo
 * K8S cluster composed of x1 Web App, Exposed to the Internet
 * Cert-Manager to issue self-signed cert
 * Separate Dev, Staging & Prod Deployments
-* Use DaemonSets to deploy Monitoring (Prometheus) and Logging (FluentD?) pods to each node 
+* Use DaemonSets to deploy Monitoring (Prometheus) and Logging (FluentD?) pods to each node
+* Use a basic secret
 
 ### k8s maybes
 * Maybe use Helm?
