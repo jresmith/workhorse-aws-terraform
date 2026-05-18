@@ -13,7 +13,7 @@ A project to act as and AWS refresher and Terraform deployment repo
 
 ### k8s maybes
 * Maybe use Helm?
-* Maybe edit WebApp container to customise, but always stays up to date?
+* Maybe edit WebApp container to customise, but always stays up to date? (Might be best to use a "command:" in the Pod yaml to achieve this rather than a custom container image with a Dockerfile
 * Maybe I deploy the enter architecture, but with no resiliance? x1 Frontend, x1 Worker, No backups etc. Then I can document how I made it resilant? 
 
 ## Terraform
