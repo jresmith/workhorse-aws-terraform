@@ -10,7 +10,7 @@ A project to act as and AWS refresher and Terraform deployment repo
 * Cert-Manager to issue self-signed cert
 * Separate Dev, Staging & Prod Deployments
 * Use DaemonSets to deploy Monitoring (Prometheus) and Logging (FluentD?) pods to each node
-* Use a basic secret
+* Use a basic secret & set up encrypt at rest
 
 ### k8s maybes
 * Maybe use Helm?
