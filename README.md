@@ -47,7 +47,12 @@ A project to act as and AWS refresher and Terraform deployment repo
 
 ## Prometheus
 
-* Monitor new parts of Application with more advanced check and dashboards 
+* Monitor new parts of Application with more advanced check and dashboards
+
+## SIEM (ELK?)
+
+* Set up centralised logging service (maybe ELK) 
+* Gather logs with an FileBeat sidecar conatiner and send to ELK
 
 # Phase 3
 
