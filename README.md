@@ -40,6 +40,7 @@ A project to act as and AWS refresher and Terraform deployment repo
 ### k8s maybes
   
 * Use different sizes of node and use Taints/Tolerations and Affinities to get pods onto specific nodes
+* Configure Horizontal Pod Autoscaling (HPA) based on load
 
 ## Terraform
 
