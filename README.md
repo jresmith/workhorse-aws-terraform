@@ -10,7 +10,8 @@ A project to act as and AWS refresher and Terraform deployment repo
 * Cert-Manager to issue self-signed cert
 * Separate Dev, Staging & Prod Deployments
 * Use DaemonSets to deploy Monitoring (Prometheus) and Logging (FluentD?) pods to each node
-* Use a basic secret & set up encrypt at rest
+* Use a basic secret, using different secrects for each of dev, staging and prod
+* Set up encrypt at rest for Staging and Pod Secret
 
 ### k8s maybes
 * Maybe use Helm?
@@ -65,3 +66,7 @@ A project to act as and AWS refresher and Terraform deployment repo
 ## Prometheus
 
 * Monitor new parts of Application
+
+# Documentation
+
+Talk about how I will be storing some credentials for Production in GitLab (since this is just ) but acknowledge that should be using a Centralised External Secret Store like HashiCorp Vault or AWS Secrets Manager
