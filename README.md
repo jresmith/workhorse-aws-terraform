@@ -62,6 +62,13 @@ A project to act as and AWS refresher and Terraform deployment repo
 
 * A implement a database alongside a cluster IP
 * Implement across multiple AWS Regions
+* Add TLS Certificates for the kube-system componenets:
+  * API server
+  * Scheduler
+  * etcd
+  * Controller manager
+  * kube-proxy
+  * kubelets
 
 ## Prometheus
 
