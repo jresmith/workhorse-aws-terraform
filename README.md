@@ -74,7 +74,8 @@ A project to act as and AWS refresher and Terraform deployment repo
 
 ## Prometheus
 
-* Monitor new parts of Application
+* Add monitoring for new parts of the Application architecture
+* Add certs for certificate expirely for all the new certs
 
 # Documentation
 
