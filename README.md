@@ -74,7 +74,8 @@ A project to act as and AWS refresher and Terraform deployment repo
   * kube-proxy
   * kubelets
 * Also generate CA to Sign these certs
-* Generate Admin cert for administration  
+* Generate Admin cert for administration
+* Apply Network policies to each component to separate frontned, worker and dbs
 
 ## Prometheus
 
