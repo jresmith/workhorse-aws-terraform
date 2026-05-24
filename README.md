@@ -10,6 +10,7 @@ A project to act as and AWS refresher and Terraform deployment repo
 * Cert-Manager to issue self-signed cert
 * Separate Dev, Staging & Prod Deployments
 * Separate users for each of the dev/staging/prod enviroments that have access to only their namespace
+* Role Based access control for each of these users & a Dev role
 * Use DaemonSets to deploy Monitoring (Prometheus) and Logging (FluentD?) pods to each node
 * Use a basic secret, using different secrects for each of dev, staging and prod
 * Set up encrypt at rest for Staging and Pod Secret
@@ -37,7 +38,8 @@ A project to act as and AWS refresher and Terraform deployment repo
 
 * A implement a worker
 * Introduce multiple fromtends and a LoadBalencer
-* Implement across multiple AZs 
+* Implement across multiple AZs
+* Create service account for Proetheus monitoring, being sure to manually mount ServiceAccount token using a projected volume.
 
 ### k8s maybes
   
@@ -51,6 +53,7 @@ A project to act as and AWS refresher and Terraform deployment repo
 ## Prometheus
 
 * Monitor new parts of Application with more advanced check and dashboards
+* More in-depth monitoring using service account on k8s
 
 ## SIEM (ELK?)
 
@@ -77,6 +80,7 @@ A project to act as and AWS refresher and Terraform deployment repo
 
 * Add monitoring for new parts of the Application architecture
 * Add certs for certificate expirely for all the new certs
+* When it comes to permissions/authorisation, ensure that you note that `AlwaysAllow` is enabled by default and that we mush ensure this is changes before pushing to prod 
 
 # Documentation
 
