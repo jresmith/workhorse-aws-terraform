@@ -75,7 +75,8 @@ A project to act as and AWS refresher and Terraform deployment repo
   * kubelets
 * Also generate CA to Sign these certs
 * Generate Admin cert for administration
-* Apply Network policies to each component to separate frontned, worker and dbs
+* Apply Network policies to each component to separate frontned, worker and DBs, being sure the specify the correct namespace in each policy
+* Implement a CNI
 
 ## Prometheus
 
@@ -86,3 +87,9 @@ A project to act as and AWS refresher and Terraform deployment repo
 # Documentation
 
 Talk about how I will be storing some credentials for Production in GitLab (since this is just ) but acknowledge that should be using a Centralised External Secret Store like HashiCorp Vault or AWS Secrets Manager
+
+# Phase X
+
+## K8s
+
+* Build a custom controller in GO
