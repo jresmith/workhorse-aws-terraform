@@ -93,3 +93,4 @@ Talk about how I will be storing some credentials for Production in GitLab (sinc
 ## K8s
 
 * Build a custom controller in GO
+* Build a HA Setup
