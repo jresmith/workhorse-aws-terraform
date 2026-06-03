@@ -27,9 +27,9 @@ A project to act as and AWS refresher and Terraform deployment repo
 
 * Static (No varibles), or maybe just a couple
 
-## CI/CD
+## CD
 
-* Configure Deployment Pipeline using ArgoCD
+* Deploy ArgoCD in K8s and configure Applicaton & Project to pull and deploy within cluster manually
 
 ## Prometheus
 
@@ -52,6 +52,10 @@ A project to act as and AWS refresher and Terraform deployment repo
 ## Terraform
 
 * Implement more widespread use of Varibles
+
+## CI
+
+* Use runner to validate that config in the repo is valid (YAML syntax is fine initially) 
 
 ## Prometheus
 
