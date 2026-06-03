@@ -79,7 +79,7 @@ A project to act as and AWS refresher and Terraform deployment repo
 * Also generate CA to Sign these certs
 * Generate Admin cert for administration
 * Apply Network policies to each component to separate frontned, worker and DBs, being sure the specify the correct namespace in each policy
-* Implement a CNI
+* Implement a CNI - Flannel if we want something basic, Calico if we want more advanced (policies etc.)
 
 ## Prometheus
 
