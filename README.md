@@ -57,6 +57,10 @@ A project to act as and AWS refresher and Terraform deployment repo
 
 * Use runner to validate that config in the repo is valid (YAML syntax is fine initially) 
 
+### CI Maybes
+
+* Create a webhook in the git repo to reach out to ArgoCD to alert when there is new config
+
 ## Prometheus
 
 * Monitor new parts of Application with more advanced check and dashboards
