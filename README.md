@@ -30,6 +30,7 @@ A project to act as and AWS refresher and Terraform deployment repo
 ## CD
 
 * Deploy ArgoCD in K8s and configure Applicaton & Project to pull and deploy within cluster manually
+* Deploy app config using declarative files
 
 ## Prometheus
 
