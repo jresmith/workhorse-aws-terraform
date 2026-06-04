@@ -61,6 +61,10 @@ A project to act as and AWS refresher and Terraform deployment repo
 
 * Create a webhook in the git repo to reach out to ArgoCD to alert when there is new config
 
+## CD
+
+* Configure Auto-Pruning & Self-Healing sync strategies 
+
 ## Prometheus
 
 * Monitor new parts of Application with more advanced check and dashboards
