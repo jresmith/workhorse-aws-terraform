@@ -31,7 +31,8 @@ A project to act as and AWS refresher and Terraform deployment repo
 
 * Deploy ArgoCD in K8s and configure Applicaton & Project to pull and deploy within cluster manually
 * Set repo containing delaratve k8s files as a source (or use HELM if we decided to go that route for the k8s deployment)
-* Deploy app config using declarative files 
+* Deploy app config using declarative files
+* Need to decide where ArgoCD should live. Can be on my locsl minikube at first, but may be worth investigating setting up on Oracle Cloud Free Tier in k3s it deploy to production 
 
 ## Prometheus
 
