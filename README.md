@@ -8,7 +8,7 @@ A project to act as and AWS refresher and Terraform deployment repo
 
 * K8S cluster composed of x1 Web App, Exposed to the Internet
 * Cert-Manager to issue self-signed cert
-* Separate Dev, Staging & Prod Deployments
+* Separate Dev, Staging & Prod Deployments. For Phase 1, lets create only the Dev enviroment
 * Separate users for each of the dev/staging/prod enviroments that have access to only their namespace
 * Role Based access control for each of these users & a Dev role
 * Use DaemonSets to deploy Monitoring (Prometheus) and Logging (FluentD?) pods to each node
@@ -33,6 +33,7 @@ A project to act as and AWS refresher and Terraform deployment repo
 * Set repo containing delaratve k8s files as a source (or use HELM if we decided to go that route for the k8s deployment)
 * Deploy app config using declarative files
 * Need to decide where ArgoCD should live. Can be on my locsl minikube at first, but may be worth investigating setting up on Oracle Cloud Free Tier in k3s it deploy to production 
+* Configure Auto-Pruning & Self-Healing sync strategies
 
 ## Prometheus
 
@@ -46,6 +47,8 @@ A project to act as and AWS refresher and Terraform deployment repo
 * Introduce multiple fromtends and a LoadBalencer
 * Implement across multiple AZs
 * Create service account for Proetheus monitoring, being sure to manually mount ServiceAccount token using a projected volume.
+* Creat Staging & Prod Deployments
+
 
 ### k8s maybes
   
@@ -66,7 +69,7 @@ A project to act as and AWS refresher and Terraform deployment repo
 
 ## CD
 
-* Configure Auto-Pruning & Self-Healing sync strategies 
+* Deploy Bitnami Sealed Secrets and store Staging & Production creds encrypted
 
 ## Prometheus
 
