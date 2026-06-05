@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: placeholder-web-app
+  namespace: sandbox
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: placeholder-web-app
+  template:
+    metadata:
+      labels:
+        app: placeholder-web-app
+    spec:
+      containers:
+      - name: placeholder-web-app
+        image: nginx:latest
+        ports:
+        - containerPort: 80
