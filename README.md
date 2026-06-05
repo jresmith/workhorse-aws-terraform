@@ -115,3 +115,13 @@ Talk about how I will be storing some credentials for Production in GitLab (sinc
 
 * Build a custom controller in GO
 * Build a HA Setup
+
+# Prerequisities 
+
+## Local env setup
+
+### argocd setup 
+
+* Install argocd CLI
+* Run `argocd login X.X.X.X:YYYY` and provide argocd creds: user=admin & password (gathered from `kubectl get secrets argocd-initial-admin-secret -n argocd -o yaml`)
+
