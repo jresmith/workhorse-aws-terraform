@@ -8,10 +8,9 @@ A project to act as and AWS refresher and Terraform deployment repo
 
 * K8S cluster composed of x1 Web App, Exposed to the Internet
 * Cert-Manager to issue self-signed cert
-* Separate Dev, Staging & Prod Deployments. For Phase 1, lets create only the Dev enviroment
+* Create only a Dev enviroment (with separate Staging & Prod Deployments in later phases)
 * Separate users for each of the dev/staging/prod enviroments that have access to only their namespace
 * Role Based access control for each of these users & a Dev role
-* Use DaemonSets to deploy Monitoring (Prometheus) and Logging (FluentD?) pods to each node
 * Use a basic secret, using different secrects for each of dev, staging and prod
 * Set up encrypt at rest for Staging and Pod Secret
 
@@ -48,6 +47,7 @@ A project to act as and AWS refresher and Terraform deployment repo
 * Implement across multiple AZs
 * Create service account for Proetheus monitoring, being sure to manually mount ServiceAccount token using a projected volume.
 * Creat Staging & Prod Deployments
+* Implement a CNI - Flannel if we want something basic, Calico if we want more advanced (policies etc.)
 
 
 ### k8s maybes
@@ -97,7 +97,7 @@ A project to act as and AWS refresher and Terraform deployment repo
 * Also generate CA to Sign these certs
 * Generate Admin cert for administration
 * Apply Network policies to each component to separate frontned, worker and DBs, being sure the specify the correct namespace in each policy
-* Implement a CNI - Flannel if we want something basic, Calico if we want more advanced (policies etc.)
+* Use DaemonSets to deploy Monitoring (Prometheus) and Logging (FluentD?) pods to each node
 
 ## Prometheus
 
@@ -124,4 +124,30 @@ Talk about how I will be storing some credentials for Production in GitLab (sinc
 
 * Install argocd CLI
 * Run `argocd login X.X.X.X:YYYY` and provide argocd creds: user=admin & password (gathered from `kubectl get secrets argocd-initial-admin-secret -n argocd -o yaml`)
+
+### k8s App setup
+
+* Increase likeliness and readiness on cartservice service.
+
+Run:
+`kubectl edit deployment cartservice`
+```
+readinessProbe:
+  grpc:
+    port: 7070
+  timeoutSeconds: 1
+```
+&
+```
+        livenessProbe:
+          failureThreshold: 3
+          grpc:
+            port: 7070
+            service: ""
+          initialDelaySeconds: 15
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 5
+zzz
+
 
