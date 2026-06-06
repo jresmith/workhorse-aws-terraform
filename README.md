@@ -128,26 +128,7 @@ Talk about how I will be storing some credentials for Production in GitLab (sinc
 ### k8s App setup
 
 * Increase likeliness and readiness on cartservice service.
-
-Run:
+* Run:
 `kubectl edit deployment cartservice`
-```
-readinessProbe:
-  grpc:
-    port: 7070
-  timeoutSeconds: 1
-```
-&
-```
-        livenessProbe:
-          failureThreshold: 3
-          grpc:
-            port: 7070
-            service: ""
-          initialDelaySeconds: 15
-          periodSeconds: 10
-          successThreshold: 1
-          timeoutSeconds: 5
-zzz
-
+* Delete all config under `livenessProbe:` & `readinessProbe:`
 
