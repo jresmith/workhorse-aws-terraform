@@ -8,6 +8,7 @@ spec:
   source:
     repoURL: https://github.com/jresmith/workhorse-aws-terraform.git
     path: workhorse/gitops/placeholder-web-app
+    targetRevision: main
   destination:
     server: https://kubernetes.default.svc
     namespace: dev
