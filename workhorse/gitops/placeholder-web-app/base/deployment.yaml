@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: placeholder-web-app
-  namespace: sandbox
 spec:
   replicas: 2
   selector:

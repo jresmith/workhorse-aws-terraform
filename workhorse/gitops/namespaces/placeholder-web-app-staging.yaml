@@ -1,6 +1,0 @@
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: placeholder-web-app-dev
-  labels:
-    environment: placeholder-web-app-dev
