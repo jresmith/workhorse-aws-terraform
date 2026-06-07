@@ -1,16 +1,13 @@
-# workhorse-aws-terraform
-A project to act as and AWS refresher and Terraform deployment repo
-
+# workhorse-aws-terraform project plan
 
 # Phase 1 
 
 ## K8s
 
-* K8S cluster composed of x1 Web App, Exposed to the Internet
-* Cert-Manager to issue self-signed cert
+* K8S cluster composed of Goodle online boutique
+* Deploy cert-manager via helm to encrypt kube-system traffic
+* Cert-Manager to issue certificates for applications
 * Create only a Dev enviroment (with separate Staging & Prod Deployments in later phases)
-* Separate users for each of the dev/staging/prod enviroments that have access to only their namespace
-* Role Based access control for each of these users & a Dev role
 * Use a basic secret, using different secrects for each of dev, staging and prod
 * Set up encrypt at rest for Staging and Pod Secret
 
@@ -21,6 +18,8 @@ A project to act as and AWS refresher and Terraform deployment repo
   * Ports served
 * Maybe edit WebApp container to customise, but always stays up to date? (Might be best to use a "command:" in the Pod yaml to achieve this rather than a custom container image with a Dockerfile
 * Maybe I deploy the enter architecture, but with no resiliance? x1 Frontend, x1 Worker, No backups etc. Then I can document how I made it resilant? 
+* Separate users for each of the dev/staging/prod enviroments that have access to only their namespace
+* Role Based access control for each of these users & a Dev role
 
 ## Terraform
 
@@ -33,21 +32,24 @@ A project to act as and AWS refresher and Terraform deployment repo
 * Deploy app config using declarative files
 * Need to decide where ArgoCD should live. Can be on my locsl minikube at first, but may be worth investigating setting up on Oracle Cloud Free Tier in k3s it deploy to production 
 * Configure Auto-Pruning & Self-Healing sync strategies
+* Deploy Bitnami Sealed Secrets and store dev creds encrypted
+
 
 ## Prometheus
 
+* Deploy using helm
 * Monitor Application with basic checks
 
 # Phase 2
 
 ## K8s
 
-* A implement a worker
 * Introduce multiple fromtends and a LoadBalencer
-* Implement across multiple AZs
 * Create service account for Proetheus monitoring, being sure to manually mount ServiceAccount token using a projected volume.
 * Creat Staging & Prod Deployments
-* Implement a CNI - Flannel if we want something basic, Calico if we want more advanced (policies etc.)
+* Implement an ingress-nginx via helm
+* Following terraform deployment, expose to the internet
+* Implement a CNI - Flannel if we want something basic, Calico/Cilium if we want more advanced (policies etc.)
 
 
 ### k8s maybes
@@ -58,6 +60,7 @@ A project to act as and AWS refresher and Terraform deployment repo
 ## Terraform
 
 * Implement more widespread use of Varibles
+* Implement across multiple AZs
 
 ## CI
 
