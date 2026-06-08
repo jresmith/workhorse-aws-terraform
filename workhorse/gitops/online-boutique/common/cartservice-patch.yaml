@@ -1,0 +1,15 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cartservice
+spec:
+  template:
+    spec:
+      containers:
+        - name: server
+          livenessProbe:
+            timeoutSeconds: 10
+            failureThreshold: 5
+          readinessProbe:
+            timeoutSeconds: 10
+            failureThreshold: 5
