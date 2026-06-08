@@ -4,7 +4,7 @@
 
 ## K8s
 
-* K8S cluster composed of Goodle online boutique
+* ~K8S cluster composed of Goodle online boutique~
 * Deploy cert-manager via helm to encrypt kube-system traffic
 * Cert-Manager to issue certificates for applications
 * Create only a Dev enviroment (with separate Staging & Prod Deployments in later phases)
