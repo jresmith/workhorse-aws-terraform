@@ -91,10 +91,6 @@
 * Add certs for certificate expirely for all the new certs
 * When it comes to permissions/authorisation, ensure that you note that `AlwaysAllow` is enabled by default and that we mush ensure this is changes before pushing to prod 
 
-# Documentation
-
-Talk about how I will be storing some credentials for Production in GitLab (since this is just ) but acknowledge that should be using a Centralised External Secret Store like HashiCorp Vault or AWS Secrets Manager
-
 # Phase X
 
 ## K8s
@@ -102,9 +98,20 @@ Talk about how I will be storing some credentials for Production in GitLab (sinc
 * Build a custom controller in GO
 * Build a HA Setup
 
+# Documentation
+
+Talk about how I will be storing some credentials for Production in GitLab (since this is just ) but acknowledge that should be using a Centralised External Secret Store like HashiCorp Vault or AWS Secrets Manager
+
 # Prerequisities 
 
 ## Local env setup
+
+### k8s App setup
+
+* Increase likeliness and readiness on cartservice service.
+* Run:
+`kubectl edit deployment cartservice`
+* Delete all config under `livenessProbe:` & `readinessProbe:`
 
 ### argocd setup 
 
@@ -123,10 +130,5 @@ Talk about how I will be storing some credentials for Production in GitLab (sinc
   * Ports served
 * Role Based access control for each of these users & a Dev role
 
-### k8s App setup
 
-* Increase likeliness and readiness on cartservice service.
-* Run:
-`kubectl edit deployment cartservice`
-* Delete all config under `livenessProbe:` & `readinessProbe:`
 
