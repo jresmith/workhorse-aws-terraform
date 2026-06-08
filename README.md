@@ -5,21 +5,17 @@
 ## K8s
 
 * ~K8S cluster composed of Goodle online boutique~
+* ~Create only a Dev enviroment (with separate Staging & Prod Deployments in later phases)~
 * Deploy cert-manager via helm to encrypt kube-system traffic
 * Cert-Manager to issue certificates for applications
-* Create only a Dev enviroment (with separate Staging & Prod Deployments in later phases)
 * Use a basic secret, using different secrects for each of dev, staging and prod
 * Set up encrypt at rest for Staging and Pod Secret
 
 ### k8s maybes
-* Maybe use Helm? It might be wiser to do this later in the project, but it might also be a requirement for the deployment pipeline to work. Things to template:
-  * Container Images
-  * Number of Replcias
-  * Ports served
-* Maybe edit WebApp container to customise, but always stays up to date? (Might be best to use a "command:" in the Pod yaml to achieve this rather than a custom container image with a Dockerfile
-* Maybe I deploy the enter architecture, but with no resiliance? x1 Frontend, x1 Worker, No backups etc. Then I can document how I made it resilant? 
-* Separate users for each of the dev/staging/prod enviroments that have access to only their namespace
+
 * Role Based access control for each of these users & a Dev role
+
+Dinora
 
 ## Terraform
 
@@ -27,17 +23,16 @@
 
 ## CD
 
-* Deploy ArgoCD in K8s and configure Applicaton & Project to pull and deploy within cluster manually
-* Set repo containing delaratve k8s files as a source (or use HELM if we decided to go that route for the k8s deployment)
-* Deploy app config using declarative files
+* ~Deploy ArgoCD in K8s and configure Applicaton & Project to pull and deploy within cluster manually~
+* ~Set repo containing delaratve k8s files as a source (or use HELM if we decided to go that route for the k8s deployment)~
+* ~Deploy app config using declarative files~
+* ~Configure Auto-Pruning & Self-Healing sync strategies~
 * Need to decide where ArgoCD should live. Can be on my locsl minikube at first, but may be worth investigating setting up on Oracle Cloud Free Tier in k3s it deploy to production 
-* Configure Auto-Pruning & Self-Healing sync strategies
 * Deploy Bitnami Sealed Secrets and store dev creds encrypted
-
 
 ## Prometheus
 
-* Deploy using helm
+* Deploy using helm via argocd
 * Monitor Application with basic checks
 
 # Phase 2
@@ -127,6 +122,17 @@ Talk about how I will be storing some credentials for Production in GitLab (sinc
 
 * Install argocd CLI
 * Run `argocd login X.X.X.X:YYYY` and provide argocd creds: user=admin & password (gathered from `kubectl get secrets argocd-initial-admin-secret -n argocd -o yaml`)
+
+# Not relevent
+
+## K8s
+
+* [More of a Devops thing] Maybe edit WebApp container to customise, but always stays up to date? (Might be best to use a "command:" in the Pod yaml to achieve this rather than a custom container image with a Dockerfile
+* [Trivial to set up and not relevelent to role] Separate users for each of the dev/staging/prod enviroments that have access to only their namespace
+* [Not required since I'll be using Helm elsewhere in the project] Maybe use Helm? It might be wiser to do this later in the project, but it might also be a requirement for the deployment pipeline to work. Things to template:
+  * Container Images
+  * Number of Replcias
+  * Ports served
 
 ### k8s App setup
 
