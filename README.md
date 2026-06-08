@@ -11,12 +11,6 @@
 * Use a basic secret, using different secrects for each of dev, staging and prod
 * Set up encrypt at rest for Staging and Pod Secret
 
-### k8s maybes
-
-* Role Based access control for each of these users & a Dev role
-
-Dinora
-
 ## Terraform
 
 * Static (No varibles), or maybe just a couple
@@ -39,7 +33,6 @@ Dinora
 
 ## K8s
 
-* Introduce multiple fromtends and a LoadBalencer
 * Create service account for Proetheus monitoring, being sure to manually mount ServiceAccount token using a projected volume.
 * Creat Staging & Prod Deployments
 * Following terraform deployment, expose to the internet
@@ -83,10 +76,14 @@ Dinora
 ## K8s
 
 * A implement a database alongside a cluster IP
-* Implement across multiple AWS Regions
 * Generate Admin cert for administration
 * Apply Network policies to each component to separate frontned, worker and DBs, being sure the specify the correct namespace in each policy
 * Use DaemonSets to deploy Monitoring (Prometheus) and Logging (FluentD?) pods to each node
+* Introduce multiple frontends and a LoadBalencer (as part of SLI/SLO resiliancy plan)
+
+## Terraform
+
+* Implement across multiple AWS Regions (as part of SLI/SLO resiliancy plan)
 
 ## Prometheus
 
@@ -124,6 +121,7 @@ Talk about how I will be storing some credentials for Production in GitLab (sinc
   * Container Images
   * Number of Replcias
   * Ports served
+* Role Based access control for each of these users & a Dev role
 
 ### k8s App setup
 
