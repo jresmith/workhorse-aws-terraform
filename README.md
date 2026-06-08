@@ -6,8 +6,8 @@
 
 * ~K8S cluster composed of Goodle online boutique~
 * ~Create only a Dev enviroment (with separate Staging & Prod Deployments in later phases)~
-* Deploy cert-manager via helm to encrypt kube-system traffic
-* Cert-Manager to issue certificates for applications
+* Deploy cert-manager via helm to web frontend trafdfic
+* Implement an ingress-nginx via helm
 * Use a basic secret, using different secrects for each of dev, staging and prod
 * Set up encrypt at rest for Staging and Pod Secret
 
@@ -42,7 +42,6 @@ Dinora
 * Introduce multiple fromtends and a LoadBalencer
 * Create service account for Proetheus monitoring, being sure to manually mount ServiceAccount token using a projected volume.
 * Creat Staging & Prod Deployments
-* Implement an ingress-nginx via helm
 * Following terraform deployment, expose to the internet
 * Implement a CNI - Flannel if we want something basic, Calico/Cilium if we want more advanced (policies etc.)
 
@@ -85,14 +84,6 @@ Dinora
 
 * A implement a database alongside a cluster IP
 * Implement across multiple AWS Regions
-* Add TLS Certificates for the kube-system componenets:
-  * API server
-  * Scheduler
-  * etcd
-  * Controller manager
-  * kube-proxy
-  * kubelets
-* Also generate CA to Sign these certs
 * Generate Admin cert for administration
 * Apply Network policies to each component to separate frontned, worker and DBs, being sure the specify the correct namespace in each policy
 * Use DaemonSets to deploy Monitoring (Prometheus) and Logging (FluentD?) pods to each node
