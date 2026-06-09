@@ -11,7 +11,7 @@ spec:
     path: workhorse/gitops/addons/ingress-nginx
     helm:
       valueFiles:
-        - Values.yaml
+        - values.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: ingress-nginx
