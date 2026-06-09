@@ -9,9 +9,6 @@ spec:
     repoURL: https://github.com/jresmith/workhorse-aws-terraform.git
     targetRevision: main
     path: workhorse/gitops/addons/cert-manager
-    helm:
-      valueFiles:
-        - values.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: ingress-nginx
