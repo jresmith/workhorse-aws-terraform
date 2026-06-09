@@ -3,3 +3,5 @@ kind: Kustomization
 resources:
   - ../../base
 namespace: online-boutique-dev
+patches:
+  - path: ingress.yaml
