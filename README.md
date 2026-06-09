@@ -8,7 +8,8 @@
 * ~Create only a Dev enviroment (with separate Staging & Prod Deployments in later phases)~
 * Deploy cert-manager via helm to web frontend trafdfic
 * Implement an ingress-nginx via helm
-* Use a basic secret, using different secrects for each of dev, staging and prod
+* Implement an ingress for argocd UI & CLI
+* Use a basic secret, using different secrects for each of dev, staging and prod. Maybe changing argocd admin password?
 * Set up encrypt at rest for Staging and Pod Secret
 
 ## Terraform
@@ -33,8 +34,8 @@
 
 ## K8s
 
-* Create service account for Proetheus monitoring, being sure to manually mount ServiceAccount token using a projected volume.
-* Creat Staging & Prod Deployments
+* Create service account for Proetheus monitoring, being sure to manually mount ServiceAccount token using a projected volume (may get done as part of helm)
+* Create Staging & Prod Deployments
 * Following terraform deployment, expose to the internet
 * Implement a CNI - Flannel if we want something basic, Calico/Cilium if we want more advanced (policies etc.)
 
