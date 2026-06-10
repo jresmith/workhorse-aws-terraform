@@ -9,9 +9,8 @@ spec:
     repoURL: https://github.com/jresmith/workhorse-aws-terraform.git
     targetRevision: main
     path: workhorse/gitops/addons/cert-manager
-    helm:
-      valueFiles:
-        - values.yaml
+    kustomize:
+      enableHelm: true
   destination:
     server: https://kubernetes.default.svc
     namespace: cert-manager
