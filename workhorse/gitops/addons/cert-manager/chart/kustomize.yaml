@@ -1,0 +1,6 @@
+helmCharts:
+  - name: cert-manager-wrapper
+    path: chart
+    releaseName: cert-manager
+    namespace: cert-manager
+    valuesFile: values.yaml
