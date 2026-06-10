@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: argocd-dev
+  namespace: argocd
+spec:
+  secretName: argocd-dev
+  dnsNames:
+    - argocd.dev.local
+  issuerRef:
+    name: workhorse-ca
+    kind: ClusterIssuer
