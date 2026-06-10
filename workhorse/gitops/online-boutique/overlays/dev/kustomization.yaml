@@ -3,7 +3,6 @@ kind: Kustomization
 namespace: online-boutique-dev
 resources:
   - ../../base
-  - ../../common
   - ingress.yaml
   - cartservice-patch
 patches:
