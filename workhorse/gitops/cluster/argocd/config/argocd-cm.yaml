@@ -7,14 +7,15 @@ data:
   resource.customizations.health.Service: |
     hs = {}
 
+
     if obj.metadata ~= nil and
        obj.metadata.namespace == "online-boutique-dev" and
-       obj.metadata.annotations ~= nil and
-       obj.metadata.annotations["argocd.ignore-health-check"] == "true" then
+       obj.metadata.name == "frontend-external" then
       hs.status = "Healthy"
-      hs.message = "Ignoring LoadBalancer health (dev)"
+      hs.message = "Dev LB ignored"
       return hs
     end
+
 
     if obj.spec ~= nil and obj.spec.type == "LoadBalancer" then
       if obj.status ~= nil and
