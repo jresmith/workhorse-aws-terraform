@@ -3,7 +3,13 @@ kind: Ingress
 metadata:
   name: online-boutique
   namespace: online-boutique-dev
+  annotations:
+    cert-manager.io/cluster-issuer: workhorse-ca
 spec:
+  tls:
+    secretName: boutique-dev
+    - hosts:
+        - boutique.dev.local
   ingressClassName: nginx
   rules:
   - host: boutique.dev.local
