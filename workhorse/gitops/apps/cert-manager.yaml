@@ -11,7 +11,7 @@ spec:
     path: workhorse/gitops/addons/cert-manager
   destination:
     server: https://kubernetes.default.svc
-    namespace: ingress-nginx
+    namespace: cert-manager
   syncPolicy:
     automated:
       prune: true
