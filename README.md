@@ -6,8 +6,8 @@
 
 * ~K8S cluster composed of Goodle online boutique~
 * ~Create only a Dev enviroment (with separate Staging & Prod Deployments in later phases)~
-* Deploy cert-manager via helm to web frontend trafdfic
-* Implement an ingress-nginx via helm
+* ~Deploy cert-manager via helm to web frontend traffic~
+* ~Implement an ingress-nginx via helm~
 * Implement an ingress for argocd UI & CLI
 * Use a basic secret, using different secrects for each of dev, staging and prod. Maybe changing argocd admin password?
 * Set up encrypt at rest for Staging and Pod Secret
