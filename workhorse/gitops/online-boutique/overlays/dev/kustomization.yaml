@@ -4,7 +4,6 @@ namespace: online-boutique-dev
 resources:
   - ../../base
   - ingress.yaml
-  - cartservice-patch.yaml
 patches:
   - target:
       kind: Service
@@ -13,5 +12,5 @@ patches:
       - op: add
         path: /metadata/annotations/argocd.ignore-health-check
         value: "true"
-patchesStrategicMerge:
-  - cartservice-patch.yaml
+patches:
+  - path: cartservice-patch.yaml
