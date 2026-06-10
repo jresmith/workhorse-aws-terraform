@@ -7,9 +7,9 @@ metadata:
     cert-manager.io/cluster-issuer: workhorse-ca
 spec:
   tls:
-    secretName: boutique-dev
     - hosts:
         - boutique.dev.local
+      secretName: boutique-dev
   ingressClassName: nginx
   rules:
   - host: boutique.dev.local
