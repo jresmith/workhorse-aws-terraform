@@ -4,3 +4,13 @@ namespace: online-boutique-dev
 resources:
   - ../../base
   - ingress.yaml
+
+patches:
+  - target:
+      kind: Service
+      name: frontend-external
+      namespace: online-boutique-dev
+    patch: |
+      - op: add
+        path: /metadata/annotations/argocd.ignore-health-check
+        value: "true"
