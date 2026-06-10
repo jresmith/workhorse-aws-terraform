@@ -5,7 +5,7 @@ resources:
   - ../../base
   - ../../common
   - ingress.yaml
-
+  - cartservice-patch
 patches:
   - target:
       kind: Service
@@ -14,3 +14,5 @@ patches:
       - op: add
         path: /metadata/annotations/argocd.ignore-health-check
         value: "true"
+patchesStrategicMerge:
+  - cartservice-patch.yaml
