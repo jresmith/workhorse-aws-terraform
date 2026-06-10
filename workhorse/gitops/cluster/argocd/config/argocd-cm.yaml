@@ -4,7 +4,7 @@ metadata:
   name: argocd-cm
   namespace: argocd
 data:
-  resource.customizations.health._Service: |
+  resource.customizations.health.Service: |
     hs = {}
 
     if obj.metadata ~= nil and
