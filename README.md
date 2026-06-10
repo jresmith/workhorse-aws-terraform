@@ -8,9 +8,9 @@
 * ~Create only a Dev enviroment (with separate Staging & Prod Deployments in later phases)~
 * ~Deploy cert-manager via helm to web frontend traffic~
 * ~Implement an ingress-nginx via helm~
-* Implement an ingress for argocd UI & CLI
-* Use a basic secret, using different secrects for each of dev, staging and prod. Maybe changing argocd admin password?
-* Set up encrypt at rest for Staging and Pod Secret
+* ~Implement an ingress for argocd UI & CLI~
+* ~Use a basic secret, using different secrects for each of dev~
+* Set up encrypt at rest for Staging and Prod Secret
 
 ## Terraform
 
@@ -23,7 +23,7 @@
 * ~Deploy app config using declarative files~
 * ~Configure Auto-Pruning & Self-Healing sync strategies~
 * Need to decide where ArgoCD should live. Can be on my locsl minikube at first, but may be worth investigating setting up on Oracle Cloud Free Tier in k3s it deploy to production 
-* Deploy Bitnami Sealed Secrets and store dev creds encrypted
+* Deploy Bitnami Sealed Secrets and store stagingz creds encrypted
 
 ## Prometheus
 
@@ -118,6 +118,12 @@ Talk about how I will be storing some credentials for Production in GitLab (sinc
 
 * Install argocd CLI
 * Run `argocd login X.X.X.X:YYYY` and provide argocd creds: user=admin & password (gathered from `kubectl get secrets argocd-initial-admin-secret -n argocd -o yaml`)
+* Enable Helm in ArgoCD globally using `kubectl edit configmap argocd-cm -n argocd` and add:
+```
+data:
+  kustomize.buildOptions: "--enable-helm"
+```
+* then run `kubectl rollout restart deployment argocd-repo-server -n argocd`
 
 # Not relevent
 
