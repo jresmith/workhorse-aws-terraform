@@ -23,7 +23,6 @@
 * ~Deploy app config using declarative files~
 * ~Configure Auto-Pruning & Self-Healing sync strategies~
 * ~Need to decide where ArgoCD should live. Can be on my local minikube at first, but may be worth investigating setting up on Oracle Cloud Free Tier in k3s it deploy to production~
-* Deploy Bitnami Sealed Secrets and store stagingz creds encrypted
 
 ## Prometheus
 
@@ -39,7 +38,6 @@
 * Create Staging & Prod Deployments
 * Following terraform deployment, expose to the internet
 * Set up encrypt at rest for Staging and Prod Secret
-* Set up encrypt at rest for Staging and Prod Secret
 * Create service account for Proetheus monitoring, being sure to manually mount ServiceAccount token using a projected volume (may get done as part of helm)
 
 ### k8s maybes
@@ -49,7 +47,7 @@
 ## Terraform
 
 * Implement more widespread use of Varibles
-* Implement across multiple AZs
+* Implement across multiple AZs (as pary of SLI/SLO planning)
 
 ## CI
 
@@ -96,7 +94,6 @@
 
 ## K8s
 
-* Build a custom controller in GO
 * Build a HA Setup
 
 # Documentation
@@ -137,6 +134,7 @@ data:
   * Number of Replcias
   * Ports served
 * Role Based access control for each of these users & a Dev role
+* Build a custom controller in GO
 
 
 
