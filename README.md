@@ -47,7 +47,6 @@
 ## Terraform
 
 * Implement more widespread use of Varibles
-* Implement across multiple AZs (as pary of SLI/SLO planning)
 
 ## CI
 
@@ -83,6 +82,7 @@
 ## Terraform
 
 * Implement across multiple AWS Regions (as part of SLI/SLO resiliancy plan)
+* Implement across multiple AZs (as pary of SLI/SLO planning)
 
 ## Prometheus
 
