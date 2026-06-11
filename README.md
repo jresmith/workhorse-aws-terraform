@@ -10,11 +10,11 @@
 * ~Implement an ingress-nginx via helm~
 * ~Implement an ingress for argocd UI & CLI~
 * ~Use a basic secret, using different secrects for each of dev~
-* Set up encrypt at rest for Staging and Prod Secret
 
 ## Terraform
 
 * Static (No varibles), or maybe just a couple
+* Deploy EKS cluster
 
 ## CD
 
@@ -22,7 +22,7 @@
 * ~Set repo containing delaratve k8s files as a source (or use HELM if we decided to go that route for the k8s deployment)~
 * ~Deploy app config using declarative files~
 * ~Configure Auto-Pruning & Self-Healing sync strategies~
-* Need to decide where ArgoCD should live. Can be on my locsl minikube at first, but may be worth investigating setting up on Oracle Cloud Free Tier in k3s it deploy to production 
+* ~Need to decide where ArgoCD should live. Can be on my local minikube at first, but may be worth investigating setting up on Oracle Cloud Free Tier in k3s it deploy to production~
 * Deploy Bitnami Sealed Secrets and store stagingz creds encrypted
 
 ## Prometheus
@@ -34,16 +34,17 @@
 
 ## K8s
 
-* Create service account for Proetheus monitoring, being sure to manually mount ServiceAccount token using a projected volume (may get done as part of helm)
+* Implement a CNI - Flannel if we want something basic, Calico/Cilium if we want more advanced (policies etc.)
+* Apply Network policies to each component to separate frontned, worker and DBs, being sure the specify the correct namespace in each policy
 * Create Staging & Prod Deployments
 * Following terraform deployment, expose to the internet
-* Implement a CNI - Flannel if we want something basic, Calico/Cilium if we want more advanced (policies etc.)
-
+* Set up encrypt at rest for Staging and Prod Secret
+* Set up encrypt at rest for Staging and Prod Secret
+* Create service account for Proetheus monitoring, being sure to manually mount ServiceAccount token using a projected volume (may get done as part of helm)
 
 ### k8s maybes
   
 * Use different sizes of node and use Taints/Tolerations and Affinities to get pods onto specific nodes - keep dev nodes on minikube and staging/prod on cloud nodes
-* Configure Horizontal Pod Autoscaling (HPA) based on load
 
 ## Terraform
 
@@ -60,6 +61,7 @@
 
 ## CD
 
+* Deploy new cloud-based argocd instance to manage deployment of staging and prod
 * Deploy Bitnami Sealed Secrets and store Staging & Production creds encrypted
 
 ## Prometheus
@@ -76,11 +78,9 @@
 
 ## K8s
 
-* A implement a database alongside a cluster IP
+* Configure Horizontal Pod Autoscaling (HPA) based on load
 * Generate Admin cert for administration
-* Apply Network policies to each component to separate frontned, worker and DBs, being sure the specify the correct namespace in each policy
-* Use DaemonSets to deploy Monitoring (Prometheus) and Logging (FluentD?) pods to each node
-* Introduce multiple frontends and a LoadBalencer (as part of SLI/SLO resiliancy plan)
+* Use DaemonSets to deploy Monitoring (Prometheus) and Logging (FluentD?) pods to each node (may be done as part of helm)
 
 ## Terraform
 
@@ -101,7 +101,8 @@
 
 # Documentation
 
-Talk about how I will be storing some credentials for Production in GitLab (since this is just ) but acknowledge that should be using a Centralised External Secret Store like HashiCorp Vault or AWS Secrets Manager
+* Talk about how I will be storing some credentials for Production in GitLab (since this is just ) but acknowledge that should be using a Centralised External Secret Store like HashiCorp Vault or AWS Secrets Manager
+* Increarse pod replicas (as part of SLI/SLO resiliancy plan)
 
 # Prerequisities 
 
