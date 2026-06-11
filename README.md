@@ -50,7 +50,8 @@
 
 ## CI
 
-* Use runner to validate that config in the repo is valid (YAML syntax is fine initially) 
+* Use runner to validate that k8s config in the repo is valid (YAML syntax is fine initially) 
+* Use runner to validate that terraform config in the repo is valid (`terraform validate` command`)
 
 ### CI Maybes
 
