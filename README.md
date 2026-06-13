@@ -10,10 +10,16 @@
 * ~Implement an ingress-nginx via helm~
 * ~Implement an ingress for argocd UI & CLI~
 * ~Use a basic secret, using different secrects for each of dev~
+* Implement Calico CNI 
+* set up Network Polices between pods
 
 ## Terraform
 
+* Set up a bucket to store terraform state file (consul may be better)
+* Set up, dynamite DB table to track state locking
+* Use modules to create template to be deployed into staging & prod
 * Static (No varibles), or maybe just a couple
+* Deploy a service user that allows me to access aws cli every time a new env is spun up
 * Deploy EKS cluster
 
 ## CD
@@ -33,7 +39,6 @@
 
 ## K8s
 
-* Implement a CNI - Flannel if we want something basic, Calico/Cilium if we want more advanced (policies etc.)
 * Apply Network policies to each component to separate frontned, worker and DBs, being sure the specify the correct namespace in each policy
 * Create Staging & Prod Deployments
 * Following terraform deployment, expose to the internet
@@ -101,6 +106,12 @@
 
 * Talk about how I will be storing some credentials for Production in GitLab (since this is just ) but acknowledge that should be using a Centralised External Secret Store like HashiCorp Vault or AWS Secrets Manager
 * Increarse pod replicas (as part of SLI/SLO resiliancy plan)
+
+## Design choices
+
+### EKS 
+
+* Using one VPC per cluster (one for staging, one for prod) 
 
 # Prerequisities 
 
