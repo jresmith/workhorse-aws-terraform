@@ -12,6 +12,7 @@
 * ~Use a basic secret, using different secrects for each of dev~
 * Implement Calico CNI in Dev environment 
 * set up Network Polices between pods, separating components, being sure the specify the correct namespace in each policy
+* Set up Persistent volumes using EKS EBS, use Helm chart to deploy - noting that additional IAM access is required first
 
 ## Terraform
 
