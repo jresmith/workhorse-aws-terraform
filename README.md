@@ -49,6 +49,7 @@
 ### k8s maybes
   
 * Use different sizes of node and use Taints/Tolerations and Affinities to get pods onto specific nodes - keep dev nodes on minikube and staging/prod on cloud nodes
+* Do I need to use RBAC? Especially when it comes to secrets and separation of staging/production?
 
 ## Terraform
 
