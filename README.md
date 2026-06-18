@@ -10,8 +10,8 @@
 * ~Implement an ingress-nginx via helm~
 * ~Implement an ingress for argocd UI & CLI~
 * ~Use a basic secret, using different secrects for each of dev~
-* Implement Calico CNI 
-* set up Network Polices between pods
+* Implement Calico CNI in Dev environment 
+* set up Network Polices between pods, separating components, being sure the specify the correct namespace in each policy
 
 ## Terraform
 
@@ -20,7 +20,7 @@
 * Use modules to create template to be deployed into staging & prod
 * Static (No varibles), or maybe just a couple
 * Deploy a service user that allows me to access aws cli every time a new env is spun up
-* Deploy EKS cluster
+* Deploy EKS cluster (example setup - https://github.com/kodekloudhub/amazon-elastic-kubernetes-service-course/blob/main/eks/eks.tf)
 
 ## CD
 
@@ -39,8 +39,8 @@
 
 ## K8s
 
-* Apply Network policies to each component to separate frontned, worker and DBs, being sure the specify the correct namespace in each policy
-* Create Staging & Prod Deployments
+* Create Staging & Prod Deployments 
+* Implement Calico CNI in Staging & Prod environments
 * Following terraform deployment, expose to the internet
 * Set up encrypt at rest for Staging and Prod Secret
 * Create service account for Proetheus monitoring, being sure to manually mount ServiceAccount token using a projected volume (may get done as part of helm)
@@ -92,7 +92,7 @@
 
 ## Prometheus
 
-* Add monitoring for new parts of the Application architecture
+* Add monitoring for any new parts of the Application architecture
 * Add certs for certificate expirely for all the new certs
 * When it comes to permissions/authorisation, ensure that you note that `AlwaysAllow` is enabled by default and that we mush ensure this is changes before pushing to prod 
 
@@ -112,6 +112,8 @@
 ### EKS 
 
 * Using one VPC per cluster (one for staging, one for prod) 
+* Warm ENIs/IP addresses (for scaling & redundancy)
+* could use prefix delegation and IPv6
 
 # Prerequisities 
 
