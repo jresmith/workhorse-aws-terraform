@@ -88,6 +88,10 @@
 * Use DaemonSets to deploy Monitoring (Prometheus) and Logging (FluentD?) pods to each node (may be done as part of helm)
 * Potentially use Fargate for monitoring and logging services
 
+## EKS
+
+* Enable Cloudwatch logging
+
 ## Terraform
 
 * Implement across multiple AWS Regions (as part of SLI/SLO resiliancy plan)
