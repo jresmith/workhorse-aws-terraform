@@ -86,6 +86,7 @@
 * Configure Horizontal Pod Autoscaling (HPA) based on load
 * Generate Admin cert for administration
 * Use DaemonSets to deploy Monitoring (Prometheus) and Logging (FluentD?) pods to each node (may be done as part of helm)
+* Potentially use Fargate for monitoring and logging services
 
 ## Terraform
 
