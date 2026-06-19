@@ -11,7 +11,7 @@
 * ~Implement an ingress for argocd UI & CLI~
 * ~Use a basic secret, using different secrects for each of dev~
 * Implement Calico CNI in Dev environment 
-* set up Network Polices between pods, separating components, being sure the specify the correct namespace in each policy
+* set up Network Polices between pods, separating components, being sure the specify the correct namespace in each policy. Ensure we are allowing DNS to K8s DNS service
 * Set up Persistent volumes using EKS EBS CSI, use Helm chart to deploy - noting that additional IAM access is required first
 
 ## Terraform
