@@ -90,7 +90,7 @@
 
 ## EKS
 
-* Enable Cloudwatch logging
+* Enable Cloudwatch logging (potentially add Agent and ADOT to cluster)
 
 ## Terraform
 
@@ -110,10 +110,11 @@
 * Build a HA Setup
 * Utilise pod identity if I plan on using a service account within AWS
 
-# Documentation
+# Documentation/Runbook
 
 * Talk about how I will be storing some credentials for Production in GitLab (since this is just ) but acknowledge that should be using a Centralised External Secret Store like HashiCorp Vault or AWS Secrets Manager
 * Increarse pod replicas (as part of SLI/SLO resiliancy plan)
+* How to upgrade EKS cluster (note that EKS is only supported for 14 months)
 
 ## Design choices
 
@@ -158,5 +159,7 @@ data:
 * Role Based access control for each of these users & a Dev role
 * Build a custom controller in GO
 
+## EKS
 
+* AWS Managed Prometheus and AWS Managed Graphana - very cool and gathers additional AWS native information, but not super relevant for this project
 
