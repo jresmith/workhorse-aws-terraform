@@ -104,6 +104,7 @@
 ## K8s
 
 * Build a HA Setup
+* Utilise pod identity if I plan on using a service account within AWS
 
 # Documentation
 
