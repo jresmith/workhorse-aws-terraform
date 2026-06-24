@@ -1,3 +1,6 @@
+# VPC Variables
+region = "us-west-2"
+
 vpc_name = "workhorse-staging-vpc"
 
 vpc_cidr = "10.99.0.0/16"
@@ -9,9 +12,9 @@ public_subnet_cidrs = [
 ]
 
 private_subnet_cidrs = [
-  "10.0.0.0/19",
-  "10.0.32.0/19",
-  "10.0.64.0/19"
+  "10.99.32.0/19",
+  "10.99.64.0/19",
+  "10.99.96.0/19"
 ]
 
 azs = [
@@ -23,7 +26,18 @@ azs = [
 enable_nat_gateway = true
 single_nat_gateway = true
 
+# EKS Variables
+
+cluster_name    = "workhorse-staging-eks"
+kubernetes_version = "1.30"
+
+node_group_instance_types = ["t3.medium"]
+desired_size              = 2
+max_size                  = 3
+min_size                  = 1
+
+# General Variables
 tags = {
   Environment = "staging"
-  ManagedBy = "terraform"
+  ManagedBy   = "terraform"
 }

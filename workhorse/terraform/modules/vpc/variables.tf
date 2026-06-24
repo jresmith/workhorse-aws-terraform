@@ -23,14 +23,6 @@ variable "azs" {
   description = "List of AZs to be used within staging env"
 }
 
-variable "tags" {
-  type = map(string)
-  description = "Tags for Staging environment workoad"
-  default = {
-    ManagedBy = "terraform"
-  }
-}
-
 variable "enable_nat_gateway" {
   type = bool
   description = "Boolean to enable NAT gateway in VPC"
@@ -41,4 +33,12 @@ variable "single_nat_gateway" {
   type = bool
   description = "Boolean to have a single NAT gateway in VPC"
   default = false
+}
+
+variable "tags" {
+  type = map(string)
+  description = "Tags for Staging environment workoad (VPC Infra)"
+  default = {
+    ManagedBy = "terraform"
+  }
 }

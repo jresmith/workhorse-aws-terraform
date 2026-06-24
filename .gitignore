@@ -1,1 +1,11 @@
+# General
 .DS_Store
+*.log
+
+# Terraform
+*.terraform/
+*.tfstate
+*.tfstate.*
+*.tfvars
+# Ignore lock file (Used in Disposable Staging Environment only)
+.terraform.lock.hcl
