@@ -1,14 +1,16 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: root-app
+  name: argocd-ingress
   namespace: argocd
+  annotations:
+    cert-manager.io/cluster-issuer: workhorse-ca
 spec:
   project: default
   source:
     repoURL: https://github.com/jresmith/workhorse-aws-terraform.git
     targetRevision: main
-    path: workhorse/gitops/apps
+    path: workhorse/gitops/cluster/staging/argocd/ingress
   destination:
     server: https://kubernetes.default.svc
     namespace: argocd

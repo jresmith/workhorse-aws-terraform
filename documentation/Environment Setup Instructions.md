@@ -12,6 +12,11 @@ aws s3 mb s3://workhorse-terraform-state --region us-west-2
 
 ## Dev
 
+### Install Minikube & ArgoCD on your local devoce
+
+* [Install Minikube via CLI] - Instructions to be finalised
+* [Install ArgoCD manually via helm] - Instructions to be finalised
+
 ## Staging
 
 ### Set up AWS Access for Terraform

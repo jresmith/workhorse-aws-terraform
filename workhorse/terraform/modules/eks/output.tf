@@ -17,3 +17,13 @@ output "node_groups" {
   description = "Details of Managed node group."
   value       = module.eks.eks_managed_node_groups
 }
+
+output "oidc_provider" {
+  description = "OIDC provider within the cluster"
+  value       = module.eks.oidc_provider
+}
+
+output "oidc_provider_arn" {
+  description = "ARN of the OIDC provider within the cluster"
+  value       = module.eks.oidc_provider_arn
+}
