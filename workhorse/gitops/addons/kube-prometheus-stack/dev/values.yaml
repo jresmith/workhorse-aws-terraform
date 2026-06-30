@@ -9,7 +9,6 @@ prometheus:
 
 grafana:
   enabled: true
-  defaultDashboardsEnabled: false
   adminPassword: "admin"
   service:
     type: ClusterIP
