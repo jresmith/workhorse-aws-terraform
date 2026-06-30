@@ -13,3 +13,10 @@ spec:
           readinessProbe:
             timeoutSeconds: 10
             failureThreshold: 5
+          resources:
+            limits:
+              memory: 256Mi
+              cpu: 300m
+            requests:
+              memory: 128Mi
+              cpu: 200m

@@ -17,7 +17,7 @@
 
 * ~Set up a bucket to store terraform state file~ 
 * ~Use modules to create template to be deployed into staging~
-* ~Deploy EKS cluster ~
+* ~Deploy EKS cluster~
 
 ## CD
 
