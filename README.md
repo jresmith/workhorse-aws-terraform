@@ -34,7 +34,14 @@
 ## Prometheus
 
 * Deploy using helm via argocd
+* In Dev environment enabled metrics-server on minikube and configure dev env prometheus to use it
+* Configure reusable credentials for Prometheus' web UI to be deployed via gito ps
+* Configure an ingress for proetheus and a TLS certificate
 * Monitor Application with basic checks
+
+## Log Aggregation (Loki)
+
+* Set up centralised logging service (Loki) in Dev environments
 
 # Phase 2
 
@@ -60,25 +67,31 @@
 * Use runner to validate that k8s config in the repo is valid (YAML syntax is fine initially) 
 * Use runner to validate that terraform config in the repo is valid (`terraform validate` command`)
 
-### CI Maybes
+## CI Maybes
 
-* Create a webhook in the git repo to reach out to ArgoCD to alert when there is new config
+* Use runner to validate that prometheus config in the repo is valid (`promtool check config` command`)
 
 ## CD
 
 * Deploy new cloud-based argocd instance to manage deployment of staging and prod
 * Deploy Bitnami Sealed Secrets and store Staging & Production creds encrypted
 
+### CD Maybes
+
+* Create a webhook in the git repo to reach out to ArgoCD to alert when there is new config
+
 ## Prometheus
 
-* Monitor new parts of Application with more advanced check and dashboards
-* More in-depth monitoring using service account on k8s
+* Monitor Application (no K8s infra) using Service Monitor
+* Deploy via Helm and create Ingress for Dev Env and configure TLS web cert fro https access
+* Create Dashboards using Prometheus data
+* Service Discovery K8s
 
-## SIEM (ELK?)
+## Log Aggregation (Loki)
 
-* Set up centralised logging service (maybe ELK) 
-* Gather logs with an FileBeat sidecar conatiner and send to ELK
-
+* Set up centralised logging service (Loki) in Staging & Prod environments
+* Gather logs with an FileBeat sidecar conatiner and send to Loki
+ 
 # Phase 3
 
 ## K8s
@@ -95,13 +108,17 @@
 ## Terraform
 
 * Implement across multiple AWS Regions (as part of SLI/SLO resiliancy plan)
-* Implement across multiple AZs (as pary of SLI/SLO planning)
+* Implement across multiple AZs (as pary of SLI/SLO p lanning)
 
 ## Prometheus
 
 * Add monitoring for any new parts of the Application architecture
-* Add certs for certificate expirely for all the new certs
+* More in-depth monitoring using service account on k8s
+* Add monitoring for K8s architecture & EKS
+* create Ingress for Staging & Prod Envs and configure TLS web cert fro https access
+* Add checks for certificate expirely for all the new certs
 * When it comes to permissions/authorisation, ensure that you note that `AlwaysAllow` is enabled by default and that we mush ensure this is changes before pushing to prod 
+* Service Discovery for AWS [ec2] (Staging and Prod envs). Will need to create service IAM user via terraform 
 
 # Phase X
 
@@ -109,6 +126,12 @@
 
 * Build a HA Setup
 * Utilise pod identity if I plan on using a service account within AWS
+
+## Prometheus
+
+* Set up alerting using PrometheusRules
+* Set up remote Read and Write to save space and back up metrics data  
+* Monitor ArgoCD and App deployments 
 
 # Documentation/Runbook
 

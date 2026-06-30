@@ -8,15 +8,48 @@
 ```
 aws s3 mb s3://workhorse-terraform-state --region us-west-2
 ```
+### How to regenerate and reconfigure PAT got github repo when it expires
 
+* [TBD]
 
 ## Dev
 
 ### Install Minikube & ArgoCD on your local devoce
 
-* [Install Minikube via CLI] - Instructions to be finalised
-* [Install ArgoCD manually via helm] - Instructions to be finalised
-
+* Install Minikube via CLI
+```
+brew install minikube
+```
+* Start Minikube with:
+```
+minikube start
+```
+* Switch to Minikube K8s context (if required):
+```
+kubectl config use-context 
+```
+* Install ArgoCD Helm Repo:
+```
+helm repo add argo https://argoproj.github.io/argo-helm 
+helm repo update
+```
+* Install ArgoCD Helm Chart manually
+```
+helm install argocd argocd/argo-cd --namespace argocd -f workhorse/gitops/dev/root/app-of-apps.yaml
+``` 
+* Apply app-of-apps.yaml
+```
+kubectl apply -f workhorse/gitops/dev/root/app-of-apps.yaml
+```
+* Get initial Admin password ArgoCD 
+```
+kubectl get secret argocd-initial-admin-secret -n argocd -o jsonpath="{.data.password}" | base64 -d
+``` 
+* Use minikube's service funtion to access UI
+```
+minikube service argocd-server -n argocd
+```
+Then 
 ## Staging
 
 ### Set up AWS Access for Terraform
@@ -30,7 +63,7 @@ aws s3 mb s3://workhorse-terraform-state --region us-west-2
 
 ### Connect to EKS in Staging Environment
 
-* Configure kubectl
+* Configure kubectl 
 ```
 aws eks update-kubeconfig \
   --name workhorse-staging-eks \
