@@ -5,6 +5,7 @@ prometheus:
   ingress:
     enabled: false
   prometheusSpec:
+    storageSpec: {}
     serviceMonitorSelectorNilUsersHelValues: false
     podMonitorSelectorNilUsersHelValues: false
     ruleSelectorNilUsersHelValues: false
