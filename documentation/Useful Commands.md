@@ -9,6 +9,6 @@
 
 | Command | Description |
 | minikube service list | List services in minikube |
-| minikube service argocd-server -n argocd | Connect to service in minikube |
+| minikube service ingress-nginx-controller -n ingress-nginx | Connect to services forwarded by ingress in minikube |
 
 

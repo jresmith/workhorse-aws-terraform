@@ -6,9 +6,6 @@ prometheus:
     enabled: false
   prometheusSpec:
     storageSpec: {}
-    serviceMonitorSelectorNilUsesHelmValues: false
-    podMonitorSelectorNilUsesHelmValues: false
-    ruleSelectorNilUsesHelmValues: false
 
 grafana:
   enabled: true

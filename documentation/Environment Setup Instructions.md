@@ -14,7 +14,7 @@ aws s3 mb s3://workhorse-terraform-state --region us-west-2
 
 ## Dev
 
-### Install Minikube & ArgoCD on your local devoce
+### Install Minikube & ArgoCD on your local device
 
 * Install Minikube via CLI
 ```
@@ -45,11 +45,41 @@ kubectl apply -f workhorse/gitops/dev/root/app-of-apps.yaml
 ```
 kubectl get secret argocd-initial-admin-secret -n argocd -o jsonpath="{.data.password}" | base64 -d
 ``` 
-* Use minikube's service funtion to access UI
+* Use minikube's service funtion to access ingress
 ```
-minikube service argocd-server -n argocd
+minikube service ingress-nginx-controller -n ingress-nginx
 ```
-Then 
+Make note of the port used for forwarding, in this case, 61513 for https:
+
+```
+🔗  Starting tunnel for service ingress-nginx-controller.
+┌───────────────┬──────────────────────────┬─────────────┬────────────────────────┐
+│   NAMESPACE   │           NAME           │ TARGET PORT │          URL           │
+├───────────────┼──────────────────────────┼─────────────┼────────────────────────┤
+│ ingress-nginx │ ingress-nginx-controller │             │ http://127.0.0.1:61512 │
+│               │                          │             │ http://127.0.0.1:61513 │
+└───────────────┴──────────────────────────┴─────────────┴────────────────────────┘
+
+```
+* Edit /etc/hosts (or local DNS lookup) to direct the below FQDNs to localhost:
+  * argocd.dev.local
+  * boutique.dev.local
+  * prometheus.dev.local
+  * alertmanager.dev.local
+  * grafana.dev.local
+  * loki.dev.local
+
+* Navigate to `https://argocd.dev.local:[forwarded port]` in your browser. In the example above `https://argocd.dev.local:61513`
+* Log into us  with username `admin` and the password retrieved above
+
+### Access ArgoCD via CLI on your local device
+
+* [Install ArgoCD CLI Client - Instuctions TBD]
+* Log in using the same FQDN & Port noted above:
+```
+argocd login argocd.dev.local:[forwarded port]
+```
+
 ## Staging
 
 ### Set up AWS Access for Terraform
