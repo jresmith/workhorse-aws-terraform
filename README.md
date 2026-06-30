@@ -16,11 +16,9 @@
 
 ## Terraform
 
-* Set up a bucket to store terraform state file (consul may be better)
-* Use modules to create template to be deployed into staging & prod
-* Static (No varibles), or maybe just a couple
-* Deploy a service user that allows me to access aws cli every time a new env is spun up
-* Deploy EKS cluster (example setup - https://github.com/kodekloudhub/amazon-elastic-kubernetes-service-course/blob/main/eks/eks.tf)
+* ~Set up a bucket to store terraform state file~ 
+* ~Use modules to create template to be deployed into staging~
+* ~Deploy EKS cluster ~
 
 ## CD
 
@@ -54,28 +52,18 @@
 
 ### k8s maybes
   
-* Use different sizes of node and use Taints/Tolerations and Affinities to get pods onto specific nodes - keep dev nodes on minikube and staging/prod on cloud nodes
 * Do I need to use RBAC? Especially when it comes to secrets and separation of staging/production?
 
 ## Terraform
 
-* Implement more widespread use of Varibles
-
-## CI
-
-* Use runner to validate that k8s config in the repo is valid (YAML syntax is fine initially) 
-* Use runner to validate that terraform config in the repo is valid (`terraform validate` command`)
-
-## CI Maybes
-
-* Use runner to validate that prometheus config in the repo is valid (`promtool check config` command`)
+* Use modules to create template to be deployed into Production
 
 ## CD
 
 * Deploy new cloud-based argocd instance to manage deployment of staging and prod
 * Deploy Bitnami Sealed Secrets and store Staging & Production creds encrypted
 
-### CD Maybes
+## CD Maybes
 
 * Create a webhook in the git repo to reach out to ArgoCD to alert when there is new config
 
@@ -119,12 +107,18 @@
 * When it comes to permissions/authorisation, ensure that you note that `AlwaysAllow` is enabled by default and that we mush ensure this is changes before pushing to prod 
 * Service Discovery for AWS [ec2] (Staging and Prod envs). Will need to create service IAM user via terraform 
 
+## CI
+* Use runner to validate that k8s config in the repo is valid (YAML syntax is fine initially) 
+* Use runner to validate that terraform config in the repo is valid (`terraform validate` command`)
+* Use runner to validate that prometheus config in the repo is valid (`promtool check config` command`)
+
 # Phase X
 
 ## K8s
 
 * Build a HA Setup
 * Utilise pod identity if I plan on using a service account within AWS
+* Use different sizes of node and use Taints/Tolerations and Affinities to get pods onto specific nodes - keep dev nodes on minikube and staging/prod on cloud nodes. 
 
 ## Prometheus
 
