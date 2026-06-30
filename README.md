@@ -12,7 +12,6 @@
 * ~Use a basic secret, using different secrects for each of dev~
 * Implement Calico CNI in Dev environment 
 * set up Network Polices between pods, separating components, being sure the specify the correct namespace in each policy. Ensure we are allowing DNS to K8s DNS service
-* Set up Persistent volumes using EKS EBS CSI, use Helm chart to deploy - noting that additional IAM access is required first
 
 ## Terraform
 
@@ -30,7 +29,7 @@
 
 ## Prometheus
 
-* Deploy using helm via argocd
+* ~Deploy using helm via argocd in Dev environment~
 * In Dev environment enabled metrics-server on minikube and configure dev env prometheus to use it
 * Configure reusable credentials for Prometheus' web UI to be deployed via gito ps
 * Configure an ingress for proetheus and a TLS certificate
@@ -49,6 +48,7 @@
 * Following terraform deployment, expose to the internet
 * Set up encrypt at rest for Staging and Prod Secret
 * Create service account for Proetheus monitoring, being sure to manually mount ServiceAccount token using a projected volume (may get done as part of helm)
+* Set up Persistent volumes using EKS EBS CSI, use Helm chart to deploy - noting that additional IAM access is required first
 
 ### k8s maybes
   
@@ -69,9 +69,11 @@
 
 ## Prometheus
 
+* Deploy using helm via argocd in Prod environment
 * Monitor Application (no K8s infra) using Service Monitor
-* Deploy via Helm and create Ingress for Dev Env and configure TLS web cert fro https access
-* Create Dashboards using Prometheus data
+* ~Deploy via Helm and create Ingress for Dev Env and configure TLS web cert for https access~
+* Configure Prometheus to scrape Application Endpoints
+* Create Dashboards using default Prometheus data
 * Service Discovery K8s
 
 ## Log Aggregation (Loki)
@@ -99,10 +101,10 @@
 
 ## Prometheus
 
-* Add monitoring for any new parts of the Application architecture
-* More in-depth monitoring using service account on k8s
+* Deploy using helm via argocd in Prod environment
+* Configure Grafana dashboards for K8s Node health and Boutique appliction health
 * Add monitoring for K8s architecture & EKS
-* create Ingress for Staging & Prod Envs and configure TLS web cert fro https access
+* Create Ingress for Staging & Prod Envs and configure TLS web cert for https access
 * Add checks for certificate expirely for all the new certs
 * When it comes to permissions/authorisation, ensure that you note that `AlwaysAllow` is enabled by default and that we mush ensure this is changes before pushing to prod 
 * Service Discovery for AWS [ec2] (Staging and Prod envs). Will need to create service IAM user via terraform 
@@ -140,28 +142,6 @@
 * Warm ENIs/IP addresses (for scaling & redundancy)
 * could use prefix delegation and IPv6
 
-# Prerequisities 
-
-## Local env setup
-
-### k8s App setup
-
-* Increase likeliness and readiness on cartservice service.
-* Run:
-`kubectl edit deployment cartservice`
-* Delete all config under `livenessProbe:` & `readinessProbe:`
-
-### argocd setup 
-
-* Install argocd CLI
-* Run `argocd login X.X.X.X:YYYY` and provide argocd creds: user=admin & password (gathered from `kubectl get secrets argocd-initial-admin-secret -n argocd -o yaml`)
-* Enable Helm in ArgoCD globally using `kubectl edit configmap argocd-cm -n argocd` and add:
-```
-data:
-  kustomize.buildOptions: "--enable-helm"
-```
-* then run `kubectl rollout restart deployment argocd-repo-server -n argocd`
-
 # Not relevent
 
 ## K8s
@@ -181,5 +161,5 @@ data:
 
 ## EKS
 
-* AWS Managed Prometheus and AWS Managed Graphana - very cool and gathers additional AWS native information, but not super relevant for this project
+* AWS Managed Prometheus and AWS Managed Grafana - very cool and gathers additional AWS native information, but not super relevant for this project
 

@@ -72,13 +72,18 @@ Make note of the port used for forwarding, in this case, 61513 for https:
 * Navigate to `https://argocd.dev.local:[forwarded port]` in your browser. In the example above `https://argocd.dev.local:61513`
 * Log into us  with username `admin` and the password retrieved above
 
-### Access ArgoCD via CLI on your local device
+### Access ArgoCD via CLI on your local device (Dev Environment)
 
 * [Install ArgoCD CLI Client - Instuctions TBD]
 * Log in using the same FQDN & Port noted above:
 ```
 argocd login argocd.dev.local:[forwarded port]
 ```
+
+### Access Grafana via CLI on your local device (Dev Environment)
+
+* Navigate to `https://grafana.dev.local:[forwarded port]` in your browser. In the example above `https://grafana.dev.local:61513`
+* Login with username/password `admin/admin`
 
 ## Staging
 
@@ -104,7 +109,7 @@ aws eks update-kubeconfig \
 ## Production
 
 
-# Environment Destory Instructions - Staging & Production
+# Environment Destory Instructions - Staging & Production Terraform
 
 ### terraform destory
 
