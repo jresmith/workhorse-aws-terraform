@@ -1,6 +1,7 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: monitoring
+
 resources:
   - ingress.yaml
 
@@ -10,3 +11,4 @@ helmCharts:
     version: 58.2.0
     releaseName: kube-prometheus-stack
     namespace: monitoring
+    valuesFile: values.yaml
