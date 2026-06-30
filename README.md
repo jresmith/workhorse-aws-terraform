@@ -17,7 +17,6 @@
 ## Terraform
 
 * Set up a bucket to store terraform state file (consul may be better)
-* Set up, dynamite DB table to track state locking
 * Use modules to create template to be deployed into staging & prod
 * Static (No varibles), or maybe just a couple
 * Deploy a service user that allows me to access aws cli every time a new env is spun up
@@ -181,6 +180,10 @@ data:
   * Ports served
 * Role Based access control for each of these users & a Dev role
 * Build a custom controller in GO
+
+## Terraform
+
+* Set up dynamoDB table to track state locking - not required in the latest version of terraform state files
 
 ## EKS
 
