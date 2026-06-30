@@ -1,0 +1,37 @@
+prometheus:
+  enabled: true
+  service:
+    type: ClusterIP
+  ingress:
+    enabled: false
+  prometheusSpec:
+    serviceMonitorSelectorNilUsersHelValues: false
+    podMonitorSelectorNilUsersHelValues: false
+    ruleSelectorNilUsersHelValues: false
+
+grafana:
+  enabled: true
+  adminPassword: "admin"
+  service:
+    type: ClusterIP
+  ingress:
+    enabled: false
+  sidecar:
+    dashboards:
+      enabled: true
+      label: grafana_dashboard
+    datasources:
+      enabled: true
+
+alertmanager:
+  enabled: true
+  service:
+    type: ClusterIP
+  ingress:
+    enabled: false
+
+nodeExporter:
+  enabled: true
+
+kubeStateMetrics:
+  enabled: true
