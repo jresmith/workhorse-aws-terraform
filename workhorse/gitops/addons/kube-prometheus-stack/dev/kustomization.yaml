@@ -3,7 +3,9 @@ kind: Kustomization
 namespace: monitoring
 
 resources:
-  - ingress.yaml
+  - ingress-prometheus.yaml
+  - ingress-alertmanager.yaml
+  - ingress-grafana.yaml
 
 helmCharts:
   - name: kube-prometheus-stack
