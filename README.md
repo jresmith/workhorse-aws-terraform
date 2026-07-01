@@ -30,14 +30,13 @@
 ## Prometheus
 
 * ~Deploy using helm via argocd in Dev environment~
-* In Dev environment enabled metrics-server on minikube and configure dev env prometheus to use it
-* Configure reusable credentials for Prometheus' web UI to be deployed via gito ps
-* Configure an ingress for proetheus and a TLS certificate
-* Monitor Application with basic checks
+* ~Configure an ingress for prometheus and a TLS certificate in Dev Environment~
+* Configure Prometheus to monitor each service as part of the Online Boutique 
 
 ## Log Aggregation (Loki)
 
 * Set up centralised logging service (Loki) in Dev environments
+* [More TBD]
 
 # Phase 2
 
@@ -127,6 +126,7 @@
 * Set up alerting using PrometheusRules
 * Set up remote Read and Write to save space and back up metrics data  
 * Monitor ArgoCD and App deployments 
+* In Dev environment enabled metrics-server on minikube and configure dev env prometheus to use it
 
 # Documentation/Runbook
 

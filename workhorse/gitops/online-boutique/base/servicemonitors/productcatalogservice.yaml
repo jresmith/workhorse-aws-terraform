@@ -1,0 +1,19 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: productcatalogservice
+  namespace: monitoring
+  labels:
+    release: kube-prometheus-stack
+spec:
+  selector:
+    matchLabels:
+      app: frontend
+  namespaceSelector:
+    matchNames:
+      - PLACEHOLDER_NAMESPACE
+  endpoints:
+    - port: metrics
+      interval: 15s
+      path: /metrics
+      scrapeTimeout: 10s

@@ -3,6 +3,7 @@ kind: Kustomization
 namespace: monitoring
 
 resources:
+  - ../base
   - ingress-prometheus.yaml
   - ingress-alertmanager.yaml
   - ingress-grafana.yaml
