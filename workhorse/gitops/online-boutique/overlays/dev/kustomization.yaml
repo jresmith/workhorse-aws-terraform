@@ -12,5 +12,5 @@ patches:
       - op: add
         path: /metadata/annotations/argocd.ignore-health-check
         value: "true"
-  - path: cartservice-patch.yaml
+#  - path: cartservice-patch.yaml
 #  - path: servicemonitors/productcatalogservice-namespace-patch.yaml
