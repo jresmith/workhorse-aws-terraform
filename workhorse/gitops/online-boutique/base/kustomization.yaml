@@ -3,7 +3,7 @@ kind: Kustomization
 
 helmCharts:
   - name: online-boutique
-    path: ../../microservices-demo/helmchart
+    path: ../../microservices-demo/helm-chart
     releaseName: online-boutique
     namespace: PLACEHOLDER_NAMESPACE
 
