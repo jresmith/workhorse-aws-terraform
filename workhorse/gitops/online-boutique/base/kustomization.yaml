@@ -14,4 +14,7 @@ resources:
   - servicemonitors/
 
 patches:
-  - path: patches/productcatalogservice-metrics-port.yaml
+  - target:
+      kind: Deployment
+      labelSelector: app=productcatalogservice
+    path: patches/productcatalogservice-metrics-port.yaml
