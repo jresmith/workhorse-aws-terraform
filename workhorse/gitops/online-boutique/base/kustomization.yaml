@@ -8,8 +8,9 @@ helmCharts:
   - name: helm-chart
     releaseName: online-boutique
     namespace: PLACEHOLDER_NAMESPACE
-    valuesFiles:
-      - values-metrics.yaml
+    valuesInline:
+      metrics:
+        enabled: true
 
 resources:
   - metrics-services/
