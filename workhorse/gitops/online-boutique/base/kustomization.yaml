@@ -13,5 +13,5 @@ resources:
   - metrics-services/
   - servicemonitors/
 
-patches:
-  - path: patches/productcatalogservice-metrics-port.yaml
+#patches:
+#  - path: patches/productcatalogservice-metrics-port.yaml
