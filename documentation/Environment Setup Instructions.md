@@ -2,6 +2,13 @@
 
 ## General 
 
+### Pulling Repo to local
+
+* Be sure to use the `--recurse-submodules` flag. Run the command:
+```
+git clone --recurse-submodules https://github.com/jresmith/workhorse-aws-terraform.git
+``` 
+
 ### Creating S3 Bucket for Staging/Production State File
 
 * Create the bucket with:
