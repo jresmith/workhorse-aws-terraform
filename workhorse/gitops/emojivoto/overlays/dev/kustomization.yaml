@@ -7,4 +7,16 @@ resources:
   - ingress.yaml
 
 patches:
-  - path: servicemonitors/web-servicemonitor-patch.yaml
+  - target:
+      group: monitoring.coreos.com
+      version: v1
+      kind: ServiceMonitor
+      name: web
+    patch: |-
+      - op: replace
+        path: /metadata/namespace
+        value: monitoring
+
+      - op: replace
+        path: /spec/namespaceSelector/matchNames/0
+        value: emojivoto-dev
