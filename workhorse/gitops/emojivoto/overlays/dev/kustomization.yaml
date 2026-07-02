@@ -4,7 +4,6 @@ namespace: emojivoto-dev
 
 resources:
   - ../../base
-  - servicemonitors/
   - ingress.yaml
 
 patches:
