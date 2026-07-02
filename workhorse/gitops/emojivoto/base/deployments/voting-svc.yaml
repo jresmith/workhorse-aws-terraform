@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: voting-svc
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: voting-svc
+  template:
+    metadata:
+      labels:
+        app: voting-svc
+    spec:
+      containers:
+      - name: voting-svc
+        image: ghcr.io/jresmith/emojivoto-voting-svc:v1
+        imagePullPolicy: Always
+        env:
+          - name: GRPC_PORT
+            value: "8080"
+          - name: PROM_PORT
+            value: "8801"
+        ports:
+          - name: grpc
+            containerPort: 8080
+          - name: metrics
+            containerPort: 8801

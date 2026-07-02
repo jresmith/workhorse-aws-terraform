@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vote-bot
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vote-bot
+  template:
+    metadata:
+      labels:
+        app: vote-bot
+    spec:
+      containers:
+      - name: vote-bot
+        image: ghcr.io/jresmith/emojivoto-web:v1
+        command:
+        - emojivoto-vote-bot
+        env:
+        - name: WEB_HOST
+          value: web:8080

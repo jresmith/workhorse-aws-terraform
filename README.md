@@ -113,6 +113,11 @@
 * Use runner to validate that terraform config in the repo is valid (`terraform validate` command`)
 * Use runner to validate that prometheus config in the repo is valid (`promtool check config` command`)
 
+## CD 
+
+* Change package visibility on persoanl github to make them private and configure k8s to auth using PATs
+
+
 # Phase X
 
 ## K8s
