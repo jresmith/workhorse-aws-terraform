@@ -6,3 +6,6 @@ resources:
   - ../../base
   - servicemonitors/
   - ingress.yaml
+
+patches:
+  - path: servicemonitors/web-servicemonitor-patch.yaml
