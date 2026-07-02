@@ -3,4 +3,4 @@ kind: Kustomization
 namespace: emojivoto-dev
 
 resources:
-  - web-servicemonitor
+  - web-servicemonitor.yaml
