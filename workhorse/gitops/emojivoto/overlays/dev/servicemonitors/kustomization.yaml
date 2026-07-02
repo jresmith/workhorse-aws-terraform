@@ -3,6 +3,4 @@ kind: Kustomization
 namespace: emojivoto-dev
 
 resources:
-  - ../../base
-  - servicemonitors/
-  - ingress.yaml
+  - web-servicemonitor
