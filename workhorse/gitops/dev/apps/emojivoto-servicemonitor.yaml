@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: emojivoto-servicemonitor-dev
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/jresmith/workhorse-aws-terraform.git
+    path: workhorse/gitops/emojivoto/monitoring/overlays/dev
+    targetRevision: main
+  destination:
+    server: https://kubernetes.default.svc
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+      enabled: true
+    syncOptions:
+      - CreateNamespace=true
