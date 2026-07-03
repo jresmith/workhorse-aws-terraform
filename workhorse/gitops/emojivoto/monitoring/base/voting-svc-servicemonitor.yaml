@@ -1,7 +1,7 @@
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: web
+  name: voting-svc
   namespace: monitoring
   labels:
     release: kube-prometheus-stack
@@ -11,7 +11,7 @@ spec:
       - default
   selector:
     matchLabels:
-      app: web
+      app: voting-svc
   endpoints:
     - port: metrics
       path: /metrics

@@ -1,7 +1,7 @@
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: web
+  name: voting-svc
   namespace: monitoring
 spec:
   namespaceSelector:
