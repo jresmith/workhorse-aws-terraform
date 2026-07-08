@@ -1,6 +1,6 @@
 # workhorse-aws-terraform project plan
 
-# Phase 1 
+# Phase 1 (Dev and POCs)
 
 ## K8s
 
@@ -10,6 +10,7 @@
 * ~Implement an ingress-nginx via helm~
 * ~Implement an ingress for argocd UI & CLI~
 * ~Use a basic secret, using different secrects for each of dev~
+* Test setting up encrypt-at-rest for devSecrets
 
 ## Terraform
 
@@ -33,6 +34,7 @@
 * ~Configure Prometheus to monitor each service as part of the emojivoto application~
 * ~Configure Prometheus to scrape Application Endpoints~
 * ~Create Dashboards using default Prometheus data~
+* ~Deploy via Helm and create Ingress for Dev Env and configure TLS web cert for https access~
 
 ## Grafana
 
@@ -57,13 +59,13 @@
 * Set up centralised logging service (Loki) in Dev environments
 * [More TBD]
 
-# Phase 2
+# Phase 2 (Staging and Cloud POCs)
 
 ## K8s
 
 * Create Staging & Prod Deployments 
 * Following terraform deployment, expose to the internet
-* Set up encrypt at rest for Staging and Prod Secret
+* Set up encrypt-at-rest for Staging and Prod Secret
 * Set up Persistent volumes using EKS EBS CSI, use Helm chart to deploy - noting that additional IAM access is required first
 
 ### k8s maybes
@@ -87,7 +89,6 @@
 
 * Deploy using helm via argocd in Prod environment
 * Monitor Application (no K8s infra) using Service Monitor
-* ~Deploy via Helm and create Ingress for Dev Env and configure TLS web cert for https access~
 
 * Service Discovery K8s
 
@@ -96,7 +97,7 @@
 * Set up centralised logging service (Loki) in Staging & Prod environments
 * Gather logs with an FileBeat sidecar conatiner and send to Loki
  
-# Phase 3
+# Phase 3 (Production)
 
 ## K8s
 
@@ -109,16 +110,10 @@
 
 * Enable Cloudwatch logging (potentially add Agent and ADOT to cluster)
 
-## Terraform
-
-* Implement across multiple AWS Regions (as part of SLI/SLO resiliancy plan)
-* Implement across multiple AZs (as pary of SLI/SLO p lanning)
-
 ## Prometheus
 
 * Deploy using helm via argocd in Prod environment
-* Configure Grafana dashboards for K8s Node health and emojivoto appliction health
-* Add monitoring for K8s architecture & EKS
+* Add monitoring for K8s architecture in EKS
 * Create Ingress for Staging & Prod Envs and configure TLS web cert for https access
 * Add checks for certificate expirely for all the new certs
 * When it comes to permissions/authorisation, ensure that you note that `AlwaysAllow` is enabled by default and that we mush ensure this is changes before pushing to prod 
@@ -133,7 +128,32 @@
 
 * Change package visibility on persoanl github to make them private and configure k8s to auth using PATs
 
-# Phase X
+# Phase 4 (Documentation & Resiliancy Planning)
+
+## Terraform
+
+* Implement across multiple AWS Regions (as part of SLI/SLO resiliancy plan)
+* Implement across multiple AZs (as pary of SLI/SLO planning)
+
+## Chaos Engineering
+
+* [TBD in conjunction with resiliancy documentation]
+
+## Documentation/Runbook
+
+* Talk about how I will be storing some credentials for Production in GitLab (since this is just ) but acknowledge that should be using a Centralised External Secret Store like HashiCorp Vault or AWS Secrets Manager
+* Increarse pod replicas (as part of SLI/SLO resiliancy plan)
+* How to upgrade EKS cluster (note that EKS is only supported for 14 months)
+
+## Design choices
+
+### EKS 
+
+* Using one VPC per cluster (one for staging, one for prod) 
+* Warm ENIs/IP addresses (for scaling & redundancy)
+* could use prefix delegation and IPv6
+
+# Phase X (Future Plans)
 
 ## K8s
 
@@ -148,20 +168,6 @@
 * Set up remote Read and Write to save space and back up metrics data  
 * Monitor ArgoCD and App deployments 
 * In Dev environment enabled metrics-server on minikube and configure dev env prometheus to use it
-
-# Documentation/Runbook
-
-* Talk about how I will be storing some credentials for Production in GitLab (since this is just ) but acknowledge that should be using a Centralised External Secret Store like HashiCorp Vault or AWS Secrets Manager
-* Increarse pod replicas (as part of SLI/SLO resiliancy plan)
-* How to upgrade EKS cluster (note that EKS is only supported for 14 months)
-
-## Design choices
-
-### EKS 
-
-* Using one VPC per cluster (one for staging, one for prod) 
-* Warm ENIs/IP addresses (for scaling & redundancy)
-* could use prefix delegation and IPv6
 
 # Not relevent
 
