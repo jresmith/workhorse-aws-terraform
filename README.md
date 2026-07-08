@@ -33,6 +33,24 @@
 * ~Configure an ingress for prometheus and a TLS certificate in Dev Environment~
 * Configure Prometheus to monitor each service as part of the Online Boutique 
 
+## Grafana
+
+* Create Dashboard for Votes within Application (Fun for testing)
+  - Total votes
+  - Votes/sec
+  - Top 10 Leaderboard
+  - Vote Distribution Pie Chart
+* Create Dashboard for issues within Application 
+  - P95 Latency ("95% of requests completed in under X ms")
+  - P99 Latency
+  - Error Rate
+  - Errors By Status Code
+  - Requests/sec
+  - Goroutines
+* Create Dashboard for node health (compatible with Minikube & EKS) 
+  - TBD
+  - (are the default ones ok? Or do we need to add more?)
+
 ## Log Aggregation (Loki)
 
 * Set up centralised logging service (Loki) in Dev environments
@@ -154,9 +172,9 @@
 * [More of a Devops thing] Maybe edit WebApp container to customise, but always stays up to date? (Might be best to use a "command:" in the Pod yaml to achieve this rather than a custom container image with a Dockerfile
 * [Trivial to set up and not relevelent to role] Separate users for each of the dev/staging/prod enviroments that have access to only their namespace
 * [Not required since I'll be using Helm elsewhere in the project] Maybe use Helm? It might be wiser to do this later in the project, but it might also be a requirement for the deployment pipeline to work. Things to template:
-  * Container Images
-  * Number of Replcias
-  * Ports served
+  - Container Images
+  - Number of Replcias
+  - Ports served
 * Role Based access control for each of these users & a Dev role
 * Build a custom controller in GO
 
