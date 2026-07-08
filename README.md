@@ -4,14 +4,12 @@
 
 ## K8s
 
-* ~K8S cluster composed of Goodle online boutique~
+* ~K8S cluster composed of emojivoto~
 * ~Create only a Dev enviroment (with separate Staging & Prod Deployments in later phases)~
 * ~Deploy cert-manager via helm to web frontend traffic~
 * ~Implement an ingress-nginx via helm~
 * ~Implement an ingress for argocd UI & CLI~
 * ~Use a basic secret, using different secrects for each of dev~
-* Implement Calico CNI in Dev environment 
-* set up Network Polices between pods, separating components, being sure the specify the correct namespace in each policy. Ensure we are allowing DNS to K8s DNS service
 
 ## Terraform
 
@@ -26,12 +24,15 @@
 * ~Deploy app config using declarative files~
 * ~Configure Auto-Pruning & Self-Healing sync strategies~
 * ~Need to decide where ArgoCD should live. Can be on my local minikube at first, but may be worth investigating setting up on Oracle Cloud Free Tier in k3s it deploy to production~
+* Deploy Bitnami Sealed Secrets and test storing dev creds encrypted
 
 ## Prometheus
 
 * ~Deploy using helm via argocd in Dev environment~
 * ~Configure an ingress for prometheus and a TLS certificate in Dev Environment~
-* Configure Prometheus to monitor each service as part of the Online Boutique 
+* ~Configure Prometheus to monitor each service as part of the emojivoto application~
+* ~Configure Prometheus to scrape Application Endpoints~
+* ~Create Dashboards using default Prometheus data~
 
 ## Grafana
 
@@ -61,10 +62,8 @@
 ## K8s
 
 * Create Staging & Prod Deployments 
-* Implement Calico CNI in Staging & Prod environments
 * Following terraform deployment, expose to the internet
 * Set up encrypt at rest for Staging and Prod Secret
-* Create service account for Proetheus monitoring, being sure to manually mount ServiceAccount token using a projected volume (may get done as part of helm)
 * Set up Persistent volumes using EKS EBS CSI, use Helm chart to deploy - noting that additional IAM access is required first
 
 ### k8s maybes
@@ -89,8 +88,7 @@
 * Deploy using helm via argocd in Prod environment
 * Monitor Application (no K8s infra) using Service Monitor
 * ~Deploy via Helm and create Ingress for Dev Env and configure TLS web cert for https access~
-* Configure Prometheus to scrape Application Endpoints
-* Create Dashboards using default Prometheus data
+
 * Service Discovery K8s
 
 ## Log Aggregation (Loki)
@@ -119,7 +117,7 @@
 ## Prometheus
 
 * Deploy using helm via argocd in Prod environment
-* Configure Grafana dashboards for K8s Node health and Boutique appliction health
+* Configure Grafana dashboards for K8s Node health and emojivoto appliction health
 * Add monitoring for K8s architecture & EKS
 * Create Ingress for Staging & Prod Envs and configure TLS web cert for https access
 * Add checks for certificate expirely for all the new certs
@@ -135,7 +133,6 @@
 
 * Change package visibility on persoanl github to make them private and configure k8s to auth using PATs
 
-
 # Phase X
 
 ## K8s
@@ -143,6 +140,7 @@
 * Build a HA Setup
 * Utilise pod identity if I plan on using a service account within AWS
 * Use different sizes of node and use Taints/Tolerations and Affinities to get pods onto specific nodes - keep dev nodes on minikube and staging/prod on cloud nodes. 
+* Implement Calico CNI in & set up Network Polices between pods, separating by tiers (Platform, Security & Application)
 
 ## Prometheus
 

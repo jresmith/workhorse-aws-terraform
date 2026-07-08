@@ -1,0 +1,107 @@
+<mxfile host="Electron" agent="Microsoft 365 Copilot">
+  <diagram id="emojivoto-traffic-flow" name="Emoji.voto Traffic Flow">
+    <mxGraphModel dx="1885" dy="1216" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1000" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="v1" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=24;fontStyle=1;fontColor=default;" value="Emojivoto Application Traffic Flow&lt;br&gt;Kubernetes service ports and component containers" vertex="1">
+          <mxGeometry height="70" width="900" x="350" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="v2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeWidth=2;dashed=1;fontStyle=1;fontSize=14;align=left;verticalAlign=top;spacingTop=10;spacingLeft=12;fillColor=#CCFFCC;fontColor=#ffffff;strokeColor=#A50040;" value="&lt;font style=&quot;color: light-dark(rgb(0, 0, 0), rgb(0, 0, 0));&quot;&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;Namespace: emojivoto-[e&lt;/font&gt;&lt;span style=&quot;color: light-dark(rgb(0, 0, 0), rgb(0, 0, 0)); background-color: transparent;&quot;&gt;nv&lt;/span&gt;&lt;span style=&quot;color: light-dark(rgb(0, 0, 0), rgb(0, 0, 0)); background-color: transparent;&quot;&gt;]&lt;/span&gt;" vertex="1">
+          <mxGeometry height="590" width="1330" x="220" y="150" as="geometry" />
+        </mxCell>
+        <mxCell id="v3" parent="1" style="shape=mxgraph.basic.user;whiteSpace=wrap;html=1;fillColor=#DBEAFE;strokeColor=#2563EB;strokeWidth=2;fontSize=13;fontStyle=1;fontColor=#000000;" value="User / Browser" vertex="1">
+          <mxGeometry height="80" width="130" x="20" y="225" as="geometry" />
+        </mxCell>
+        <mxCell id="v4" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E0F2FE;strokeColor=#0284C7;strokeWidth=2;fontSize=13;fontStyle=1;fontColor=#000000;" value="Ingress" vertex="1">
+          <mxGeometry height="90" width="170" x="260" y="220" as="geometry" />
+        </mxCell>
+        <mxCell id="v5" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E0F2FE;strokeColor=#0284C7;strokeWidth=2;fontSize=13;fontStyle=1;fontColor=#000000;" value="Service: web-svc&#xa;ClusterIP port 80&#xa;→ targetPort 8080" vertex="1">
+          <mxGeometry height="90" width="190" x="510" y="220" as="geometry" />
+        </mxCell>
+        <mxCell id="v6" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ECFDF5;strokeColor=#059669;strokeWidth=2;fontSize=13;fontStyle=1;fontColor=#000000;" value="Container: emojivoto-web&#xa;WEB_PORT=8080&#xa;REST API + UI" vertex="1">
+          <mxGeometry height="110" width="220" x="830" y="210" as="geometry" />
+        </mxCell>
+        <mxCell id="v7" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E0F2FE;strokeColor=#0284C7;strokeWidth=2;fontSize=13;fontStyle=1;fontColor=#000000;" value="Service: emoji-svc&#xa;gRPC service port 8080" vertex="1">
+          <mxGeometry height="85" width="190" x="1230" y="222.5" as="geometry" />
+        </mxCell>
+        <mxCell id="v8" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ECFDF5;strokeColor=#059669;strokeWidth=2;fontSize=13;fontStyle=1;fontColor=#000000;" value="Container: emojivoto-emoji-svc&#xa;gRPC API&#xa;find/list emoji" vertex="1">
+          <mxGeometry height="105" width="220" x="1215" y="395" as="geometry" />
+        </mxCell>
+        <mxCell id="v9" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E0F2FE;strokeColor=#0284C7;strokeWidth=2;fontSize=13;fontStyle=1;fontColor=#000000;" value="Service: voting-svc&#xa;gRPC service port 8080" vertex="1">
+          <mxGeometry height="85" width="190" x="845" y="405" as="geometry" />
+        </mxCell>
+        <mxCell id="v10" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ECFDF5;strokeColor=#059669;strokeWidth=2;fontSize=13;fontStyle=1;fontColor=#000000;" value="Container: emojivoto-voting-svc&#xa;gRPC API&#xa;votes + leaderboard&#xa;metrics :8801" vertex="1">
+          <mxGeometry height="120" width="240" x="470" y="560" as="geometry" />
+        </mxCell>
+        <mxCell id="v11" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FCE7F3;strokeColor=#DB2777;strokeWidth=2;fontSize=13;fontStyle=1;dashed=1;fontColor=#000000;" value="Container: vote-bot&#xa;optional traffic generator" vertex="1">
+          <mxGeometry height="85" width="170" x="530" y="390" as="geometry" />
+        </mxCell>
+        <mxCell id="v12" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FEF3C7;strokeColor=#D97706;strokeWidth=2;fontSize=13;fontStyle=1;fontColor=#000000;" value="Prometheus&#xa;scrapes metrics&#xa;HTTP :8801" vertex="1">
+          <mxGeometry height="90" width="180" x="865" y="575" as="geometry" />
+        </mxCell>
+        <mxCell id="v13" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FEF3C7;strokeColor=#D97706;strokeWidth=2;fontSize=13;fontStyle=1;fontColor=#000000;" value="Grafana&#xa;dashboards" vertex="1">
+          <mxGeometry height="75" width="180" x="1230" y="582.5" as="geometry" />
+        </mxCell>
+        <mxCell id="e14" edge="1" parent="1" source="v3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#374151;fontColor=#000000;fontSize=12;labelBackgroundColor=#ffffff;" target="v4" value="HTTPS :443">
+          <mxGeometry relative="1" x="-0.0095" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e15" edge="1" parent="1" source="v4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#374151;fontColor=#000000;fontSize=12;labelBackgroundColor=#ffffff;" target="v5" value="HTTP :80">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e16" edge="1" parent="1" source="v5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#374151;fontColor=#000000;fontSize=12;labelBackgroundColor=#ffffff;" target="v6" value="targetPort :8080">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e17" edge="1" parent="1" source="v6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#374151;fontColor=#000000;fontSize=12;labelBackgroundColor=#ffffff;" target="v7" value="gRPC to emoji-svc:8080">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1020" y="268" />
+              <mxPoint x="1020" y="268" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e18" edge="1" parent="1" source="v7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#374151;fontColor=#000000;fontSize=12;labelBackgroundColor=#ffffff;" target="v8" value="targetPort :8080">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e19" edge="1" parent="1" source="v6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#374151;fontColor=#000000;fontSize=12;labelBackgroundColor=#ffffff;" target="v9" value="gRPC to voting-svc:8080">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="940" y="400" />
+              <mxPoint x="940" y="400" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e20" edge="1" parent="1" source="v9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#374151;fontColor=#000000;fontSize=12;labelBackgroundColor=#ffffff;" target="v10" value="targetPort :8080">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="940" y="520" />
+              <mxPoint x="590" y="520" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e21" edge="1" parent="1" source="v11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#374151;fontColor=#000000;fontSize=12;labelBackgroundColor=#ffffff;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" target="v5" value="HTTP vote traffic to web-svc:80">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="615" y="360" />
+              <mxPoint x="615" y="360" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e22" edge="1" parent="1" source="v12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#D97706;fontColor=#000000;fontSize=12;labelBackgroundColor=#ffffff;" target="v10" value="HTTP scrape :8801">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e23" edge="1" parent="1" source="v13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#D97706;fontColor=#000000;fontSize=12;labelBackgroundColor=#ffffff;" target="v12" value="Prometheus datasource">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="v24" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#D1D5DB;strokeWidth=1;fontSize=12;align=left;spacingLeft=10;fontColor=#000000;" value="&lt;b&gt;Legend&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;&quot;&gt;Blue&lt;/span&gt;: Kubernetes Service / entry point&lt;br&gt;&lt;span style=&quot;&quot;&gt;Green&lt;/span&gt;: Application container&lt;br&gt;&lt;span style=&quot;&quot;&gt;Pink dashed&lt;/span&gt;: Optional traffic generator&lt;br&gt;&lt;span style=&quot;&quot;&gt;Orange&lt;/span&gt;: Observability" vertex="1">
+          <mxGeometry height="140" width="420" x="405" y="755" as="geometry" />
+        </mxCell>
+        <mxCell id="v25" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=12;fontColor=#000000;" value="&lt;font style=&quot;color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&lt;b&gt;Notes&lt;/b&gt;&lt;br&gt;• Kubernetes deployment uses web-svc service port 80 targeting the web container on 8080.&lt;br&gt;• The web container calls emoji-svc and voting-svc on :8080 in the Kubernetes manifests.&lt;br&gt;• The upstream README local-dev example uses voting :8081 and emoji :8082, but this diagram follows the Kubernetes services.&lt;/font&gt;" vertex="1">
+          <mxGeometry height="130" width="530" x="910" y="760" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
