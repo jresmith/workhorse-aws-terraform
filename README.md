@@ -1,6 +1,6 @@
 # workhorse-aws-terraform project plan
 
-# Phase 1 (Dev and POCs)
+# Phase 1 (Dev and POC)
 
 ## K8s
 
@@ -10,7 +10,7 @@
 * ~Implement an ingress-nginx via helm~
 * ~Implement an ingress for argocd UI & CLI~
 * ~Use a basic secret, using different secrects for each of dev~
-* Test setting up encrypt-at-rest for devSecrets
+* Test setting up encrypt-at-rest for dev secrets
 
 ## Terraform
 
@@ -59,7 +59,7 @@
 * Set up centralised logging service (Loki) in Dev environments
 * [More TBD]
 
-# Phase 2 (Staging and Cloud POCs)
+# Phase 2 (Staging and Cloud POC)
 
 ## K8s
 
@@ -67,10 +67,15 @@
 * Following terraform deployment, expose to the internet
 * Set up encrypt-at-rest for Staging and Prod Secret
 * Set up Persistent volumes using EKS EBS CSI, use Helm chart to deploy - noting that additional IAM access is required first
+* Potentially use Fargate for monitoring and logging services
 
 ### k8s maybes
   
 * Do I need to use RBAC? Especially when it comes to secrets and separation of staging/production?
+
+## EKS
+
+* Enable Cloudwatch logging (potentially add Agent and ADOT to cluster)
 
 ## Terraform
 
@@ -97,18 +102,12 @@
 * Set up centralised logging service (Loki) in Staging & Prod environments
 * Gather logs with an FileBeat sidecar conatiner and send to Loki
  
-# Phase 3 (Production)
+# Phase 3 (Production & Auxilary Cloud Features)
 
 ## K8s
 
 * Configure Horizontal Pod Autoscaling (HPA) based on load
 * Generate Admin cert for administration
-* Use DaemonSets to deploy Monitoring (Prometheus) and Logging (FluentD?) pods to each node (may be done as part of helm)
-* Potentially use Fargate for monitoring and logging services
-
-## EKS
-
-* Enable Cloudwatch logging (potentially add Agent and ADOT to cluster)
 
 ## Prometheus
 
