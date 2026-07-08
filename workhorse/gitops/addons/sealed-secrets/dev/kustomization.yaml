@@ -3,3 +3,7 @@ kind: Kustomization
 
 resources:
   - ../base
+
+helmCharts:
+  - name: sealed-secrets
+    valuesFile: values.yaml
