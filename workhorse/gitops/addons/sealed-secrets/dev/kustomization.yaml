@@ -4,6 +4,9 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "-5"
 
+resources:
+  - sealed-secrets-key.yaml
+
 helmCharts:
   - name: sealed-secrets
     repo: https://charts.bitnami.com/bitnami
