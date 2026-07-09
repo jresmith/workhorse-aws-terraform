@@ -52,7 +52,7 @@ kubectl apply -f workhorse/gitops/dev/root/app-of-apps.yaml
 ```
 * Add Git repo PAT token as a secret (update file to include PAT prior)
 ```
-kubectl apply -f workhorse/gitops/cluster/dev/argocd/config/repo-pat.yaml 
+kubectl apply -f workhorse/gitops/repo/bootstrap-repo-creds-template.yaml
 ```
 
 * Get initial Admin password ArgoCD 
