@@ -4,32 +4,4 @@ metadata:
   name: argocd-cm
   namespace: argocd
 data:
-  resource.customizations.health.Service: |
-    hs = {}
-
-
-    if obj.metadata ~= nil and
-       obj.metadata.namespace == "online-boutique-dev" and
-       obj.metadata.name == "frontend-external" then
-      hs.status = "Healthy"
-      hs.message = "Dev LB ignored"
-      return hs
-    end
-
-
-    if obj.spec ~= nil and obj.spec.type == "LoadBalancer" then
-      if obj.status ~= nil and
-         obj.status.loadBalancer ~= nil and
-         obj.status.loadBalancer.ingress ~= nil and
-         #obj.status.loadBalancer.ingress > 0 then
-        hs.status = "Healthy"
-        return hs
-      end
-
-      hs.status = "Progressing"
-      hs.message = "Waiting for LoadBalancer IP"
-      return hs
-    end
-
-    hs.status = "Healthy"
-    return hs
+  kustomize.buildOptions: --enable-helm
