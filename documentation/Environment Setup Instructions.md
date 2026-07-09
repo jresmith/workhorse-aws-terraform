@@ -50,9 +50,9 @@ helm install argocd argocd/argo-cd --namespace argocd --create-namespace -f work
 ```
 kubectl apply -f workhorse/gitops/dev/root/app-of-apps.yaml
 ```
-* Add Git repo PAT token as a secret
+* Add Git repo PAT token as a secret (update file to include PAT prior)
 ```
-kubectl apply -f workhorse/gitops/repos/repos.yaml 
+kubectl apply -f workhorse/gitops/cluster/dev/argocd/config/repo-pat.yaml 
 ```
 
 * Get initial Admin password ArgoCD 
