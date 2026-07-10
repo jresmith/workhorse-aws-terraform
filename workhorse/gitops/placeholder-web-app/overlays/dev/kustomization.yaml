@@ -5,5 +5,4 @@ resources:
   - ../../base
   - test-secret-sealed.yaml
 
-nameSuffix: -dev
 namespace: placeholder-web-app-dev
