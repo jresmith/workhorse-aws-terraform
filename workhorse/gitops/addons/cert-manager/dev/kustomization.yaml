@@ -4,7 +4,7 @@ namespace: cert-manager
 
 resources:
   - issuers/cluster-issuer-ca.yaml
-  - secrets/workhorse-ca-secret.yaml
+  - secrets/workhorse-ca-secret-sealed.yaml
 
 helmCharts:
   - name: cert-manager
