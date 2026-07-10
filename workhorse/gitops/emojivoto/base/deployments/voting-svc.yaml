@@ -16,6 +16,8 @@ spec:
       - name: voting-svc
         image: ghcr.io/jresmith/emojivoto-voting-svc:v1
         imagePullPolicy: Always
+        args:
+        - "--failure-rate=0.5"
         env:
           - name: GRPC_PORT
             value: "8080"
