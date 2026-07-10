@@ -46,6 +46,7 @@
   - P95 Latency ("95% of requests completed in under X ms")
   - P99 Latency
   - Error Rate
+  - gRPC Error Rate
   - Errors By Status Code
   - Requests/sec
   - Goroutines
