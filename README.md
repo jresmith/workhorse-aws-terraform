@@ -10,7 +10,6 @@
 * ~Implement an ingress-nginx via helm~
 * ~Implement an ingress for argocd UI & CLI~
 * ~Use a basic secret, using different secrects for each of dev~
-* Test setting up encrypt-at-rest for dev secrets
 
 ## Terraform
 
@@ -25,7 +24,7 @@
 * ~Deploy app config using declarative files~
 * ~Configure Auto-Pruning & Self-Healing sync strategies~
 * ~Need to decide where ArgoCD should live. Can be on my local minikube at first, but may be worth investigating setting up on Oracle Cloud Free Tier in k3s it deploy to production~
-* Deploy Bitnami Sealed Secrets and test storing dev creds encrypted
+* ~Deploy Bitnami Sealed Secrets and test storing dev creds encrypted~
 
 ## Prometheus
 
@@ -160,6 +159,7 @@
 * Utilise pod identity if I plan on using a service account within AWS
 * Use different sizes of node and use Taints/Tolerations and Affinities to get pods onto specific nodes - keep dev nodes on minikube and staging/prod on cloud nodes. 
 * Implement Calico CNI in & set up Network Polices between pods, separating by tiers (Platform, Security & Application)
+* Setting up encrypt-at-rest for staging and production envs
 
 ## Prometheus
 
