@@ -37,22 +37,21 @@
 
 ## Grafana
 
-* Create Dashboard for Votes within Application (Fun for testing)
-  - Total votes
-  - Votes/sec
-  - Top 10 Leaderboard
-  - Vote Distribution Pie Chart
-* Create Dashboard for issues within Application 
-  - P95 Latency ("95% of requests completed in under X ms")
-  - P99 Latency
-  - Error Rate
-  - gRPC Error Rate
-  - Errors By Status Code
-  - Requests/sec
-  - Goroutines
-* Create Dashboard for node health (compatible with Minikube & EKS) 
-  - TBD
-  - (are the default ones ok? Or do we need to add more?)
+* ~Create Dashboard for Votes within Application (Fun for testing)~
+  - ~Total votes~
+  - ~Votes/sec~
+  - ~Top 10 Leaderboard~
+  - ~Vote Distribution Pie Chart~
+* ~Create Dashboard for issues within Application~
+  - ~P95 Latency ("95% of requests completed in under X ms")~
+  - ~P99 Latency~
+  - ~Error Rate~
+  - ~gRPC Error Rate~
+  - ~Errors By Status Code~
+  - ~Requests/sec~
+  - ~Goroutines~
+* ~Create Dashboard for node health (compatible with Minikube & EKS)~
+  - ~The default ones are, ok~
 
 ## Log Aggregation (Loki)
 
@@ -69,10 +68,6 @@
 * Set up Persistent volumes using EKS EBS CSI, use Helm chart to deploy - noting that additional IAM access is required first
 * Potentially use Fargate for monitoring and logging services
 
-### k8s maybes
-  
-* Do I need to use RBAC? Especially when it comes to secrets and separation of staging/production?
-
 ## EKS
 
 * Enable Cloudwatch logging (potentially add Agent and ADOT to cluster)
@@ -86,15 +81,10 @@
 * Deploy new cloud-based argocd instance to manage deployment of staging and prod
 * Deploy Bitnami Sealed Secrets and store Staging & Production creds encrypted
 
-## CD Maybes
-
-* Create a webhook in the git repo to reach out to ArgoCD to alert when there is new config
-
 ## Prometheus
 
 * Deploy using helm via argocd in Prod environment
 * Monitor Application (no K8s infra) using Service Monitor
-
 * Service Discovery K8s
 
 ## Log Aggregation (Loki)
@@ -125,7 +115,7 @@
 
 ## CD 
 
-* Change package visibility on persoanl github to make them private and configure k8s to auth using PATs
+* Change package visibility on personal github to make them private and configure k8s to auth using PATs
 
 # Phase 4 (Documentation & Resiliancy Planning)
 
@@ -161,6 +151,7 @@
 * Use different sizes of node and use Taints/Tolerations and Affinities to get pods onto specific nodes - keep dev nodes on minikube and staging/prod on cloud nodes. 
 * Implement Calico CNI in & set up Network Polices between pods, separating by tiers (Platform, Security & Application)
 * Setting up encrypt-at-rest for staging and production envs
+* Use an example of RBAC
 
 ## Prometheus
 
@@ -185,6 +176,10 @@
 ## Terraform
 
 * Set up dynamoDB table to track state locking - not required in the latest version of terraform state files
+
+## CD
+
+* Create a webhook in the git repo to reach out to ArgoCD to alert when there is new config - used to reduse latency in deployment, not super relevant to this project
 
 ## EKS
 
