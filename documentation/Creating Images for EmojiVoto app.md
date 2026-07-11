@@ -25,7 +25,6 @@
 
 
 ```
-docker tag buoyantio/emojivoto-web:v11 \
-  ghcr.io/jresmith/emojivoto-web:v1
+docker tag buoyantio/emojivoto-web:v11 ghcr.io/jresmith/emojivoto-web:v1
 docker push ghcr.io/jresmith/emojivoto-web:v1
 ```
