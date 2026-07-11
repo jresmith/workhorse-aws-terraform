@@ -7,6 +7,10 @@ configMapGenerator:
     files:
       - dashboards/emojivoto-voting-dashboard.json
 
+  - name: application-reliability
+    files:
+      - dashboards/application-reliability.json
+
 generatorOptions:
   disableNameSuffixHash: true
   labels:
