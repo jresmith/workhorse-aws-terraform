@@ -13,8 +13,10 @@ loki:
   server:
     log_level: info
 
-  storage:
-    type: filesystem
+  limits_config:
+    ingestion_rate_mb: 4
+    max_names_per_series: 10
+    max_label_value_length: 2048
 
   schemaConfig:
     configs:
@@ -26,20 +28,17 @@ loki:
           prefix: index_
           period: 24h
 
-  storage_config:
-    filesystem:
-      directory: /var/loki/chunks
-
-  limits_config:
-    ingestion_rate_mb: 4
-    max_names_per_series: 10
-    max_label_value_length: 2048
+  storage:
+    type: filesystem
 
   rulerConfig:
     storage:
       type: local
     rule_path: /rules
     alertmanagerurl: http://alertmanager.monitoring.svc.cluster.local:9093
+
+serviceMonitor:
+  enabled: false
 
 podMonitor:
   enabled: false
