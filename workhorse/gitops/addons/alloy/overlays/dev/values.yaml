@@ -1,0 +1,33 @@
+controller:
+  type: DaemonSet
+
+
+config:
+  inline: |
+    // Send logs to Loki
+    loki.write "default" {
+      endpoint = "https://loki.monitoring.svc,cluster.local:3100"
+    }
+
+    discovery.kubernetes "pods" {
+      role = "pod"
+    }
+
+    loki.source.kubernetes "pod_logs" {
+      targets    = discovery.kubernetes.pods.targets
+      forward_to = [loki.write.default.reciever]
+    }
+
+serviceMonitor: 
+  enabled: true
+
+podMonitor:
+  enabled: false
+
+resources:
+  limits:
+    cpu: 200m
+    memory: 256Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi

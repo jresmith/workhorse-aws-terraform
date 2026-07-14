@@ -34,6 +34,7 @@
 * ~Configure Prometheus to scrape Application Endpoints~
 * ~Create Dashboards using default Prometheus data~
 * ~Deploy via Helm and create Ingress for Dev Env and configure TLS web cert for https access~
+* Monitor ArgoCD though
 
 ## Grafana
 
@@ -52,6 +53,11 @@
   - ~Goroutines~
 * ~Create Dashboard for node health (compatible with Minikube & EKS)~
   - ~The default ones are, ok~
+* Add Grafana dashboard(s) for ArgoCD
+
+## Alertmanager
+
+* [TBD]
 
 ## Log Aggregation (Loki)
 
