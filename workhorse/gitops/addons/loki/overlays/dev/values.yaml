@@ -19,6 +19,9 @@ write:
 loki:
   auth_enabled: false
 
+  commonConfig:
+    replication_factor: 1
+
   server:
     log_level: info
 
