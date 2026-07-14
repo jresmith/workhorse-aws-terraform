@@ -20,6 +20,7 @@ grafana:
       label: grafana_dashboard
     datasources:
       enabled: true
+      label: grafana_datasource
 
 alertmanager:
   enabled: true
