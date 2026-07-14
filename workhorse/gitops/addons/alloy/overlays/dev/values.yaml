@@ -6,7 +6,10 @@ config:
   inline: |
     // Send logs to Loki
     loki.write "default" {
-      endpoint = "https://loki.monitoring.svc,cluster.local:3100"
+      endpoint = "http://loki.monitoring.svc.cluster.local:3100"
+      endpoint {
+        url = "http://loki.monitoring.svc.cluster.local:3100/loki/api/v1/push"
+      }
     }
 
     discovery.kubernetes "pods" {
@@ -15,7 +18,7 @@ config:
 
     loki.source.kubernetes "pod_logs" {
       targets    = discovery.kubernetes.pods.targets
-      forward_to = [loki.write.default.reciever]
+      forward_to = [loki.write.default.receiver]
     }
 
 serviceMonitor: 
