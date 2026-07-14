@@ -5,7 +5,7 @@ singleBinary:
   persistence:
     enabled: true
     size: 10Gi
-    storageClass: gp3
+    storageClass: standard
 
 backend:
   replicas: 0
