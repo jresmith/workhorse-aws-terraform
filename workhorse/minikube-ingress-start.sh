@@ -6,11 +6,10 @@ TMPFILE=$(mktemp)
 
 links_to_be_opened=(
     "argocd.dev.local"
-    "boutique.dev.local"
+    "emojivoto.dev.local"
     "prometheus.dev.local"
     "alertmanager.dev.local"
     "grafana.dev.local"
-    "loki.dev.local"
 )
 
 minikube service ingress-nginx-controller -n ingress-nginx --url | tee "$TMPFILE" &

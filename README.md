@@ -61,8 +61,7 @@
 
 ## Log Aggregation (Loki)
 
-* Set up centralised logging service (Loki) in Dev environments
-* [More TBD]
+* ~Set up centralised logging service (Loki) in Dev environments~
 
 # Phase 2 (Staging and Cloud POC)
 
@@ -165,6 +164,17 @@
 * Set up remote Read and Write to save space and back up metrics data  
 * Monitor ArgoCD and App deployments 
 * In Dev environment enabled metrics-server on minikube and configure dev env prometheus to use it
+
+## Loki
+
+* LokiRuler - add alerts for
+  - Alert when a namespace logs > X errors per min
+  - Alert when service logs panic
+  - Alert when no logs from Alloy
+
+## Tempo (OpenTelemetry)
+
+* Deploy Tempo Helm, (updating Alloy to collect traces) add tempo to grafana and instrument emojo-voto to use OpenTelemetry
 
 # Not relevent
 

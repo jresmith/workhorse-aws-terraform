@@ -77,11 +77,10 @@ Make note of the port used for forwarding, in this case, 61513 for https:
 ```
 * Edit /etc/hosts (or local DNS lookup) to direct the below FQDNs to localhost:
   * argocd.dev.local
-  * boutique.dev.local
+  * emojivoto.dev.local
   * prometheus.dev.local
   * alertmanager.dev.local
   * grafana.dev.local
-  * loki.dev.local
 
 * Navigate to `https://argocd.dev.local:[forwarded port]` in your browser. In the example above `https://argocd.dev.local:61513`
 * Log into us  with username `admin` and the password retrieved above
