@@ -34,7 +34,7 @@
 * ~Configure Prometheus to scrape Application Endpoints~
 * ~Create Dashboards using default Prometheus data~
 * ~Deploy via Helm and create Ingress for Dev Env and configure TLS web cert for https access~
-* Monitor ArgoCD though
+* Service Discovery K8s
 
 ## Grafana
 
@@ -86,23 +86,25 @@
 * Deploy new cloud-based argocd instance to manage deployment of staging and prod
 * Deploy Bitnami Sealed Secrets and store Staging & Production creds encrypted
 
-## Prometheus
+## Prometheus/Grafana
 
-* Deploy using helm via argocd in Prod environment
-* Monitor Application (no K8s infra) using Service Monitor
-* Service Discovery K8s
+* Deploy using helm via argocd in Staging & Prod environment
+* AWS Cloud Exporter - Export AWS & EKS Metrics to Prometheus
+* AWS Load Balancer Controller metrics - Export to Prometheus
+* Dashboards for the above new metrics
 
-## Log Aggregation (Loki)
+## Loki
 
-* Set up centralised logging service (Loki) in Staging & Prod environments
-* Gather logs with an FileBeat sidecar conatiner and send to Loki
- 
+* Logs from nodes into Loki (stack TBD - maybe Fluent Bit)
+* CloudWatch Logging - Export CloudWatch logs to Loki
+* EKS Control Plane Logging - Export EKS Control plane logs to Loki
+
 # Phase 3 (Production & Auxilary Cloud Features)
 
 ## K8s
 
 * Configure Horizontal Pod Autoscaling (HPA) based on load
-* Generate Admin cert for administration
+* Generate Admin cert for administration for Staging & Pro environments
 
 ## Prometheus
 
@@ -133,19 +135,95 @@
 
 * [TBD in conjunction with resiliancy documentation]
 
-## Documentation/Runbook
+# Phase 5 (Documentation)
 
-* Talk about how I will be storing some credentials for Production in GitLab (since this is just ) but acknowledge that should be using a Centralised External Secret Store like HashiCorp Vault or AWS Secrets Manager
-* Increarse pod replicas (as part of SLI/SLO resiliancy plan)
-* How to upgrade EKS cluster (note that EKS is only supported for 14 months)
+## Architecture
 
-## Design choices
+* High Level Diagram (EKS, Namespaces, services, Alloy, Loki, Prometheus, Grafana)
+* Deployment Model (ArgoCd Gitops + Github, Terraform, Helm)
+* Networking (Load Balancers, Ingress, Pod Networking) & Security (IAM for Service accounts, Sealed Secets)
+* Storage (EBS, S3)
+
+## Design decisions
+
+* Why did you chose
+  - EKS over k3s/minikube
+  - ArgoCD + GitOps over kubectl apply
+  - Prometheus + Loki over ELK or Datadog
+  - Terraform instead of Cloudformation
+* Each decision Including
+  - The Problem
+  - Options considered
+  - Tradeoffs
+  - FinalChoice
+  - Why it fits principles (simplicity, reliability, cost, observability)
 
 ### EKS 
 
 * Using one VPC per cluster (one for staging, one for prod) 
 * Warm ENIs/IP addresses (for scaling & redundancy)
 * could use prefix delegation and IPv6
+
+## Runbooks
+
+* If X happens, follow these steps
+  - Pod CrashLoopBackOff
+  - ArgoCD Out of Sync
+  - Loki ingestion failing
+  - Prometheus scraping failures
+* Each must include:
+  - Symptoms
+  - How to diagnose
+  - Root cause patterns
+  - Remediation Steps
+  - Preventions / Long term fixes
+
+## Monitoring Strategy
+
+* What to Monitor & why
+* How alerts are structured
+* SLIs/SLOs
+* How logs and Metrics connect
+* Dashboards I've built
+  - Purpose
+  - Key panels
+  - Why these metrics matter
+  - How to interpret anomolies 
+
+## SOPs
+
+* Deploying New version of ArgoCD
+* Deploying New version of Helm Charts
+* Deploying New version of App
+* Rotating Secrets via Sealed Secrets
+* Upgrading EKS versions
+
+## Case Studies
+
+* Choose 2:
+  - Loki Ingestion Outage
+  - Redis latency spike affecting emojivoto
+  - NOde OOMKill due to misconfigured limits
+  - ALB routing misconfiguartion
+* Include:
+  - Symptoms
+  - Investigation
+  - Root Cause
+  - Fix 
+  - Preventions
+  - What I learned
+
+## Postmortem
+
+* Use google-style template
+
+
+## Misc Documentation
+
+* Talk about how I will be storing some credentials for Production in GitLab (since this is just ) but acknowledge that should be using a Centralised External Secret Store like HashiCorp Vault or AWS Secrets Manager
+* Increarse pod replicas (as part of SLI/SLO resiliancy plan)
+* How to upgrade EKS cluster (note that EKS is only supported for 14 months)
+
 
 # Phase X (Future Plans)
 
@@ -164,6 +242,11 @@
 * Set up remote Read and Write to save space and back up metrics data  
 * Monitor ArgoCD and App deployments 
 * In Dev environment enabled metrics-server on minikube and configure dev env prometheus to use it
+* Monitor ArgoCD though Prometheus
+
+## Grafana
+
+* Add Grafana dashboard(s) for ArgoCD
 
 ## Loki
 
@@ -175,6 +258,11 @@
 ## Tempo (OpenTelemetry)
 
 * Deploy Tempo Helm, (updating Alloy to collect traces) add tempo to grafana and instrument emojo-voto to use OpenTelemetry
+
+## Documentation
+
+* Cost Analysis
+* DR Plan
 
 # Not relevent
 
