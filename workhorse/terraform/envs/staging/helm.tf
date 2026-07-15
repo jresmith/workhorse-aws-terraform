@@ -36,9 +36,17 @@ resource "helm_release" "argocd" {
 
   repository = "https://argoproj.github.io/argo-helm"
   chart      = "argo-cd"
-  version    = "7.3.6"
+  version    = "10.1.2"
 
   values = [
     file("${path.module}/values/argocd-values.yaml")
   ]
+}
+
+resource "kubernetes_manifest" "app_of_apps" {
+  depends_on = [helm_release.argocd]
+
+  manifest = yamldecode(
+    file("${path.module}/../../../gitops/staging/root/app-of-apps.yaml")
+  )
 }

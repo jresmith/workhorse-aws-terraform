@@ -44,7 +44,7 @@ helm repo update
 ```
 * Install ArgoCD Helm Chart manually
 ```
-helm install argocd argocd/argo-cd --namespace argocd --create-namespace -f workhorse/gitops/dev/root/app-of-apps.yaml
+helm install argocd argocd/argo-cd --namespace argocd --create-namespace --version argo-cd-10.1.2 -f workhorse/gitops/dev/root/app-of-apps.yaml
 ``` 
 * Apply app-of-apps.yaml
 ```
@@ -98,7 +98,7 @@ argocd login argocd.dev.local:[forwarded port]
 * Navigate to `https://grafana.dev.local:[forwarded port]` in your browser. In the example above `https://grafana.dev.local:61513`
 * Login with username/password `admin/admin`
 
-## Staging
+## Staging/Production
 
 ### Set up AWS Access for Terraform
 
@@ -109,6 +109,23 @@ argocd login argocd.dev.local:[forwarded port]
 * Configure local aws profile using:
 `aws configure --profile workhorse-staging` 
 
+### Deploy Terraform
+
+* cd into your chosen environment directory:
+```
+cd workhorse/terraform/envs/staging
+```
+* Deploy:
+```
+terraform init
+terraform plan
+terraform deploy
+```
+* Add Git repo PAT token as a secret (update file to include PAT prior)
+```
+kubectl apply -f workhorse/gitops/repo/bootstrap-repo-creds-template.yaml
+```
+
 ### Connect to EKS in Staging Environment
 
 * Configure kubectl 
@@ -118,10 +135,6 @@ aws eks update-kubeconfig \
   --region us-west-2 \
   --profile workhorse-staging
 ``` 
-
-## Production
-
-
 # Environment Destory Instructions - Staging & Production Terraform
 
 ### terraform destory

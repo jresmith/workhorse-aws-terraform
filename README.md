@@ -72,6 +72,8 @@
 * Set up encrypt-at-rest for Staging and Prod Secret
 * Set up Persistent volumes using EKS EBS CSI, use Helm chart to deploy - noting that additional IAM access is required first
 * Potentially use Fargate for monitoring and logging services
+* Configure Horizontal Pod Autoscaling (HPA) based on load
+* Generate Admin cert for administration for Staging & Pro environments
 
 ## EKS
 
@@ -80,6 +82,11 @@
 ## Terraform
 
 * Use modules to create template to be deployed into Production
+
+## CI
+* Use runner to validate that k8s config in the repo is valid (YAML syntax is fine initially) 
+* Use runner to validate that terraform config in the repo is valid (`terraform validate` command`)
+* Use runner to validate that prometheus config in the repo is valid (`promtool check config` command`)
 
 ## CD
 
@@ -101,11 +108,6 @@
 
 # Phase 3 (Production & Auxilary Cloud Features)
 
-## K8s
-
-* Configure Horizontal Pod Autoscaling (HPA) based on load
-* Generate Admin cert for administration for Staging & Pro environments
-
 ## Prometheus
 
 * Deploy using helm via argocd in Prod environment
@@ -114,11 +116,6 @@
 * Add checks for certificate expirely for all the new certs
 * When it comes to permissions/authorisation, ensure that you note that `AlwaysAllow` is enabled by default and that we mush ensure this is changes before pushing to prod 
 * Service Discovery for AWS [ec2] (Staging and Prod envs). Will need to create service IAM user via terraform 
-
-## CI
-* Use runner to validate that k8s config in the repo is valid (YAML syntax is fine initially) 
-* Use runner to validate that terraform config in the repo is valid (`terraform validate` command`)
-* Use runner to validate that prometheus config in the repo is valid (`promtool check config` command`)
 
 ## CD 
 

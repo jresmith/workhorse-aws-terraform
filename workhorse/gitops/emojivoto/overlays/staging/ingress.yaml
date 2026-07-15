@@ -1,0 +1,31 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: emojivoto-staging
+  namespace: emojivoto-staging
+  annotations:
+    cert-manager.io/cluster-issuer: workhorse-ca
+spec:
+  tls:
+    - hosts:
+        - emojivoto.staging.jresmith.com
+      secretName: emojivoto-staging
+  ingressClassName: nginx
+  rules:
+  - host: emojivoto.staging.jresmith.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: web
+            port:
+              number: 8080
+      - path: /metrics
+        pathType: Prefix
+        backend:
+          service:
+            name: voting-svc
+            port:
+              number: 8801
