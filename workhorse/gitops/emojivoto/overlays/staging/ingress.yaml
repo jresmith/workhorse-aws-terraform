@@ -4,13 +4,18 @@ metadata:
   name: emojivoto-staging
   namespace: emojivoto-staging
   annotations:
-    cert-manager.io/cluster-issuer: workhorse-ca
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/inbound-cidrs: 73.170.221.233/32
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/backend-protocol: HTTPS
+    alb.ingress.kubernetes.io/ssl-redirect: "443"
+    external-dns.alpha.kubernetes.io/hostname: emojivoto.staging.jresmith.com
+    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-west-2:945503455271:certificate/75d9b34f-47d0-406a-8063-c361647fde70
+    alb.ingress.kubernetes.io/listen-ports: |
+      [{"HTTP":80},{"HTTPS":443}]
+
 spec:
-  tls:
-    - hosts:
-        - emojivoto.staging.jresmith.com
-      secretName: emojivoto-staging
-  ingressClassName: nginx
+  ingressClassName: alb
   rules:
   - host: emojivoto.staging.jresmith.com
     http:
