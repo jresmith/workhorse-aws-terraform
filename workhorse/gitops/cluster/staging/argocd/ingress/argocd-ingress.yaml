@@ -7,7 +7,12 @@ metadata:
     alb.ingress.kubernetes.io/scheme: internet-facing
     alb.ingress.kubernetes.io/target-type: ip
     alb.ingress.kubernetes.io/backend-protocol: HTTPS
-    #external-dns.alpha.kubernetes.io/hostname: argocd.staging.jresmith.com
+    alb.ingress.kubernetes.io/ssl-redirect: "443"
+    external-dns.alpha.kubernetes.io/hostname: argocd.staging.jresmith.com
+    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-west-2:945503455271:certificate/75d9b34f-47d0-406a-8063-c361647fde70
+    alb.ingress.kubernetes.io/listen-ports: |
+      [{"HTTP":80},{"HTTPS":443}]
+
 spec:
   ingressClassName: alb
   rules:
