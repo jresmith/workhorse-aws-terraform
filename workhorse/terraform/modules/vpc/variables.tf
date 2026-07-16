@@ -35,6 +35,11 @@ variable "single_nat_gateway" {
   default = false
 }
 
+variable "cluster_name" {
+  type        = string
+  description = "EKS cluster name used for subnet tagging"
+}
+
 variable "tags" {
   type = map(string)
   description = "Tags for Staging environment workoad (VPC Infra)"

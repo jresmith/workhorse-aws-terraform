@@ -14,6 +14,9 @@ repoServer:
   metrics:
     enabled: true
 
+crds:
+  install: true
+
 applicationSet:
   metrics:
     enabled: true

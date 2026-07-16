@@ -1,10 +1,9 @@
-data "http" "alb_controller_policy" {
-  url = "https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/v2.1.2/docs/install/iam_policy.json"
-}
-
 resource "aws_iam_policy" "alb_controller" {
-  name   = "AWSLoadBalancerControllerIAMPolicy"
-  policy = data.http.alb_controller_policy.response_body
+  name = "AWSLoadBalancerControllerIAMPolicy"
+
+  policy = file(
+    "${path.module}/../../policies/aws-load-balancer-controller.json"
+  )
 }
 
 resource "aws_iam_role_policy_attachment" "alb_controller_policy_attach" {
@@ -12,35 +11,107 @@ resource "aws_iam_role_policy_attachment" "alb_controller_policy_attach" {
   policy_arn = aws_iam_policy.alb_controller.arn
 }
 
-data "aws_iam_policy_document" "alb_controller_assume_role" {
-  statement {
-    actions = ["sts:AssumeRoleWithWebIdentity"]
-
-    principals {
-      type        = "Federated"
-      identifiers = [module.eks.oidc_provider_arn]
-    }
-
-    condition {
-      test = "StringEquals"
-      variable = "${module.eks.oidc_provider}:sub"
-      values = ["system:serviceaccount:kube-system:aws-load-balancer-controller"]
-    }
-  }
-}
-
 resource "aws_iam_role" "alb_controller" {
-  name               = "alb-controller-role"
-  assume_role_policy = data.aws_iam_policy_document.alb_controller_assume_role.json
+  name = "alb-controller-role"
+
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+
+    Statement = [
+      {
+        Effect = "Allow"
+
+        Principal = {
+          Service = "pods.eks.amazonaws.com"
+        }
+
+        Action = [
+          "sts:AssumeRole",
+          "sts:TagSession"
+        ]
+      }
+    ]
+  })
 }
 
-resource "kubernetes_service_account_v1" "alb_controller" {
-  metadata {
-    name        = "aws-load-balancer-controller"
-    namespace   = "kube-system" 
-    annotations = {
-      "eks.amazonaws.com/role-arn" = aws_iam_role.alb_controller.arn
-    }
-  }
+resource "aws_eks_pod_identity_association" "alb_controller" {
+  cluster_name    = module.eks.cluster_name
+  namespace       = "kube-system"
+  service_account = "aws-load-balancer-controller"
+
+  role_arn = aws_iam_role.alb_controller.arn
+
+  depends_on = [
+    aws_iam_role_policy_attachment.alb_controller_policy_attach
+  ]
 }
 
+resource "aws_iam_policy" "external_dns" {
+  name = "ExternalDNSPolicy"
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+
+    Statement = [
+      {
+        Effect = "Allow"
+
+        Action = [
+          "route53:ChangeResourceRecordSets"
+        ]
+
+        Resource = [
+          "arn:aws:route53:::hostedzone/Z04740503B1A4DFFP02PZ"
+        ]
+      },
+
+      {
+        Effect = "Allow"
+
+        Action = [
+          "route53:ListHostedZones",
+          "route53:ListResourceRecordSets",
+          "route53:ListTagsForResource"
+        ]
+
+        Resource = ["*"]
+      }
+    ]
+  })
+}
+
+resource "aws_iam_role" "external_dns" {
+  name = "external-dns-role"
+
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+
+    Statement = [
+      {
+        Effect = "Allow"
+
+        Principal = {
+          Service = "pods.eks.amazonaws.com"
+        }
+
+        Action = [
+          "sts:AssumeRole",
+          "sts:TagSession"
+        ]
+      }
+    ]
+  })
+}
+
+resource "aws_iam_role_policy_attachment" "external_dns" {
+  role       = aws_iam_role.external_dns.name
+  policy_arn = aws_iam_policy.external_dns.arn
+}
+
+resource "aws_eks_pod_identity_association" "external_dns" {
+  cluster_name    = module.eks.cluster_name
+  namespace       = "kube-system"
+  service_account = "external-dns"
+
+  role_arn = aws_iam_role.external_dns.arn
+}

@@ -1,9 +1,9 @@
 resource "helm_release" "aws_load_balancer_controller" {
   name       = "aws-loadbalancer-controller"
-  namespace  = "kube-system" 
+  namespace  = "kube-system"
   repository = "https://aws.github.io/eks-charts"
   chart      = "aws-load-balancer-controller"
-  version    = "1.7.2"
+  version    = "1.13.0"
 
   set = [
     {
@@ -12,7 +12,11 @@ resource "helm_release" "aws_load_balancer_controller" {
     },
     {
       name  = "serviceAccount.create"
-      value = "false"
+      value = "true"
+    },
+    {
+      name  = "vpcId"
+      value = module.vpc.vpc_id
     },
     {
       name  = "serviceAccount.name"
@@ -21,10 +25,6 @@ resource "helm_release" "aws_load_balancer_controller" {
     {
       name  = "region"
       value = var.region
-    },
-    {
-      name  = "vpcId"
-      value = module.vpc.vpc_id
     }
   ]
 }
@@ -33,6 +33,10 @@ resource "helm_release" "argocd" {
   name       = "argocd"
   namespace  = "argocd" 
   create_namespace = true
+
+  wait = true
+  timeout = 600
+  cleanup_on_fail = true
 
   repository = "https://argoproj.github.io/argo-helm"
   chart      = "argo-cd"
@@ -43,10 +47,43 @@ resource "helm_release" "argocd" {
   ]
 }
 
-resource "kubernetes_manifest" "app_of_apps" {
-  depends_on = [helm_release.argocd]
+resource "helm_release" "external_dns" {
+  name       = "external-dns"
+  namespace  = "kube-system"
 
-  manifest = yamldecode(
-    file("${path.module}/../../../gitops/staging/root/app-of-apps.yaml")
-  )
+  repository = "https://kubernetes-sigs.github.io/external-dns/"
+  chart      = "external-dns"
+  version = "1.21.1"
+
+  wait = true
+  timeout = 600
+  cleanup_on_fail = true
+
+  set = [
+    {
+      name  = "provider.name"
+      value = "aws"
+    },
+    {
+      name  = "serviceAccount.create"
+      value = "true"
+    },
+    {
+      name  = "serviceAccount.name"
+      value = "external-dns"
+    },
+    {
+      name  = "domainFilters[0]"
+      value = "jresmith.com"
+    },
+    {
+      name  = "policy"
+      value = "sync"
+    }
+  ]
+
+  depends_on = [
+    aws_eks_pod_identity_association.external_dns,
+    helm_release.aws_load_balancer_controller
+  ]
 }
