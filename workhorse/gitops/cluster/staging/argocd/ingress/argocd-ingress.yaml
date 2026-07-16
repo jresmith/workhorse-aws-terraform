@@ -4,14 +4,12 @@ metadata:
   name: argocd
   namespace: argocd
   annotations:
-    cert-manager.io/cluster-issuer: workhorse-ca
-    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/backend-protocol: HTTPS
+    #external-dns.alpha.kubernetes.io/hostname: argocd.staging.jresmith.com
 spec:
-  tls:
-    - hosts:
-        - argocd.staging.jresmith.com
-      secretName: argocd-staging
-  ingressClassName: nginx
+  ingressClassName: alb
   rules:
   - host: argocd.staging.jresmith.com
     http:
@@ -23,3 +21,4 @@ spec:
             name: argocd-server
             port:
               number: 443
+
