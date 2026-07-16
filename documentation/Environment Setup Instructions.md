@@ -46,15 +46,14 @@ helm repo update
 ```
 helm install argocd argocd/argo-cd --namespace argocd --create-namespace --version argo-cd-10.1.2 -f workhorse/gitops/dev/root/app-of-apps.yaml
 ``` 
-* Apply app-of-apps.yaml
-```
-kubectl apply -f workhorse/gitops/dev/root/app-of-apps.yaml
-```
 * Add Git repo PAT token as a secret (update file to include PAT prior)
 ```
 kubectl apply -f workhorse/gitops/repo/bootstrap-repo-creds-template.yaml
 ```
-
+* Apply app-of-apps.yaml
+```
+kubectl apply -f workhorse/gitops/dev/root/app-of-apps.yaml
+```
 * Get initial Admin password ArgoCD 
 ```
 kubectl get secret argocd-initial-admin-secret -n argocd -o jsonpath="{.data.password}" | base64 -d
@@ -107,7 +106,9 @@ argocd login argocd.dev.local:[forwarded port]
 * IAM > IAM users > ["workhorse-staging"] > Security Credentials > Create Access Key
 * Choose "Command Line Interface" and note the Access Key and Security Key
 * Configure local aws profile using:
-`aws configure --profile workhorse-staging` 
+```
+aws configure --profile workhorse-staging
+```
 
 ### Deploy Terraform
 
@@ -124,6 +125,10 @@ terraform deploy
 * Add Git repo PAT token as a secret (update file to include PAT prior)
 ```
 kubectl apply -f workhorse/gitops/repo/bootstrap-repo-creds-template.yaml
+```
+* Apply app-of-apps.yaml
+```
+kubectl apply -f workhorse/gitops/staging/root/app-of-apps.yaml
 ```
 
 ### Connect to EKS in Staging Environment
