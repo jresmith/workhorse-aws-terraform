@@ -1,5 +1,5 @@
-resource "aws_acm_certificate" "argocd" {
-  domain_name       = "argocd.staging.jresmith.com"
+resource "aws_acm_certificate" "staging" {
+  domain_name       = "*.staging.jresmith.com"
   validation_method = "DNS"
 
   lifecycle {
@@ -7,9 +7,9 @@ resource "aws_acm_certificate" "argocd" {
   }
 }
 
-resource "aws_route53_record" "argocd_validation" {
+resource "aws_route53_record" "staging_validation" {
   for_each = {
-    for dvo in aws_acm_certificate.argocd.domain_validation_options :
+    for dvo in aws_acm_certificate.staging.domain_validation_options :
     dvo.domain_name => {
       name   = dvo.resource_record_name
       record = dvo.resource_record_value
@@ -27,11 +27,11 @@ resource "aws_route53_record" "argocd_validation" {
   records = [each.value.record]
 }
 
-resource "aws_acm_certificate_validation" "argocd" {
-  certificate_arn = aws_acm_certificate.argocd.arn
+resource "aws_acm_certificate_validation" "staging" {
+  certificate_arn = aws_acm_certificate.staging.arn
 
   validation_record_fqdns = [
-    for record in aws_route53_record.argocd_validation :
+    for record in aws_route53_record.staging_validation :
     record.fqdn
   ]
 }
