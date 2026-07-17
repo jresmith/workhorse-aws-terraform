@@ -11,6 +11,10 @@ configMapGenerator:
     files:
       - dashboards/application-reliability.json
 
+  - name: aws-alb-cloudwatch-metrics.json
+    files:
+      - dashboards/aws-alb-cloudwatch-metrics.json.json
+
 generatorOptions:
   disableNameSuffixHash: true
   labels:

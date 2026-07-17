@@ -25,6 +25,18 @@ resource "helm_release" "aws_load_balancer_controller" {
     {
       name  = "region"
       value = var.region
+    },
+    {
+      name  = "serviceMonitor.enabled"
+      value = "true"
+    },
+    {
+      name  = "serviceMonitor.namespace"
+      value = "monitoring"
+    },
+    {
+      name  = "serviceMonitor.additionalLabels.release"
+      value = "kube-prometheus-stack"
     }
   ]
 }

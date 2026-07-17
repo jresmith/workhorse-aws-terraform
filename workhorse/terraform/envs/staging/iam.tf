@@ -148,3 +148,96 @@ resource "aws_eks_pod_identity_association" "ebs_csi" {
 
   role_arn = aws_iam_role.ebs_csi_driver.arn
 }
+
+resource "aws_iam_role" "yace" {
+  name = "${var.cluster_name}-yace"
+
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+
+        Principal = {
+          Service = "pods.eks.amazonaws.com"
+        }
+
+        Action = [
+          "sts:AssumeRole",
+          "sts:TagSession"
+        ]
+      }
+    ]
+  })
+}
+
+resource "aws_iam_policy" "yace" {
+  name = "${var.cluster_name}-yace"
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Action = [
+          "iam:ListAccountAliases"
+        ]
+        Resource = "*"
+      },
+
+      {
+        Effect = "Allow"
+        Action = [
+          "cloudwatch:GetMetricData",
+          "cloudwatch:GetMetricStatistics",
+          "cloudwatch:ListMetrics"
+        ]
+        Resource = "*"
+      },
+
+      {
+        Effect = "Allow"
+        Action = [
+          "tag:GetResources",
+          "tag:GetTagKeys",
+          "tag:GetTagValues"
+        ]
+        Resource = "*"
+      },
+
+      {
+        Effect = "Allow"
+        Action = [
+          "ec2:DescribeInstances",
+          "ec2:DescribeVolumes",
+          "ec2:DescribeTags"
+        ]
+        Resource = "*"
+      },
+
+      {
+        Effect = "Allow"
+        Action = [
+          "elasticloadbalancing:DescribeLoadBalancers",
+          "elasticloadbalancing:DescribeTags",
+          "elasticloadbalancing:DescribeTargetGroups",
+          "elasticloadbalancing:DescribeListeners"
+        ]
+        Resource = "*"
+      }
+    ]
+  })
+}
+
+resource "aws_iam_role_policy_attachment" "yace" {
+  role       = aws_iam_role.yace.name
+  policy_arn = aws_iam_policy.yace.arn
+}
+
+resource "aws_eks_pod_identity_association" "yace" {
+  cluster_name    = module.eks.cluster_name
+  namespace       = "monitoring"
+  service_account = "yace"
+
+  role_arn = aws_iam_role.yace.arn
+}
