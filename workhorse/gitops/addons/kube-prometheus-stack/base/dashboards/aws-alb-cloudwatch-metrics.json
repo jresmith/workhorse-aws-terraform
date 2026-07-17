@@ -72,7 +72,7 @@
                           "LoadBalancer": "$loadbalancer"
                         },
                         "editorMode": "code",
-                        "expr": "avg by (dimension_LoadBalancer) (aws_applicationelb_active_connection_count_sum{dimension_LoadBalancer=~\"$loadbalancer\",cluster_name=\"$cluster_name\"})",
+                        "expr": "avg by (dimension_LoadBalancer) (aws_applicationelb_active_connection_count_sum{dimension_LoadBalancer=~\"$loadbalancer\"})",
                         "expression": "",
                         "id": "",
                         "legendFormat": "Active Connections ({{ dimension_LoadBalancer }})",
@@ -107,7 +107,7 @@
                           "LoadBalancer": "$loadbalancer"
                         },
                         "editorMode": "code",
-                        "expr": "avg by (dimension_LoadBalancer) (aws_applicationelb_new_connection_count_sum{dimension_LoadBalancer=~\"$loadbalancer\",cluster_name=\"$cluster_name\"})",
+                        "expr": "avg by (dimension_LoadBalancer) (aws_applicationelb_new_connection_count_sum{dimension_LoadBalancer=~\"$loadbalancer\"})",
                         "expression": "",
                         "id": "",
                         "legendFormat": "New Connections ({{ dimension_LoadBalancer }})",
@@ -142,7 +142,7 @@
                           "LoadBalancer": "$loadbalancer"
                         },
                         "editorMode": "code",
-                        "expr": "avg by (dimension_LoadBalancer) (aws_applicationelb_target_connection_error_count_sum{dimension_LoadBalancer=~\"$loadbalancer\",cluster_name=\"$cluster_name\"})",
+                        "expr": "avg by (dimension_LoadBalancer) (aws_applicationelb_target_connection_error_count_sum{dimension_LoadBalancer=~\"$loadbalancer\"})",
                         "expression": "",
                         "id": "",
                         "legendFormat": "Target Errors ({{ dimension_LoadBalancer }})",
@@ -173,7 +173,7 @@
                       },
                       "spec": {
                         "editorMode": "code",
-                        "expr": "avg by (dimension_LoadBalancer) (aws_applicationelb_rejected_connection_count_sum{dimension_LoadBalancer=~\"$loadbalancer\",cluster_name=\"$cluster_name\"})",
+                        "expr": "avg by (dimension_LoadBalancer) (aws_applicationelb_rejected_connection_count_sum{dimension_LoadBalancer=~\"$loadbalancer\"})",
                         "instant": false,
                         "legendFormat": "Rejected Connection ({{ dimension_LoadBalancer }})",
                         "range": true
@@ -379,7 +379,7 @@
                           "LoadBalancer": "$loadbalancer"
                         },
                         "editorMode": "code",
-                        "expr": "avg by (dimension_LoadBalancer) (aws_applicationelb_processed_bytes_sum{dimension_LoadBalancer=~\"$loadbalancer\",cluster_name=\"$cluster_name\"})",
+                        "expr": "avg by (dimension_LoadBalancer) (aws_applicationelb_processed_bytes_sum{dimension_LoadBalancer=~\"$loadbalancer\"})",
                         "expression": "",
                         "id": "",
                         "legendFormat": "__auto",
@@ -518,7 +518,7 @@
                           "LoadBalancer": "$loadbalancer"
                         },
                         "editorMode": "code",
-                        "expr": "avg by (dimension_LoadBalancer) (aws_applicationelb_target_response_time_average{dimension_LoadBalancer=~\"$loadbalancer\",cluster_name=\"$cluster_name\"})",
+                        "expr": "avg by (dimension_LoadBalancer) (aws_applicationelb_target_response_time_average{dimension_LoadBalancer=~\"$loadbalancer\"})",
                         "expression": "",
                         "id": "",
                         "legendFormat": "__auto",
@@ -653,7 +653,7 @@
                       },
                       "spec": {
                         "editorMode": "code",
-                        "expr": "sum(aws_applicationelb_healthy_host_count_average{dimension_LoadBalancer=~\"$loadbalancer\",cluster_name=\"$cluster_name\"})",
+                        "expr": "sum(aws_applicationelb_healthy_host_count_average{dimension_LoadBalancer=~\"$loadbalancer\"})",
                         "instant": false,
                         "legendFormat": "__auto",
                         "range": true
@@ -743,7 +743,7 @@
                           "LoadBalancer": "$loadbalancer"
                         },
                         "editorMode": "code",
-                        "expr": "avg by (dimension_LoadBalancer) (aws_applicationelb_httpcode_elb_5_xx_count_sum{dimension_LoadBalancer=~\"$loadbalancer\",cluster_name=\"$cluster_name\"})",
+                        "expr": "avg by (dimension_LoadBalancer) (aws_applicationelb_httpcode_elb_5_xx_count_sum{dimension_LoadBalancer=~\"$loadbalancer\"})",
                         "expression": "",
                         "id": "",
                         "legendFormat": "ELB HTTP 5XX ({{ dimension_LoadBalancer }})",
@@ -879,7 +879,7 @@
                           "TargetGroup": "*"
                         },
                         "editorMode": "code",
-                        "expr": "sum(aws_applicationelb_un_healthy_host_count_average{dimension_LoadBalancer=~\"$loadbalancer\",cluster_name=\"$cluster_name\"})",
+                        "expr": "sum(aws_applicationelb_un_healthy_host_count_average{dimension_LoadBalancer=~\"$loadbalancer\"})",
                         "expression": "",
                         "id": "",
                         "legendFormat": "__auto",
@@ -978,7 +978,7 @@
                           "LoadBalancer": "$loadbalancer"
                         },
                         "editorMode": "code",
-                        "expr": "avg by (dimension_LoadBalancer) (aws_applicationelb_consumed_lcus_sum{dimension_LoadBalancer=~\"$loadbalancer\",cluster_name=\"$cluster_name\"})",
+                        "expr": "avg by (dimension_LoadBalancer) (aws_applicationelb_consumed_lcus_sum{dimension_LoadBalancer=~\"$loadbalancer\"})",
                         "expression": "",
                         "id": "",
                         "legendFormat": "__auto",
@@ -1112,7 +1112,7 @@
                           "LoadBalancer": "$loadbalancer"
                         },
                         "editorMode": "code",
-                        "expr": "sum by (dimension_LoadBalancer) (aws_applicationelb_request_count_sum{dimension_LoadBalancer=~\"$loadbalancer\", cluster_name=\"$cluster_name\"}) / 60",
+                        "expr": "sum by (dimension_LoadBalancer) (aws_applicationelb_request_count_sum{dimension_LoadBalancer=~\"$loadbalancer\"}) / 60",
                         "expression": "",
                         "id": "",
                         "legendFormat": "__auto",
@@ -1246,7 +1246,7 @@
                       },
                       "spec": {
                         "editorMode": "code",
-                        "expr": "aws_applicationelb_request_count_per_target_sum{dimension_LoadBalancer=~\"$loadbalancer\",cluster_name=\"$cluster_name\"}",
+                        "expr": "aws_applicationelb_request_count_per_target_sum{dimension_LoadBalancer=~\"$loadbalancer\"}",
                         "instant": false,
                         "legendFormat": "{{dimension_LoadBalancer}}",
                         "range": true
@@ -1375,7 +1375,7 @@
                           "LoadBalancer": "$loadbalancer"
                         },
                         "editorMode": "code",
-                        "expr": "avg by (dimension_LoadBalancer) (aws_applicationelb_httpcode_target_4_xx_count_sum{dimension_LoadBalancer=~\"$loadbalancer\",cluster_name=\"$cluster_name\"})",
+                        "expr": "avg by (dimension_LoadBalancer) (aws_applicationelb_httpcode_target_4_xx_count_sum{dimension_LoadBalancer=~\"$loadbalancer\"})",
                         "expression": "",
                         "id": "",
                         "legendFormat": "HTTP 4XX ({{ dimension_LoadBalancer }})",
@@ -1510,7 +1510,7 @@
                           "LoadBalancer": "$loadbalancer"
                         },
                         "editorMode": "code",
-                        "expr": "avg by (dimension_LoadBalancer) (aws_applicationelb_httpcode_target_3_xx_count_sum{dimension_LoadBalancer=~\"$loadbalancer\",cluster_name=\"$cluster_name\"})",
+                        "expr": "avg by (dimension_LoadBalancer) (aws_applicationelb_httpcode_target_3_xx_count_sum{dimension_LoadBalancer=~\"$loadbalancer\"})",
                         "expression": "",
                         "id": "",
                         "legendFormat": "HTTP 3XX ({{ dimension_LoadBalancer }})",
@@ -1645,7 +1645,7 @@
                           "LoadBalancer": "$loadbalancer"
                         },
                         "editorMode": "code",
-                        "expr": "avg by (dimension_LoadBalancer) (aws_applicationelb_httpcode_elb_4_xx_count_sum{dimension_LoadBalancer=~\"$loadbalancer\",cluster_name=\"$cluster_name\"})",
+                        "expr": "avg by (dimension_LoadBalancer) (aws_applicationelb_httpcode_elb_4_xx_count_sum{dimension_LoadBalancer=~\"$loadbalancer\"})",
                         "expression": "",
                         "id": "",
                         "legendFormat": "ELB HTTP 4XX ({{ dimension_LoadBalancer }})",
@@ -1780,7 +1780,7 @@
                           "LoadBalancer": "$loadbalancer"
                         },
                         "editorMode": "code",
-                        "expr": "avg by (dimension_LoadBalancer) (aws_applicationelb_httpcode_elb_3_xx_count_sum{dimension_LoadBalancer=~\"$loadbalancer\",cluster_name=\"$cluster_name\"})",
+                        "expr": "avg by (dimension_LoadBalancer) (aws_applicationelb_httpcode_elb_3_xx_count_sum{dimension_LoadBalancer=~\"$loadbalancer\"})",
                         "expression": "",
                         "id": "",
                         "legendFormat": "ELB HTTP 3XX ({{ dimension_LoadBalancer }})",
@@ -1915,7 +1915,7 @@
                           "LoadBalancer": "$loadbalancer"
                         },
                         "editorMode": "code",
-                        "expr": "aws_applicationelb_request_count_sum{dimension_LoadBalancer=~\"$loadbalancer\",cluster_name=\"$cluster_name\"}",
+                        "expr": "aws_applicationelb_request_count_sum{dimension_LoadBalancer=~\"$loadbalancer\"}",
                         "expression": "",
                         "id": "",
                         "legendFormat": "{{dimension_LoadBalancer}}",
@@ -2053,7 +2053,7 @@
                           "LoadBalancer": "$loadbalancer"
                         },
                         "editorMode": "code",
-                        "expr": "avg by (dimension_LoadBalancer) (aws_applicationelb_httpcode_elb_502_count_sum{dimension_LoadBalancer=~\"$loadbalancer\",cluster_name=\"$cluster_name\"})",
+                        "expr": "avg by (dimension_LoadBalancer) (aws_applicationelb_httpcode_elb_502_count_sum{dimension_LoadBalancer=~\"$loadbalancer\"})",
                         "expression": "",
                         "id": "",
                         "legendFormat": "HTTP 502 ({{ dimension_LoadBalancer }})",
@@ -2188,7 +2188,7 @@
                           "LoadBalancer": "$loadbalancer"
                         },
                         "editorMode": "code",
-                        "expr": "avg by (dimension_LoadBalancer) (aws_applicationelb_httpcode_elb_503_count_sum{dimension_LoadBalancer=~\"$loadbalancer\",cluster_name=\"$cluster_name\"})",
+                        "expr": "avg by (dimension_LoadBalancer) (aws_applicationelb_httpcode_elb_503_count_sum{dimension_LoadBalancer=~\"$loadbalancer\"})",
                         "expression": "",
                         "id": "",
                         "legendFormat": "HTTP 503 ({{ dimension_LoadBalancer }})",
@@ -2323,7 +2323,7 @@
                           "LoadBalancer": "$loadbalancer"
                         },
                         "editorMode": "code",
-                        "expr": "avg by (dimension_LoadBalancer) (aws_applicationelb_httpcode_elb_504_count_sum{dimension_LoadBalancer=~\"$loadbalancer\",cluster_name=\"$cluster_name\"})",
+                        "expr": "avg by (dimension_LoadBalancer) (aws_applicationelb_httpcode_elb_504_count_sum{dimension_LoadBalancer=~\"$loadbalancer\"})",
                         "expression": "",
                         "id": "",
                         "legendFormat": "HTTP 504 ({{ dimension_LoadBalancer }})",
@@ -2458,7 +2458,7 @@
                           "LoadBalancer": "$loadbalancer"
                         },
                         "editorMode": "code",
-                        "expr": "avg by (dimension_LoadBalancer) (aws_applicationelb_httpcode_target_2_xx_count_sum{dimension_LoadBalancer=~\"$loadbalancer\",cluster_name=\"$cluster_name\"})",
+                        "expr": "avg by (dimension_LoadBalancer) (aws_applicationelb_httpcode_target_2_xx_count_sum{dimension_LoadBalancer=~\"$loadbalancer\"})",
                         "expression": "",
                         "id": "",
                         "legendFormat": "HTTP 2XX ({{ dimension_LoadBalancer }})",
@@ -2593,7 +2593,7 @@
                           "LoadBalancer": "$loadbalancer"
                         },
                         "editorMode": "code",
-                        "expr": "aws_applicationelb_request_count_per_target_sum{dimension_LoadBalancer=~\"$loadbalancer\",cluster_name=\"$cluster_name\"} / 60",
+                        "expr": "aws_applicationelb_request_count_per_target_sum{dimension_LoadBalancer=~\"$loadbalancer\"} / 60",
                         "expression": "",
                         "id": "",
                         "legendFormat": "{{dimension_LoadBalancer}}",
@@ -2731,7 +2731,7 @@
                           "LoadBalancer": "$loadbalancer"
                         },
                         "editorMode": "code",
-                        "expr": "avg by (dimension_LoadBalancer) (aws_applicationelb_httpcode_elb_500_count_sum{dimension_LoadBalancer=~\"$loadbalancer\",cluster_name=\"$cluster_name\"})",
+                        "expr": "avg by (dimension_LoadBalancer) (aws_applicationelb_httpcode_elb_500_count_sum{dimension_LoadBalancer=~\"$loadbalancer\"})",
                         "expression": "",
                         "id": "",
                         "legendFormat": "HTTP 500 ({{ dimension_LoadBalancer }})",
@@ -2866,7 +2866,7 @@
                           "LoadBalancer": "$loadbalancer"
                         },
                         "editorMode": "code",
-                        "expr": "avg by (dimension_LoadBalancer) (aws_applicationelb_httpcode_target_5_xx_count_sum{dimension_LoadBalancer=~\"$loadbalancer\",cluster_name=\"$cluster_name\"})",
+                        "expr": "avg by (dimension_LoadBalancer) (aws_applicationelb_httpcode_target_5_xx_count_sum{dimension_LoadBalancer=~\"$loadbalancer\"})",
                         "expression": "",
                         "id": "",
                         "legendFormat": "HTTP 5XX ({{ dimension_LoadBalancer }})",
@@ -3359,39 +3359,6 @@
           "options": [],
           "multi": true,
           "includeAll": true,
-          "allowCustomValue": true
-        }
-      },
-      {
-        "kind": "QueryVariable",
-        "spec": {
-          "name": "cluster_name",
-          "current": {
-            "text": "",
-            "value": ""
-          },
-          "hide": "dontHide",
-          "refresh": "onDashboardLoad",
-          "skipUrlSync": false,
-          "query": {
-            "kind": "DataQuery",
-            "group": "prometheus",
-            "version": "v0",
-            "datasource": {
-              "name": "prometheus"
-            },
-            "spec": {
-              "query": "label_values(aws_applicationelb_active_connection_count_sum,cluster_name)",
-              "refId": "PrometheusVariableQueryEditor-VariableQuery"
-            }
-          },
-          "regex": "",
-          "regexApplyTo": "value",
-          "sort": "disabled",
-          "definition": "label_values(aws_applicationelb_active_connection_count_sum,cluster_name)",
-          "options": [],
-          "multi": false,
-          "includeAll": false,
           "allowCustomValue": true
         }
       }
