@@ -13,7 +13,7 @@ configMapGenerator:
 
   - name: aws-alb-cloudwatch-metrics.json
     files:
-      - dashboards/aws-alb-cloudwatch-metrics.json.json
+      - dashboards/aws-alb-cloudwatch-metrics.json
 
 generatorOptions:
   disableNameSuffixHash: true
