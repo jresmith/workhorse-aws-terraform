@@ -6,7 +6,7 @@ namespace: monitoring
 helmCharts:
   - name: prometheus-yet-another-cloudwatch-exporter
     repo: https://prometheus-community.github.io/helm-charts
-    version: 0.67.0
+    version: 0.47.0
     releaseName: yace
     namespace: monitoring
     valuesFile: values.yaml
