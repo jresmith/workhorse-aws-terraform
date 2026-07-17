@@ -16,7 +16,7 @@ aws:
 
 serviceMonitor:
   enabled: true
-  additionalLabels:
+  labels:
     release: kube-prometheus-stack
 
 configMap:
