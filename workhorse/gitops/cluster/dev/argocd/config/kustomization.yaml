@@ -3,4 +3,3 @@ kind: Kustomization
 namespace: argocd
 resources:
   - argocd-cm.yaml
-  - repo-pat-sealed.yaml
