@@ -1,0 +1,85 @@
+serviceAccount:
+  create: true
+  name: yace
+  automountServiceAccountToken: true
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 256Mi
+  limits:
+    cpu: 500m
+    memory: 512Mi
+
+aws:
+  region: us-west-2
+
+serviceMonitor:
+  enabled: true
+
+configMap:
+  enabled: true
+
+config: |-
+  apiVersion: v1alpha1
+  sts-region: us-west-2
+  discovery:
+    exportedTagsOnMetrics:
+      AWS/ApplicationELB:
+        - Name
+      AWS/EBS:
+        - Name
+      AWS/NATGateway:
+        - Name
+      AWS/Route53:
+        - Name
+    jobs:
+    - type: AWS/ApplicationELB
+      regions:
+        - us-west-2
+      metrics:
+        - name: RequestCount
+          statistics:
+            - Sum
+        - name: TargetResponseTime
+          statistics:
+            - Average
+        - name: HealthyHostCount
+          statistics:
+            - Average
+        - name: HTTPCode_Target_5XX_Count
+          statistics:
+            - Sum
+        - name: HTTPCode_Target_4XX_Count
+          statistics:
+            - Sum
+    - type: AWS/EBS
+      regions:
+        - us-west-2
+      metrics:
+        - name: VolumeReadOps
+          statistics:
+            - Sum
+        - name: VolumeWriteOps
+          statistics:
+            - Sum
+        - name: VolumeQueueLength
+          statistics:
+            - Average
+    - type: AWS/NATGateway
+      regions:
+        - us-west-2
+      metrics:
+        - name: BytesInFromSource
+          statistics:
+            - Sum
+        - name: BytesOutToDestination
+          statistics:
+            - Sum
+    - type: AWS/Route53
+      regions:
+        - us-west-2
+      metrics:
+        - name: HealthCheckStatus
+          statistics:
+            - Average
