@@ -28,6 +28,9 @@ module "eks" {
     eks-pod-identity-agent = {
       most_recent = true
     }
+    aws-ebs-csi-driver = {
+      most_recent = true
+    }
   }
 
   eks_managed_node_groups = {
