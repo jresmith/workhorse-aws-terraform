@@ -53,11 +53,6 @@
   - ~Goroutines~
 * ~Create Dashboard for node health (compatible with Minikube & EKS)~
   - ~The default ones are, ok~
-* Add Grafana dashboard(s) for ArgoCD
-
-## Alertmanager
-
-* [TBD]
 
 ## Log Aggregation (Loki)
 
@@ -67,21 +62,15 @@
 
 ## K8s
 
-* Create Staging & Prod Deployments 
-* Following terraform deployment, expose to the internet
+* ~Create Staging Deployments~
+* ~Following terraform deployment, expose to the internet~
 * Set up encrypt-at-rest for Staging and Prod Secret
-* Set up Persistent volumes using EKS EBS CSI, use Helm chart to deploy - noting that additional IAM access is required first
-* Potentially use Fargate for monitoring and logging services
+* ~Set up Persistent volumes using EKS EBS CSI, use Helm chart to deploy - noting that additional IAM access is required first~
 * Configure Horizontal Pod Autoscaling (HPA) based on load
-* Generate Admin cert for administration for Staging & Pro environments
 
 ## EKS
 
 * Enable Cloudwatch logging (potentially add Agent and ADOT to cluster)
-
-## Terraform
-
-* Use modules to create template to be deployed into Production
 
 ## CI
 * Use runner to validate that k8s config in the repo is valid (YAML syntax is fine initially) 
@@ -90,12 +79,12 @@
 
 ## CD
 
-* Deploy new cloud-based argocd instance to manage deployment of staging and prod
-* Deploy Bitnami Sealed Secrets and store Staging & Production creds encrypted
+* ~Deploy new cloud-based argocd instance to manage deployment of staging and prod~
+* ~Deploy Bitnami Sealed Secrets and store Staging & Production creds encrypted~
 
-## Prometheus/Grafana
+## Prometheus/Grafana/Terraform
 
-* Deploy using helm via argocd in Staging & Prod environment
+* ~Deploy using helm via argocd in Staging & Prod environment~
 * AWS Cloud Exporter - Export AWS & EKS Metrics to Prometheus
 * AWS Load Balancer Controller metrics - Export to Prometheus
 * Dashboards for the above new metrics
@@ -106,7 +95,15 @@
 * CloudWatch Logging - Export CloudWatch logs to Loki
 * EKS Control Plane Logging - Export EKS Control plane logs to Loki
 
+## Alertmanager
+
+* [TBD]
+
 # Phase 3 (Production & Auxilary Cloud Features)
+
+## Terraform
+
+* Use modules to create template to be deployed into Production
 
 ## Prometheus
 
@@ -116,10 +113,6 @@
 * Add checks for certificate expirely for all the new certs
 * When it comes to permissions/authorisation, ensure that you note that `AlwaysAllow` is enabled by default and that we mush ensure this is changes before pushing to prod 
 * Service Discovery for AWS [ec2] (Staging and Prod envs). Will need to create service IAM user via terraform 
-
-## CD 
-
-* Change package visibility on personal github to make them private and configure k8s to auth using PATs
 
 # Phase 4 (Documentation & Resiliancy Planning)
 
@@ -232,6 +225,7 @@
 * Implement Calico CNI in & set up Network Polices between pods, separating by tiers (Platform, Security & Application)
 * Setting up encrypt-at-rest for staging and production envs
 * Use an example of RBAC
+* Generate Admin cert for administration for Staging & Pro environments
 
 ## Prometheus
 
@@ -251,6 +245,10 @@
   - Alert when a namespace logs > X errors per min
   - Alert when service logs panic
   - Alert when no logs from Alloy
+
+## CD 
+
+* Change package visibility on personal github to make them private and configure k8s to auth using PATs
 
 ## Tempo (OpenTelemetry)
 
