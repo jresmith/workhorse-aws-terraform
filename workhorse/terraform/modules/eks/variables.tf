@@ -34,7 +34,7 @@ variable "public_subnet_ids" {
 variable "node_group_instance_types" {
   type = list(string)
   description = "Instance type of K8s nodes"
-  default = ["t3.medium"]
+  default = ["t3.large"]
 }
 
 variable "endpoint_public_access" {

@@ -31,7 +31,7 @@ single_nat_gateway = true
 cluster_name    = "workhorse-staging-eks"
 kubernetes_version = "1.30"
 
-node_group_instance_types = ["t3.medium"]
+node_group_instance_types = ["t3.large"]
 desired_size              = 2
 max_size                  = 3
 min_size                  = 1

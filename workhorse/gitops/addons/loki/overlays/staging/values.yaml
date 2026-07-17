@@ -5,7 +5,6 @@ singleBinary:
   persistence:
     enabled: true
     size: 10Gi
-    storageClass: standard
 
 backend:
   replicas: 0
