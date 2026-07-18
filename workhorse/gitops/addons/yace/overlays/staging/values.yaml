@@ -46,7 +46,6 @@ config: |-
         - name: TargetResponseTime
           statistics:
             - Average
-          nilToZero: true
         - name: HealthyHostCount
           statistics:
             - Average
@@ -58,6 +57,18 @@ config: |-
           statistics:
             - Sum
           nilToZero: true
+        - name: HTTPCode_Target_2XX_Count
+          statistics:
+            - Sum
+          nilToZero: true
+        - name: HTTPCode_Target_3XX_Count
+          statistics:
+            - Sum
+          nilToZero: true
+        - name: HTTPCode_ELB_3XX_Count
+          statistics:
+            - Sum
+          nilToZero: true
         - name: HTTPCode_ELB_4XX_Count
           statistics:
             - Sum
@@ -66,6 +77,49 @@ config: |-
           statistics:
             - Sum
           nilToZero: true
+
+        - name: HTTPCode_ELB_500_Count
+          statistics:
+            - Sum
+          nilToZero: true
+        - name: HTTPCode_ELB_502_Count
+          statistics:
+            - Sum
+          nilToZero: true
+        - name: HTTPCode_ELB_503_Count
+          statistics:
+            - Sum
+          nilToZero: true
+        - name: HTTPCode_ELB_504_Count
+          statistics:
+            - Sum
+          nilToZero: true
+        - name: ActiveConnectionCount
+          statistics:
+            - Sum
+        - name: NewConnectionCount
+          statistics:
+            - Sum
+        - name: TargetConnectionErrorCount
+          statistics:
+            - Sum
+          nilToZero: true
+        - name: RejectedConnectionCount
+          statistics:
+            - Sum
+        - name: ProcessedBytes
+          statistics:
+            - Sum
+        - name: ConsumedLCUs
+          statistics:
+            - Sum
+        - name: RequestCountPerTarget
+          statistics:
+            - Sum
+          nilToZero: true
+        - name: UnHealthyHostCount
+          statistics:
+            - Average
     - type: AWS/EBS
       regions:
         - us-west-2
