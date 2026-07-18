@@ -88,16 +88,41 @@
 * ~AWS Cloud Exporter - Export AWS & EKS Metrics to Prometheus~
 * ~AWS Load Balancer Controller metrics - Export to Prometheus~
 * ~Dashboards for the above new metrics~
+* Dashboard for EKS Cluster Health
+  - Node Ready
+  - Node CPU
+  - Node Memory
+  - Pod Restarts
+  - Pod Pending
+  - Pod OOM Kills
+  - API Server Availability
+* Dashboard for EKS Cluster Health
+  - Systemd Errors
+  - Kubelet Errors
+  - Kernel Errors
+  - Audit Events
 
 ## Loki
 
-* Logs from nodes into Loki 
-* CloudWatch Logging - Export CloudWatch logs to Loki
-* EKS Control Plane Logging - Export EKS Control plane logs to Loki
+* ~Logs from nodes into Loki~
+* ~EKS Control Plane Logging - Export EKS Control plane logs into Cloudwatch~
+* CloudWatch Logging - Export CloudWatch logs to Loki using Lambda Promtail. Include logs for:
+  - EKS
+  - VPC flow logs
+  - Route53 Resolver Logs
+  - CloudTrail
 
 ## Alertmanager
 
-* [TBD]
+* Create useful Loki log labels. loki.relabel to promote the below to Loki labels.
+  - _SYSTEMD_UNIT
+  - _HOSTNAME
+  - _TRANSPORT
+* After the above Set up Node alerts for
+  - Kubelet problems: {job="systemd-journal"} |= "Failed"
+  - CNI failures: {job="aws-routed-eni"} |= "error"
+  - OOM kills: {job="systemd-journal"} |= "Out of memory"
+  - And more...
 
 # Phase 3 (Production & Auxilary Cloud Features)
 
