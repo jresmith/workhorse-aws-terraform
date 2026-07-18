@@ -85,9 +85,9 @@
 ## Prometheus/Grafana/Terraform
 
 * ~Deploy using helm via argocd in Staging & Prod environment~
-* AWS Cloud Exporter - Export AWS & EKS Metrics to Prometheus
-* AWS Load Balancer Controller metrics - Export to Prometheus
-* Dashboards for the above new metrics
+* ~AWS Cloud Exporter - Export AWS & EKS Metrics to Prometheus~
+* ~AWS Load Balancer Controller metrics - Export to Prometheus~
+* ~Dashboards for the above new metrics~
 
 ## Loki
 
