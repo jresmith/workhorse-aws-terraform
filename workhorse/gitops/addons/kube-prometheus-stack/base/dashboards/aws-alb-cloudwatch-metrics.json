@@ -653,7 +653,7 @@
                       "kind": "DataQuery",
                       "spec": {
                         "editorMode": "code",
-                        "expr": "sum(aws_applicationelb_healthy_host_count_average{dimension_LoadBalancer=~\"$loadbalancer\",dimension_TargetGroup=~\".+\",dimension_AvailabilityZone!~\".+\"})",
+                        "expr": "sum(aws_applicationelb_healthy_host_count_average{dimension_LoadBalancer=~\"$loadbalancer\"} >bool 0)",
                         "instant": false,
                         "legendFormat": "__auto",
                         "range": true
@@ -879,7 +879,7 @@
                           "TargetGroup": "*"
                         },
                         "editorMode": "code",
-                        "expr": "sum(aws_applicationelb_un_healthy_host_count_average{dimension_LoadBalancer=~\"$loadbalancer\"}) or vector(0)",
+                        "expr": "sum(aws_applicationelb_un_healthy_host_count_average{dimension_LoadBalancer=~\"$loadbalancer\"} >bool 0)",
                         "expression": "",
                         "id": "",
                         "legendFormat": "__auto",
