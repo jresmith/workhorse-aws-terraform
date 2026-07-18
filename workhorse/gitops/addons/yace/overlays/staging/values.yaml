@@ -77,7 +77,6 @@ config: |-
           statistics:
             - Sum
           nilToZero: true
-
         - name: HTTPCode_ELB_500_Count
           statistics:
             - Sum
@@ -120,6 +119,7 @@ config: |-
         - name: UnHealthyHostCount
           statistics:
             - Average
+          nilToZero: true
     - type: AWS/EBS
       regions:
         - us-west-2

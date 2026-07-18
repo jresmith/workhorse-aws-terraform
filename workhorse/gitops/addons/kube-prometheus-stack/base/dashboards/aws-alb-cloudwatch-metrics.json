@@ -653,7 +653,7 @@
                       },
                       "spec": {
                         "editorMode": "code",
-                        "expr": "sum(aws_applicationelb_healthy_host_count_average{dimension_LoadBalancer=~\"$loadbalancer\"})",
+                        "expr": "sum(aws_applicationelb_healthy_host_count_average{dimension_LoadBalancer=~\"$loadbalancer\"}) or vector(0)",
                         "instant": false,
                         "legendFormat": "__auto",
                         "range": true
@@ -879,7 +879,7 @@
                           "TargetGroup": "*"
                         },
                         "editorMode": "code",
-                        "expr": "sum(aws_applicationelb_un_healthy_host_count_average{dimension_LoadBalancer=~\"$loadbalancer\"})",
+                        "expr": "sum(aws_applicationelb_un_healthy_host_count_average{dimension_LoadBalancer=~\"$loadbalancer\"}) or vector(0)",
                         "expression": "",
                         "id": "",
                         "legendFormat": "__auto",
