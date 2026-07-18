@@ -2,7 +2,7 @@ module "eks" {
   source  = "terraform-aws-modules/eks/aws"
   version = "~> 21.0"
 
-  name    = var.cluster_name
+  name               = var.cluster_name
   kubernetes_version = var.kubernetes_version
 
   vpc_id             = var.vpc_id
@@ -44,6 +44,17 @@ module "eks" {
       subnet_ids     = var.private_subnet_ids
     }
   }
+
+  enabled_log_types = [
+    "api",
+    "audit",
+    "authenticator",
+    "controllerManager",
+    "scheduler"
+  ]
+
+  create_cloudwatch_log_group = true
+  cloudwatch_log_group_retention_in_days = 30
 
   tags = var.tags
 }

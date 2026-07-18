@@ -45,6 +45,38 @@ alloy:
         forward_to = [loki.write.default.receiver]
       }
 
+      local.file_match "node_logs" {
+        path_targets = [
+          {
+            __path__ = "/var/log/audit/audit.log",
+            job      = "node-audit",
+          },
+          {
+            __path__ = "/var/log/aws-routed-eni/*.log",
+            job      = "aws-routed-eni",
+          },
+          {
+            __path__ = "/var/log/amazon/ssm/*.log",
+            job      = "ssm",
+          },
+        ]
+      }
+
+      loki.source.file "node_logs" {
+        targets    = local.file_match.node_logs.targets
+        forward_to = [loki.write.default.receiver]
+      }
+
+      loki.source.journal "systemd" {
+        max_age = "24h"
+
+        labels = {
+          job = "systemd-journal",
+        }
+
+        forward_to = [loki.write.default.receiver]
+      }
+
       loki.write "default" {
         endpoint {
           url = "http://loki-gateway.monitoring.svc.cluster.local/loki/api/v1/push"

@@ -91,7 +91,7 @@
 
 ## Loki
 
-* Logs from nodes into Loki (stack TBD - maybe Fluent Bit)
+* Logs from nodes into Loki 
 * CloudWatch Logging - Export CloudWatch logs to Loki
 * EKS Control Plane Logging - Export EKS Control plane logs to Loki
 
