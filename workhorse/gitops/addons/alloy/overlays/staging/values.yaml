@@ -68,6 +68,7 @@ alloy:
       }
 
       loki.source.journal "systemd" {
+        path = "/var/log/journal"
         max_age = "24h"
 
         labels = {
