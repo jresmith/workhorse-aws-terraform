@@ -653,7 +653,7 @@
                       },
                       "spec": {
                         "editorMode": "code",
-                        "expr": "sum(aws_applicationelb_healthy_host_count_average{dimension_LoadBalancer=~\"$loadbalancer\"}) or vector(0)",
+                        "expr": "sum(aws_applicationelb_healthy_host_count_average{dimension_LoadBalancer=~\"$loadbalancer\",dimension_TargetGroup=~\".+\",dimension_AvailabilityZone!~\".+\"})",
                         "instant": false,
                         "legendFormat": "__auto",
                         "range": true
