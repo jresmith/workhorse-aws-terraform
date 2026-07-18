@@ -46,15 +46,26 @@ config: |-
         - name: TargetResponseTime
           statistics:
             - Average
+          nilToZero: true
         - name: HealthyHostCount
           statistics:
             - Average
         - name: HTTPCode_Target_5XX_Count
           statistics:
             - Sum
+          nilToZero: true
         - name: HTTPCode_Target_4XX_Count
           statistics:
             - Sum
+          nilToZero: true
+        - name: HTTPCode_ELB_4XX_Count
+          statistics:
+            - Sum
+          nilToZero: true
+        - name: HTTPCode_ELB_5XX_Count
+          statistics:
+            - Sum
+          nilToZero: true
     - type: AWS/EBS
       regions:
         - us-west-2
@@ -68,6 +79,12 @@ config: |-
         - name: VolumeQueueLength
           statistics:
             - Average
+        - name: VolumeReadBytes
+          statistics:
+            - Sum
+        - name: VolumeWriteBytes
+          statistics:
+            - Sum
     - type: AWS/NATGateway
       regions:
         - us-west-2
