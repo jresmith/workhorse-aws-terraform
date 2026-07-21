@@ -70,7 +70,7 @@
 
 ## EKS
 
-* Enable Cloudwatch logging (potentially add Agent and ADOT to cluster)
+* ~Enable Cloudwatch logging (potentially add Agent and ADOT to cluster)~
 
 ## CI
 * Use runner to validate that k8s config in the repo is valid (YAML syntax is fine initially) 
@@ -112,18 +112,6 @@
   - Route53 Resolver Logs
   - CloudTrail
 
-## Alertmanager
-
-* Create useful Loki log labels. loki.relabel to promote the below to Loki labels.
-  - _SYSTEMD_UNIT
-  - _HOSTNAME
-  - _TRANSPORT
-* After the above Set up Node alerts for
-  - Kubelet problems: {job="systemd-journal"} |= "Failed"
-  - CNI failures: {job="aws-routed-eni"} |= "error"
-  - OOM kills: {job="systemd-journal"} |= "Out of memory"
-  - And more...
-
 # Phase 3 (Production & Auxilary Cloud Features)
 
 ## Terraform
@@ -138,6 +126,18 @@
 * Add checks for certificate expirely for all the new certs
 * When it comes to permissions/authorisation, ensure that you note that `AlwaysAllow` is enabled by default and that we mush ensure this is changes before pushing to prod 
 * Service Discovery for AWS [ec2] (Staging and Prod envs). Will need to create service IAM user via terraform 
+
+## Alertmanager
+
+* Create useful Loki log labels. loki.relabel to promote the below to Loki labels.
+  - _SYSTEMD_UNIT
+  - _HOSTNAME
+  - _TRANSPORT
+* After the above Set up Node alerts for
+  - Kubelet problems: `{job="systemd-journal"} |= "Failed"`
+  - CNI failures: `{job="aws-routed-eni"} |= "error"`
+  - OOM kills: `{job="systemd-journal"} |= "Out of memory"`
+  - And more...
 
 # Phase 4 (Documentation & Resiliancy Planning)
 

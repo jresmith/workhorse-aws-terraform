@@ -17,19 +17,19 @@ configMapGenerator:
 
   - name: node-exporter-full.json
     files:
-      - node-exporter-full.json
+      - dashboards/node-exporter-full.json
 
   - name: loki-kubernetes-logs.json
     files:
-      - loki-kubernetes-logs.json
+      - dashboards/loki-kubernetes-logs.json
 
   - name: kubernetes-views-global.json
     files:
-      - kubernetes-views-global.json
+      - dashboards/kubernetes-views-global.json
 
   - name: kubernetes-views-namespaces.json
     files:
-      - kubernetes-views-namespaces.json
+      - dashboards/kubernetes-views-namespaces.json
 
 generatorOptions:
   disableNameSuffixHash: true
