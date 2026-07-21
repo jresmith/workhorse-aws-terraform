@@ -4,6 +4,7 @@ namespace: monitoring
 
 resources:
   - loki-datasource-cm.yaml
+  - ingress-loki.yaml
 
 helmCharts:
   - name: loki
