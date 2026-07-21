@@ -122,7 +122,7 @@ terraform init
 terraform plan
 terraform deploy
 ```
-* Configure kubectl 
+* Configure kubectl to connect to AWS EKS Instance
 ```
 aws eks update-kubeconfig \
   --name workhorse-staging-eks \
@@ -137,7 +137,10 @@ kubectl apply -f ../../../../workhorse/gitops/repo/bootstrap-repo-creds-template
 ```
 kubectl apply -f ../../../../workhorse/gitops/staging/root/app-of-apps.yaml
 ```
-
+* Re-run terraform deploy to finish the setup
+```
+terraform deploy
+```
 # Environment Destory Instructions - Staging & Production Terraform
 
 ### terraform destory
