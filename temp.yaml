@@ -1,0 +1,114 @@
+name: Kubernetes CI
+
+on:
+  pull_request:
+    paths:
+      - "kubernetes/**"
+      - "policy/**"
+  push:
+    branches: ["main"]
+    paths:
+      - "kubernetes/**"
+      - "policy/**"
+
+env:
+  K8S_MANIFEST_DIR: kubernetes
+  K8S_HELM_CHART_DIR: kubernetes/charts
+  KUBERNETES_VERSION: "1.29.0"
+
+jobs:
+  validate-kubernetes:
+    name: Validate Kubernetes manifests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # -------------------------
+      # Install tooling
+      # -------------------------
+      - name: Install validation tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y python3-pip curl jq
+          # yamllint
+          sudo pip3 install yamllint
+          # kubeconform
+          KUBECONFORM_VERSION="v0.6.4"
+          curl -sSL "https://github.com/yannh/kubeconform/releases/download/${KUBECONFORM_VERSION}/kubeconform-linux-amd64.tar.gz" \
+            | sudo tar xz -C /usr/local/bin
+          # helm
+          curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
+          # conftest
+          curl -sSL https://github.com/open-policy-agent/conftest/releases/latest/download/conftest_linux_amd64.tar.gz \
+            | sudo tar xz -C /usr/local/bin
+          # kubectl
+          curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+          sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+
+      # -------------------------
+      # YAML lint
+      # -------------------------
+      - name: YAML lint (yamllint)
+        run: |
+          yamllint ${K8S_MANIFEST_DIR}
+
+      # -------------------------
+      # Helm lint (optional)
+      # -------------------------
+      - name: Helm lint (charts)
+        if: ${{ hashFiles(format('{0}/**/Chart.yaml', env.K8S_HELM_CHART_DIR)) != '' }}
+        run: |
+          find "${K8S_HELM_CHART_DIR}" -name 'Chart.yaml' -print0 | \
+            xargs -0 -n1 dirname | \
+            while read chart; do
+              echo "Linting Helm chart: ${chart}"
+              helm lint "${chart}"
+            done
+
+      # -------------------------
+      # Schema validation (kubeconform)
+      # -------------------------
+      - name: Kubeconform schema validation
+        run: |
+          kubeconform \
+            -strict \
+            -summary \
+            -kubernetes-version "${KUBERNETES_VERSION}" \
+            -output text \
+            ${K8S_MANIFEST_DIR}/**/*.yaml
+
+      # -------------------------
+      # Policy checks (conftest)
+      # -------------------------
+      - name: OPA policy checks (conftest)
+        if: ${{ hashFiles('policy/**/*.rego') != '' }}
+        run: |
+          conftest test "${K8S_MANIFEST_DIR}" \
+            --policy policy \
+            --output tap
+
+      # -------------------------
+      # Configure kubeconfig for dry-run
+      # -------------------------
+      - name: Configure kubeconfig
+        env:
+          KUBECONFIG_CONTENT: ${{ secrets.KUBECONFIG_CONTENT }}
+        run: |
+          mkdir -p "${HOME}/.kube"
+          echo "$KUBECONFIG_CONTENT" | base64 -d > "${HOME}/.kube/config"
+          chmod 600 "${HOME}/.kube/config"
+        # kubectl will use default KUBECONFIG path
+
+      # -------------------------
+      # Server-side dry-run
+      # -------------------------
+      - name: Server-side dry-run (kubectl apply --dry-run=server)
+        run: |
+          # Apply all manifests via server-side dry-run
+          find "${K8S_MANIFEST_DIR}" -name '*.yaml' -print0 | \
+            xargs -0 -n1 -I{} sh -c '
+              echo "Dry-running {}";
+              kubectl apply --dry-run=server -f "{}"
+            '
