@@ -45,13 +45,6 @@ jobs:
           file kubeconform.tar.gz
           tar -xzf kubeconform.tar.gz
 
-          echo "Installing kustomize"
-          curl -L -o kustomize.tar.gz \
-            https://github.com/kubernetes-sigs/kustomize/releases/latest/download/kustomize_linux_amd64.tar.gz
-
-          file kustomize.tar.gz
-          tar -xzf kustomize.tar.gz
-
           echo "Installing conftest"
           curl -L -o conftest.tar.gz \
             https://github.com/open-policy-agent/conftest/releases/latest/download/conftest_linux_amd64.tar.gz
