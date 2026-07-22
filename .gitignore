@@ -7,5 +7,4 @@
 *.tfstate
 *.tfstate.*
 *.tfvars
-# Ignore lock file (Used in Disposable Staging Environment only)
 .terraform.lock.hcl
