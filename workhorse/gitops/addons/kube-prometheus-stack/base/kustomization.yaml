@@ -31,6 +31,38 @@ configMapGenerator:
     files:
       - dashboards/kubernetes-views-namespaces.json
 
+  - name: vpc-flow-logs.json
+    files:
+      - vpc-flow-logs.json
+
+  - name: route53-dns-activity.json
+    files:
+      - dashboards/route53-dns-activity.json
+
+  - name: kubernetes-views-pods.json
+    files:
+      - dashboards/kubernetes-views-pods.json
+
+  - name: kubernetes-views-nodes.json
+    files:
+      - dashboards/kubernetes-views-nodes.json
+
+  - name: kubernetes-system-coredns.json
+    files:
+      - dashboards/kubernetes-system-coredns.json
+
+  - name: kubernetes-system-apiserver.json
+    files:
+      - dashboards/kubernetes-system-apiserver.json
+
+  - name: eks-controlplane.json
+    files:
+      - dashboards/eks-controlplane.json
+
+  - name: cloudtrail-activity-logs.json
+    files:
+      - dashboards/cloudtrail-activity-logs.json
+
 generatorOptions:
   disableNameSuffixHash: true
   labels:

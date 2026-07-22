@@ -88,29 +88,29 @@
 * ~AWS Cloud Exporter - Export AWS & EKS Metrics to Prometheus~
 * ~AWS Load Balancer Controller metrics - Export to Prometheus~
 * ~Dashboards for the above new metrics~
-* Dashboard for EKS Cluster Health
-  - Node Ready
-  - Node CPU
-  - Node Memory
-  - Pod Restarts
-  - Pod Pending
-  - Pod OOM Kills
-  - API Server Availability
-* Dashboard for EKS Cluster Health
-  - Systemd Errors
-  - Kubelet Errors
-  - Kernel Errors
-  - Audit Events
+* ~Dashboard for EKS Cluster Health~
+  - ~Node Ready~
+  - ~Node CPU~
+  - `Node Memory~
+  - ~Pod Restarts~
+  - ~Pod Pending~
+  - ~Pod OOM Kills~
+  - ~API Server Availability~
+* ~Dashboard for EKS Cluster Health~
+  - ~Systemd Errors~
+  - ~Kubelet Errors~
+  - ~Kernel Errors~
+  - ~Audit Events~
 
 ## Loki
 
 * ~Logs from nodes into Loki~
 * ~EKS Control Plane Logging - Export EKS Control plane logs into Cloudwatch~
-* CloudWatch Logging - Export CloudWatch logs to Loki using Lambda Promtail. Include logs for:
-  - EKS
-  - VPC flow logs
-  - Route53 Resolver Logs
-  - CloudTrail
+* ~CloudWatch Logging - Export CloudWatch logs to Loki using Lambda Promtail. Include logs for:~
+  - ~EKS~
+  - ~VPC flow logs~
+  - ~Route53 Resolver Logs~
+  - ~CloudTrail~
 
 # Phase 3 (Production & Auxilary Cloud Features)
 
@@ -127,7 +127,7 @@
 * When it comes to permissions/authorisation, ensure that you note that `AlwaysAllow` is enabled by default and that we mush ensure this is changes before pushing to prod 
 * Service Discovery for AWS [ec2] (Staging and Prod envs). Will need to create service IAM user via terraform 
 
-## Alertmanager
+## Loki & Alertmanager
 
 * Create useful Loki log labels. loki.relabel to promote the below to Loki labels.
   - _SYSTEMD_UNIT

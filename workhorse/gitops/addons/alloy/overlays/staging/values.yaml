@@ -42,6 +42,10 @@ alloy:
 
       loki.source.kubernetes "pods" {
         targets    = discovery.relabel.pod_logs.output
+        forward_to = [loki.process.pod_logs.receiver]
+      }
+
+      loki.process "pod_logs" {
         forward_to = [loki.write.default.receiver]
       }
 

@@ -75,3 +75,43 @@ variable "min_size" {
   description = "Minimum Number of K8s nodes"
 }
 
+# Promtail Variables
+variable "lambda_promtail_image_uri" {
+  description = "Full ECR image URI for Lambda Promtail."
+  type        = string
+}
+
+variable "relabel_configs" {
+  type = list(object({
+    source_labels = list(string)
+    regex         = string
+    target_label  = string
+    replacement   = string
+  }))
+}
+
+variable "loki_write_address" {
+  description = "Loki push endpoint."
+  type        = string
+}
+
+variable "loki_username" {
+  description = "Loki basic auth username."
+  type        = string
+  sensitive   = true
+  default     = null
+}
+
+variable "loki_password" {
+  description = "Loki basic auth password."
+  type        = string
+  sensitive   = true
+  default     = null
+}
+
+variable "loki_bearer_token" {
+  description = "Optional Loki bearer token."
+  type        = string
+  sensitive   = true
+  default     = null
+}

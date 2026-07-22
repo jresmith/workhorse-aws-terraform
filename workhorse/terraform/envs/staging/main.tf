@@ -38,3 +38,49 @@ module "eks" {
 
   tags = var.tags
 }
+
+module "lambda_promtail" {
+  source = "../../modules/lambda-promtail"
+
+  name           = "workhorse-staging-lambda-promtail"
+  environment    = "staging"
+  cluster_name = var.cluster_name
+  aws_account_id = "945503455271"
+
+  lambda_image_uri = var.lambda_promtail_image_uri
+  loki_write_address = var.loki_write_address
+  lambda_subnet_ids = module.vpc.private_subnets
+  lambda_security_group_ids = [
+    aws_security_group.lambda_promtail.id
+  ]
+
+  tenant_id       = null
+  skip_tls_verify = false
+  keep_stream     = false
+  batch_size      = 131072
+
+  extra_labels = "platform,aws"
+  relabel_configs = var.relabel_configs
+
+  log_group_names = toset([
+    "/aws/eks/workhorse-staging-eks/cluster",
+    "/aws/cloudtrail/workhorse-staging"
+  ])
+
+  enable_vpc_flow_logs = true
+
+  vpc_ids_for_flow_logs = toset([
+    module.vpc.vpc_id
+  ])
+
+  vpc_flow_log_traffic_type     = "ALL"
+  vpc_flow_log_retention_days   = 14
+
+  enable_route53_resolver_logs = true
+
+  vpc_ids_for_route53_resolver_logs = toset([
+    module.vpc.vpc_id
+  ])
+
+  route53_resolver_log_retention_days = 14
+}
