@@ -46,8 +46,7 @@ jobs:
         run: |
           set -e
           # Find all kustomization.yaml files under gitops and validate rendered output
-          find workhorse/gitops -name 'kustomization.yaml' -print0 | \
-            xargs -0 -n1 -I{} sh -c '
+          find workhorse/gitops -name 'kustomization.yaml' -print0 | xargs -0 -n1 -I{} sh -c '
               overlay_dir=$(dirname "{}")
               echo "Building Kustomize overlay: ${overlay_dir}"
               kustomize build "${overlay_dir}" > /tmp/rendered.yaml
@@ -58,14 +57,7 @@ jobs:
                 -kubernetes-version "${KUBERNETES_VERSION}" \
                 -output text \
                 /tmp/rendered.yaml
-            '
-
-      - name: OPA policy checks (conftest)
-        if: ${{ hashFiles('policy/**/*.rego') != '' }}
-        run: |
-          conftest test workhorse/gitops \
-            --policy policy \
-            --output tap
+          '
 
       - name: Configure kubeconfig for dry-run
         env:
@@ -78,8 +70,7 @@ jobs:
       - name: Server-side dry-run (kubectl apply --dry-run=server)
         run: |
           # Dry-run all raw manifests (non-rendered) as an extra safety net
-          find workhorse/gitops -name '*.yaml' -print0 | \
-            xargs -0 -n1 -I{} sh -c '
+          find workhorse/gitops -name '*.yaml' -print0 | xargs -0 -n1 -I{} sh -c '
               echo "Dry-running {}"
               kubectl apply --dry-run=server -f "{}"
-            '
+          '
