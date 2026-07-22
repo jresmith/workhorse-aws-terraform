@@ -29,14 +29,35 @@ jobs:
           sudo pip3 install yamllint
           # kubeconform
           KUBECONFORM_VERSION="v0.6.4"
-          curl -sSL "https://github.com/yannh/kubeconform/releases/download/${KUBECONFORM_VERSION}/kubeconform-linux-amd64.tar.gz" | sudo tar xz -C /usr/local/bin
+          #curl -sSL "https://github.com/yannh/kubeconform/releases/download/${KUBECONFORM_VERSION}/kubeconform-linux-amd64.tar.gz" | sudo tar xz -C /usr/local/bin
           # kustomize
-          curl -sSL "https://github.com/kubernetes-sigs/kustomize/releases/latest/download/kustomize_linux_amd64.tar.gz" | sudo tar xz -C /usr/local/bin
+          #curl -sSL "https://github.com/kubernetes-sigs/kustomize/releases/latest/download/kustomize_linux_amd64.tar.gz" | sudo tar xz -C /usr/local/bin
           # conftest
-          curl -sSL https://github.com/open-policy-agent/conftest/releases/latest/download/conftest_linux_amd64.tar.gz | sudo tar xz -C /usr/local/bin
+          #curl -sSL https://github.com/open-policy-agent/conftest/releases/latest/download/conftest_linux_amd64.tar.gz | sudo tar xz -C /usr/local/bin
           # kubectl
-          curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
-          sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+          #curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+          #sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+          echo "Installing kubeconform"
+          curl -L -o kubeconform.tar.gz \
+            https://github.com/yannh/kubeconform/releases/download/v0.6.4/kubeconform-linux-amd64.tar.gz
+
+          file kubeconform.tar.gz
+          tar -xzf kubeconform.tar.gz
+
+          echo "Installing kustomize"
+          curl -L -o kustomize.tar.gz \
+            https://github.com/kubernetes-sigs/kustomize/releases/latest/download/kustomize_linux_amd64.tar.gz
+
+          file kustomize.tar.gz
+          tar -xzf kustomize.tar.gz
+
+          echo "Installing conftest"
+          curl -L -o conftest.tar.gz \
+            https://github.com/open-policy-agent/conftest/releases/latest/download/conftest_linux_amd64.tar.gz
+
+          file conftest.tar.gz
+          tar -xzf conftest.tar.gz
+
 
       - name: YAML lint (raw manifests)
         run: |
