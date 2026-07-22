@@ -1,22 +1,27 @@
 locals {
   vpc_flow_log_group_names = var.enable_vpc_flow_logs ? {
-    for vpc_id in var.vpc_ids_for_flow_logs :
-    vpc_id => "/aws/vpc-flow-logs/${var.environment}/${vpc_id}"
+    for name, vpc_id in var.vpc_ids_for_flow_logs :
+    name => "/aws/vpc-flow-logs/${var.environment}/${name}"
   } : {}
 
   route53_log_group_name = "/aws/route53-resolver/${var.environment}/${var.cluster_name}"
 
-  route53_log_group_names = var.enable_route53_resolver_logs ? toset([
-    local.route53_log_group_name
-  ]) : toset([])
+  route53_log_group_names = var.enable_route53_resolver_logs ? {
+    route53 = local.route53_log_group_name
+  } : {}
 
-  managed_log_group_names = setunion(
-    toset(values(local.vpc_flow_log_group_names)),
+  explicit_subscription_log_group_names = {
+    for log_group_name in var.log_group_names :
+    log_group_name => log_group_name
+  }
+
+  managed_log_group_names = merge(
+    local.vpc_flow_log_group_names,
     local.route53_log_group_names
   )
 
-  all_subscription_log_group_names = setunion(
-    var.log_group_names,
+  all_subscription_log_group_names = merge(
+    local.explicit_subscription_log_group_names,
     local.managed_log_group_names
   )
 }
@@ -36,7 +41,7 @@ resource "aws_lambda_permission" "allow_cloudwatch" {
 resource "aws_cloudwatch_log_subscription_filter" "this" {
   for_each = local.all_subscription_log_group_names
 
-  name            = "${var.name}-${substr(md5(each.value), 0, 12)}"
+  name            = "${var.name}-${substr(md5(each.key), 0, 12)}"
   log_group_name  = each.value
   filter_pattern  = ""
   destination_arn = aws_lambda_function.this.arn
@@ -108,10 +113,10 @@ resource "aws_iam_role_policy" "vpc_flow_logs" {
 }
 
 resource "aws_flow_log" "vpc" {
-  for_each = var.enable_vpc_flow_logs ? var.vpc_ids_for_flow_logs : toset([])
+  for_each = var.enable_vpc_flow_logs ? var.vpc_ids_for_flow_logs : {}
 
   iam_role_arn    = aws_iam_role.vpc_flow_logs[0].arn
-  log_destination = aws_cloudwatch_log_group.vpc_flow[each.value].arn
+  log_destination = aws_cloudwatch_log_group.vpc_flow[each.key].arn
   traffic_type    = var.vpc_flow_log_traffic_type
   vpc_id          = each.value
 
@@ -171,7 +176,7 @@ resource "aws_route53_resolver_query_log_config" "this" {
 }
 
 resource "aws_route53_resolver_query_log_config_association" "this" {
-  for_each = var.enable_route53_resolver_logs ? var.vpc_ids_for_route53_resolver_logs : toset([])
+  for_each = var.enable_route53_resolver_logs ? var.vpc_ids_for_route53_resolver_logs : {}
 
   resolver_query_log_config_id = aws_route53_resolver_query_log_config.this[0].id
   resource_id                  = each.value

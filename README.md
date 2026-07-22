@@ -114,23 +114,19 @@
 
 ## Terraform
 
-* Use modules to create template to be deployed into Production
-* Create a new terraform state file for production 
-* In prod ensure argocd config [syncPolicy: automated: prune: false]
+* ~Use modules to create template to be deployed into Production~
+* ~Create a new terraform state file for production~
 
 ## Prometheus
 
-* Deploy using helm via argocd in Prod environment
-* Add monitoring for K8s architecture in EKS
-* Create Ingress for Staging & Prod Envs and configure TLS web cert for https access
-* Add checks for certificate expirely for all the new certs
-* When it comes to permissions/authorisation, ensure that you note that `AlwaysAllow` is enabled by default and that we mush ensure this is changes before pushing to prod 
-* Service Discovery for AWS [ec2] (Staging and Prod envs). Will need to create service IAM user via terraform 
-* Configure Horizontal Pod Autoscaling (HPA) based on load
+* ~Deploy using helm via argocd in Prod environment~
+* ~Add monitoring for K8s architecture in EKS~
+* ~Create Ingress for Staging & Prod Envs and configure TLS web cert for https access~
 
 ## ArgoCD
 
 * Manual approval required in deployment scenario 
+* In prod ensure argocd config [syncPolicy: automated: prune: false]
 
 # Phase 4 (Documentation & Resiliancy Planning)
 
@@ -271,6 +267,7 @@
 * In Dev environment enabled metrics-server on minikube and configure dev env prometheus to use it
 * Monitor ArgoCD though Prometheus
 * Service Discovery K8s
+* Add checks for certificate expirey for all the new certs
 
 ## Grafana
 

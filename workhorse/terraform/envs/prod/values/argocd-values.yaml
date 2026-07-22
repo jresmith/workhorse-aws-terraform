@@ -1,0 +1,30 @@
+configs:
+  params:
+    controller.diff.server.side: "true"
+
+controller:
+  metrics:
+    enabled: true
+
+server:
+  metrics:
+    enabled: true
+
+repoServer:
+  metrics:
+    enabled: true
+
+crds:
+  install: true
+
+applicationSet:
+  metrics:
+    enabled: true
+
+repoServer:
+  resources:
+    requests:
+      cpu: 250m
+      memory: 512Mi
+    limits:
+      memory: 1Gi

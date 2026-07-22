@@ -18,7 +18,7 @@ resource "aws_iam_role" "cloudtrail_cloudwatch" {
   })
 }
 
-resource "aws_iam_role_policy" "cloudtrail_cloudwatch" {
+resource "aws_iam_role_policy" "cloudtrail_cloudwatch_staging" {
   name = "cloudtrail-cloudwatch"
   role = aws_iam_role.cloudtrail_cloudwatch.id
 
@@ -34,7 +34,29 @@ resource "aws_iam_role_policy" "cloudtrail_cloudwatch" {
           "logs:PutLogEvents"
         ]
 
-        Resource = "${aws_cloudwatch_log_group.cloudtrail.arn}:*"
+        Resource = "${aws_cloudwatch_log_group.cloudtrail_staging.arn}:*"
+      }
+    ]
+  })
+}
+
+resource "aws_iam_role_policy" "cloudtrail_cloudwatch_prod" {
+  name = "cloudtrail-cloudwatch"
+  role = aws_iam_role.cloudtrail_cloudwatch.id
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+
+    Statement = [
+      {
+        Effect = "Allow"
+
+        Action = [
+          "logs:CreateLogStream",
+          "logs:PutLogEvents"
+        ]
+
+        Resource = "${aws_cloudwatch_log_group.cloudtrail_prod.arn}:*"
       }
     ]
   })

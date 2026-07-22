@@ -42,8 +42,8 @@ module "eks" {
 module "lambda_promtail" {
   source = "../../modules/lambda-promtail"
 
-  name           = "workhorse-staging-lambda-promtail"
-  environment    = "staging"
+  name           = "workhorse-prod-lambda-promtail"
+  environment    = "prod"
   cluster_name = var.cluster_name
   aws_account_id = "945503455271"
 
@@ -63,8 +63,8 @@ module "lambda_promtail" {
   relabel_configs = var.relabel_configs
 
   log_group_names = toset([
-    "/aws/eks/workhorse-staging-eks/cluster",
-    "/aws/cloudtrail/workhorse-staging"
+    "/aws/eks/workhorse-prod-eks/cluster",
+    "/aws/cloudtrail/workhorse-prod"
   ])
 
   enable_vpc_flow_logs = true
@@ -81,6 +81,5 @@ module "lambda_promtail" {
   vpc_ids_for_route53_resolver_logs = {
     main = module.vpc.vpc_id
   }
-
   route53_resolver_log_retention_days = 14
 }
