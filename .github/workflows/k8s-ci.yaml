@@ -1,71 +1,18 @@
-name: Infra CI (Terraform + Kubernetes)
+name: Kubernetes CI
 
 on:
   pull_request:
     paths:
-      - "terraform/**"
-      - "gitops/**"
-      - "policy/**"
+      - "workhorse/gitops/**"
   push:
     branches: ["main"]
     paths:
-      - "terraform/**"
-      - "gitops/**"
-      - "policy/**"
+      - "workhorse/gitops/**"
 
 env:
-  TERRAFORM_DIR: terraform
-  GITOPS_DIR: gitops
-  KUBERNETES_VERSION: "1.29.0"
+  KUBERNETES_VERSION: "1.30.0"
 
 jobs:
-  terraform-ci:
-    name: Terraform validation
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v3
-        with:
-          terraform_version: 1.8.0
-
-      - name: Install Terraform tools (tflint, tfsec)
-        run: |
-          curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
-          sudo mv tflint /usr/local/bin/tflint
-          curl -sSL https://github.com/aquasecurity/tfsec/releases/latest/download/tfsec-linux-amd64 \
-            -o tfsec
-          sudo install tfsec /usr/local/bin/tfsec
-
-      - name: Terraform fmt
-        working-directory: ${{ env.TERRAFORM_DIR }}
-        run: terraform fmt -check -recursive
-
-      - name: Terraform init
-        working-directory: ${{ env.TERRAFORM_DIR }}
-        run: terraform init -backend=false
-
-      - name: Terraform validate
-        working-directory: ${{ env.TERRAFORM_DIR }}
-        run: terraform validate
-
-      - name: TFLint
-        working-directory: ${{ env.TERRAFORM_DIR }}
-        run: tflint --recursive
-
-      - name: TFsec security scan
-        working-directory: ${{ env.TERRAFORM_DIR }}
-        run: tfsec .
-
-      - name: Terraform plan (no backend)
-        working-directory: ${{ env.TERRAFORM_DIR }}
-        env:
-          TF_VAR_example: "ci"
-        run: terraform plan -lock=false
-
   kubernetes-ci:
     name: Kubernetes validation
     runs-on: ubuntu-latest
@@ -96,13 +43,13 @@ jobs:
 
       - name: YAML lint (raw manifests)
         run: |
-          yamllint ${GITOPS_DIR}
+          yamllint workhorse/gitops
 
       - name: Kustomize build + kubeconform (overlays)
         run: |
           set -e
           # Find all kustomization.yaml files under gitops and validate rendered output
-          find "${GITOPS_DIR}" -name 'kustomization.yaml' -print0 | \
+          find workhorse/gitops -name 'kustomization.yaml' -print0 | \
             xargs -0 -n1 -I{} sh -c '
               overlay_dir=$(dirname "{}")
               echo "Building Kustomize overlay: ${overlay_dir}"
@@ -119,7 +66,7 @@ jobs:
       - name: OPA policy checks (conftest)
         if: ${{ hashFiles('policy/**/*.rego') != '' }}
         run: |
-          conftest test "${GITOPS_DIR}" \
+          conftest test workhorse/gitops \
             --policy policy \
             --output tap
 
@@ -134,7 +81,7 @@ jobs:
       - name: Server-side dry-run (kubectl apply --dry-run=server)
         run: |
           # Dry-run all raw manifests (non-rendered) as an extra safety net
-          find "${GITOPS_DIR}" -name '*.yaml' -print0 | \
+          find workhorse/gitops -name '*.yaml' -print0 | \
             xargs -0 -n1 -I{} sh -c '
               echo "Dry-running {}"
               kubectl apply --dry-run=server -f "{}"

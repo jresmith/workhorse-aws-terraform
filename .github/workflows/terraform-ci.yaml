@@ -1,0 +1,57 @@
+name: Terraform CI
+
+on:
+  pull_request:
+    paths:
+      - "workhorse/terraform/**"
+  push:
+    branches: ["main"]
+    paths:
+      - "workhorse/terraform/**"
+jobs:
+  terraform-ci:
+    name: Terraform validation
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.8.0
+
+      - name: Install Terraform tools (tflint, tfsec)
+        run: |
+          curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
+          sudo mv tflint /usr/local/bin/tflint
+          curl -sSL https://github.com/aquasecurity/tfsec/releases/latest/download/tfsec-linux-amd64 \
+            -o tfsec
+          sudo install tfsec /usr/local/bin/tfsec
+
+      - name: Terraform fmt
+        working-directory: workhorse/terraform
+        run: terraform fmt -check -recursive
+
+      - name: Terraform init
+        working-directory: workhorse/terraform
+        run: terraform init -backend=false
+
+      - name: Terraform validate
+        working-directory: workhorse/terraform
+        run: terraform validate
+
+      - name: TFLint
+        working-directory: workhorse/terraform
+        run: tflint --recursive
+
+      - name: TFsec security scan
+        working-directory: workhorse/terraform
+        run: tfsec .
+
+      - name: Terraform plan (no backend)
+        working-directory: workhorse/terraform
+        env:
+          TF_VAR_example: "ci"
+        run: terraform plan -lock=false
