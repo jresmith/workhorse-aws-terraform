@@ -3,7 +3,7 @@ kind: Secret
 metadata:
   name: repo-workhorse
   namespace: argocd
-  labels:
+  labels
     argocd.argoproj.io/secret-type: repository
 type: Opaque
 stringData:
