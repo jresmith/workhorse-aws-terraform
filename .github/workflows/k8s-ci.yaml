@@ -21,6 +21,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Setup Kustomize
+        uses: imranismail/setup-kustomize@v2
+
       - name: Install Kubernetes tools
         run: |
           sudo apt-get update
@@ -30,8 +33,6 @@ jobs:
           # kubeconform
           KUBECONFORM_VERSION="v0.6.4"
           #curl -sSL "https://github.com/yannh/kubeconform/releases/download/${KUBECONFORM_VERSION}/kubeconform-linux-amd64.tar.gz" | sudo tar xz -C /usr/local/bin
-          # kustomize
-          #curl -sSL "https://github.com/kubernetes-sigs/kustomize/releases/latest/download/kustomize_linux_amd64.tar.gz" | sudo tar xz -C /usr/local/bin
           # conftest
           #curl -sSL https://github.com/open-policy-agent/conftest/releases/latest/download/conftest_linux_amd64.tar.gz | sudo tar xz -C /usr/local/bin
           # kubectl
