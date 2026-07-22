@@ -29,8 +29,10 @@ jobs:
           sudo pip3 install yamllint
           # kubeconform
           KUBECONFORM_VERSION="v0.6.4"
-          curl -sSL "https://github.com/yannh/kubeconform/releases/download/${KUBECONFORM_VERSION}/kubeconform-linux-amd64.tar.gz" \
-            | sudo tar xz -C /usr/local/bin
+          curl -sSL "https://github.com/yannh/kubeconform/releases/download/${KUBECONFORM_VERSION}/kubeconform-linux-amd64.tar.gz"
+          file kubeconform.tar.gz
+          sudo tar xz -C /usr/local/bin
+          #  | sudo tar xz -C /usr/local/bin
           # kustomize
           curl -sSL "https://github.com/kubernetes-sigs/kustomize/releases/latest/download/kustomize_linux_amd64.tar.gz" \
             | sudo tar xz -C /usr/local/bin
