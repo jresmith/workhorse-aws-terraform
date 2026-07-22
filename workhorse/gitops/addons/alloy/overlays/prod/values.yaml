@@ -1,0 +1,103 @@
+controller:
+  type: daemonset
+
+alloy:
+  mounts:
+    varlog: true
+
+  configMap:
+    content: |
+      discovery.kubernetes "pods" {
+        role = "pod"
+      }
+
+      discovery.relabel "pod_logs" {
+        targets = discovery.kubernetes.pods.targets
+
+        rule {
+          source_labels = ["__meta_kubernetes_namespace"]
+          target_label  = "namespace"
+        }
+
+        rule {
+          source_labels = ["__meta_kubernetes_pod_name"]
+          target_label  = "pod"
+        }
+
+        rule {
+          source_labels = ["__meta_kubernetes_pod_container_name"]
+          target_label  = "container"
+        }
+
+        rule {
+          source_labels = ["__meta_kubernetes_pod_node_name"]
+          target_label  = "node"
+        }
+
+        rule {
+          source_labels = ["__meta_kubernetes_pod_label_app"]
+          target_label  = "app"
+        }
+      }
+
+      loki.source.kubernetes "pods" {
+        targets    = discovery.relabel.pod_logs.output
+        forward_to = [loki.process.pod_logs.receiver]
+      }
+
+      loki.process "pod_logs" {
+        forward_to = [loki.write.default.receiver]
+      }
+
+      local.file_match "node_logs" {
+        path_targets = [
+          {
+            __path__ = "/var/log/audit/audit.log",
+            job      = "node-audit",
+          },
+          {
+            __path__ = "/var/log/aws-routed-eni/*.log",
+            job      = "aws-routed-eni",
+          },
+          {
+            __path__ = "/var/log/amazon/ssm/*.log",
+            job      = "ssm",
+          },
+        ]
+      }
+
+      loki.source.file "node_logs" {
+        targets    = local.file_match.node_logs.targets
+        forward_to = [loki.write.default.receiver]
+      }
+
+      loki.source.journal "systemd" {
+        path = "/var/log/journal"
+        max_age = "24h"
+
+        labels = {
+          job = "systemd-journal",
+        }
+
+        forward_to = [loki.write.default.receiver]
+      }
+
+      loki.write "default" {
+        endpoint {
+          url = "http://loki-gateway.monitoring.svc.cluster.local/loki/api/v1/push"
+        }
+      }
+
+serviceMonitor: 
+  enabled: true
+
+podMonitor:
+  enabled: false
+
+resources:
+  limits:
+    cpu: 200m
+    memory: 256Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi

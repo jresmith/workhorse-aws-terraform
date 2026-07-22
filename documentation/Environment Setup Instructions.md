@@ -44,7 +44,7 @@ helm repo update
 ```
 * Install ArgoCD Helm Chart manually
 ```
-helm install argocd argocd/argo-cd --namespace argocd --create-namespace --version argo-cd-10.1.2 -f workhorse/gitops/dev/root/app-of-apps.yaml
+helm install argocd argocd/argo-cd --namespace argocd --create-namespace --version argo-cd-10.1.2 -f workhorse/gitops/cluster/dev/root/app-of-apps.yaml
 ``` 
 * Add Git repo PAT token as a secret (update file to include PAT prior)
 ```
@@ -107,14 +107,18 @@ argocd login argocd.dev.local:[forwarded port]
 * Choose "Command Line Interface" and note the Access Key and Security Key
 * Configure local aws profile using:
 ```
-aws configure --profile workhorse-staging
+aws configure --profile workhorse
 ```
 
-### Deploy Terraform
+### Deploy Terraform - Staging & Production
 
 * cd into your chosen environment directory:
 ```
 cd workhorse/terraform/envs/staging
+```
+or 
+```
+cd workhorse/terraform/envs/prod
 ```
 * Deploy:
 ```
@@ -127,7 +131,14 @@ terraform deploy
 aws eks update-kubeconfig \
   --name workhorse-staging-eks \
   --region us-west-2 \
-  --profile workhorse-staging
+  --profile workhorse
+``` 
+or 
+```
+aws eks update-kubeconfig \
+  --name workhorse-prod-eks \
+  --region us-west-2 \
+  --profile workhorse
 ``` 
 * Add Git repo PAT token as a secret (update file to include PAT prior)
 ```
@@ -135,11 +146,15 @@ kubectl apply -f ../../../../workhorse/gitops/repo/bootstrap-repo-creds-template
 ```
 * Apply app-of-apps.yaml
 ```
-kubectl apply -f ../../../../workhorse/gitops/staging/root/app-of-apps.yaml
+kubectl apply -f ../../../../workhorse/gitops/cluster/staging/root/app-of-apps.yaml
+```
+or
+```
+kubectl apply -f ../../../../workhorse/gitops/cluster/prod/root/app-of-apps.yaml
 ```
 * Re-run terraform deploy to finish the setup
 ```
-terraform deploy
+terraform apply
 ```
 # Environment Destory Instructions - Staging & Production Terraform
 

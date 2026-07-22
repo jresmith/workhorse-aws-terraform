@@ -34,7 +34,6 @@
 * ~Configure Prometheus to scrape Application Endpoints~
 * ~Create Dashboards using default Prometheus data~
 * ~Deploy via Helm and create Ingress for Dev Env and configure TLS web cert for https access~
-* Service Discovery K8s
 
 ## Grafana
 
@@ -64,7 +63,6 @@
 
 * ~Create Staging Deployments~
 * ~Following terraform deployment, expose to the internet~
-* Set up encrypt-at-rest for Staging and Prod Secret
 * ~Set up Persistent volumes using EKS EBS CSI, use Helm chart to deploy - noting that additional IAM access is required first~
 * Configure Horizontal Pod Autoscaling (HPA) based on load
 
@@ -91,7 +89,7 @@
 * ~Dashboard for EKS Cluster Health~
   - ~Node Ready~
   - ~Node CPU~
-  - `Node Memory~
+  - ~Node Memory~
   - ~Pod Restarts~
   - ~Pod Pending~
   - ~Pod OOM Kills~
@@ -117,6 +115,8 @@
 ## Terraform
 
 * Use modules to create template to be deployed into Production
+* Create a new terraform state file for production 
+* In prod ensure argocd config [syncPolicy: automated: prune: false]
 
 ## Prometheus
 
@@ -126,8 +126,21 @@
 * Add checks for certificate expirely for all the new certs
 * When it comes to permissions/authorisation, ensure that you note that `AlwaysAllow` is enabled by default and that we mush ensure this is changes before pushing to prod 
 * Service Discovery for AWS [ec2] (Staging and Prod envs). Will need to create service IAM user via terraform 
+* Configure Horizontal Pod Autoscaling (HPA) based on load
 
-## Loki & Alertmanager
+## ArgoCD
+
+* Manual approval required in deployment scenario 
+
+# Phase 4 (Documentation & Resiliancy Planning)
+
+## Terraform
+
+* Implement across multiple AWS Regions (as part of SLI/SLO resiliancy plan)
+* Implement across multiple AZs (as pary of SLI/SLO planning)
+* Implement Cluster Autoscaler/Karpenter
+
+## Loki & Alertmanager (in conjunction with resiliancy documentation)
 
 * Create useful Loki log labels. loki.relabel to promote the below to Loki labels.
   - _SYSTEMD_UNIT
@@ -138,17 +151,11 @@
   - CNI failures: `{job="aws-routed-eni"} |= "error"`
   - OOM kills: `{job="systemd-journal"} |= "Out of memory"`
   - And more...
+* Add Monitoring for monitoring
 
-# Phase 4 (Documentation & Resiliancy Planning)
+## Chaos Engineering (in conjunction with resiliancy documentation)
 
-## Terraform
-
-* Implement across multiple AWS Regions (as part of SLI/SLO resiliancy plan)
-* Implement across multiple AZs (as pary of SLI/SLO planning)
-
-## Chaos Engineering
-
-* [TBD in conjunction with resiliancy documentation]
+* [TBD]
 
 # Phase 5 (Documentation)
 
@@ -252,6 +259,10 @@
 * Use an example of RBAC
 * Generate Admin cert for administration for Staging & Pro environments
 
+## Terraform
+
+* Set up encrypt-at-rest in EKS for Staging and Prod Secret
+
 ## Prometheus
 
 * Set up alerting using PrometheusRules
@@ -259,6 +270,7 @@
 * Monitor ArgoCD and App deployments 
 * In Dev environment enabled metrics-server on minikube and configure dev env prometheus to use it
 * Monitor ArgoCD though Prometheus
+* Service Discovery K8s
 
 ## Grafana
 

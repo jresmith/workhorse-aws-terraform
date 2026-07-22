@@ -1,0 +1,158 @@
+serviceAccount:
+  create: true
+  name: yace
+  automountServiceAccountToken: true
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 256Mi
+  limits:
+    cpu: 500m
+    memory: 512Mi
+
+aws:
+  region: us-west-2
+
+serviceMonitor:
+  enabled: true
+  labels:
+    release: kube-prometheus-stack
+
+configMap:
+  enabled: true
+
+config: |-
+  apiVersion: v1alpha1
+  sts-region: us-west-2
+  discovery:
+    exportedTagsOnMetrics:
+      AWS/ApplicationELB:
+        - Name
+      AWS/EBS:
+        - Name
+      AWS/NATGateway:
+        - Name
+      AWS/Route53:
+        - Name
+    jobs:
+    - type: AWS/ApplicationELB
+      regions:
+        - us-west-2
+      metrics:
+        - name: RequestCount
+          statistics:
+            - Sum
+        - name: TargetResponseTime
+          statistics:
+            - Average
+        - name: HealthyHostCount
+          statistics:
+            - Average
+        - name: HTTPCode_Target_5XX_Count
+          statistics:
+            - Sum
+          nilToZero: true
+        - name: HTTPCode_Target_4XX_Count
+          statistics:
+            - Sum
+          nilToZero: true
+        - name: HTTPCode_Target_2XX_Count
+          statistics:
+            - Sum
+          nilToZero: true
+        - name: HTTPCode_Target_3XX_Count
+          statistics:
+            - Sum
+          nilToZero: true
+        - name: HTTPCode_ELB_3XX_Count
+          statistics:
+            - Sum
+          nilToZero: true
+        - name: HTTPCode_ELB_4XX_Count
+          statistics:
+            - Sum
+          nilToZero: true
+        - name: HTTPCode_ELB_5XX_Count
+          statistics:
+            - Sum
+          nilToZero: true
+        - name: HTTPCode_ELB_500_Count
+          statistics:
+            - Sum
+          nilToZero: true
+        - name: HTTPCode_ELB_502_Count
+          statistics:
+            - Sum
+          nilToZero: true
+        - name: HTTPCode_ELB_503_Count
+          statistics:
+            - Sum
+          nilToZero: true
+        - name: HTTPCode_ELB_504_Count
+          statistics:
+            - Sum
+          nilToZero: true
+        - name: ActiveConnectionCount
+          statistics:
+            - Sum
+        - name: NewConnectionCount
+          statistics:
+            - Sum
+        - name: TargetConnectionErrorCount
+          statistics:
+            - Sum
+          nilToZero: true
+        - name: RejectedConnectionCount
+          statistics:
+            - Sum
+        - name: ProcessedBytes
+          statistics:
+            - Sum
+        - name: ConsumedLCUs
+          statistics:
+            - Sum
+        - name: RequestCountPerTarget
+          statistics:
+            - Sum
+          nilToZero: true
+        - name: UnHealthyHostCount
+          statistics:
+            - Average
+          nilToZero: true
+    - type: AWS/EBS
+      regions:
+        - us-west-2
+      metrics:
+        - name: VolumeReadOps
+          statistics:
+            - Sum
+        - name: VolumeWriteOps
+          statistics:
+            - Sum
+        - name: VolumeQueueLength
+          statistics:
+            - Average
+        - name: VolumeReadBytes
+          statistics:
+            - Sum
+        - name: VolumeWriteBytes
+          statistics:
+            - Sum
+    - type: AWS/NATGateway
+      regions:
+        - us-west-2
+      metrics:
+        - name: BytesInFromSource
+          statistics:
+            - Sum
+        - name: BytesOutToDestination
+          statistics:
+            - Sum
+    - type: AWS/Route53
+      regions:
+        - us-west-2
+      metrics:
+        - name: HealthCheckStatus
+          statistics:
+            - Average

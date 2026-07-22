@@ -1,0 +1,27 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: loki
+  namespace: monitoring
+  annotations:
+    alb.ingress.kubernetes.io/scheme: internal
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/backend-protocol: HTTP
+    alb.ingress.kubernetes.io/ssl-redirect: "443"
+    external-dns.alpha.kubernetes.io/hostname: loki.jresmith.com
+    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-west-2:945503455271:certificate/3e571108-5861-42f0-be07-c625a1b28514
+    alb.ingress.kubernetes.io/listen-ports: |
+      [{"HTTP":80},{"HTTPS":443}]
+spec:
+  ingressClassName: alb
+  rules:
+  - host: loki.jresmith.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: loki-gateway
+            port:
+              number: 80
