@@ -33,7 +33,7 @@ configMapGenerator:
 
   - name: vpc-flow-logs.json
     files:
-      - vpc-flow-logs.json
+      - dashboards/vpc-flow-logs.json
 
   - name: route53-dns-activity.json
     files:
