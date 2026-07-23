@@ -73,7 +73,6 @@
 ## CI
 * Use runner to validate that k8s config in the repo is valid (YAML syntax is fine initially) 
 * Use runner to validate that terraform config in the repo is valid (`terraform validate` command`)
-* Use runner to validate that prometheus config in the repo is valid (`promtool check config` command`)
 
 ## CD
 
@@ -116,6 +115,7 @@
 
 * ~Use modules to create template to be deployed into Production~
 * ~Create a new terraform state file for production~
+* There do seem to be conflicts with DNS records when both staging and production are deployed the same time - seem to get created and then disappear will require investigation.
 
 ## Prometheus
 
