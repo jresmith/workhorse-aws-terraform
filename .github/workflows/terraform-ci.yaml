@@ -46,6 +46,9 @@ jobs:
         working-directory: workhorse/terraform
         run: tflint --recursive
 
+      - name: Show tfsec version
+        run: tfsec --version
+
       - name: TFsec security scan
         working-directory: workhorse/terraform
         run: tfsec .
