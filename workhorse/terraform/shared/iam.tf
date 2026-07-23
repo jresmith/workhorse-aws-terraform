@@ -18,7 +18,7 @@ resource "aws_iam_role" "cloudtrail_cloudwatch" {
   })
 }
 
-# CloudTrail creates log streams dynamically. 
+# CloudTrail creates log streams dynamically.
 # AWS requires the log-group ARN wildcard suffix (:*) for logs:CreateLogStream and logs:PutLogEvents.
 #tfsec:ignore:aws-iam-no-policy-wildcards
 resource "aws_iam_role_policy" "cloudtrail_cloudwatch_staging" {
