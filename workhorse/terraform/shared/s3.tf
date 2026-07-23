@@ -8,8 +8,8 @@ resource "aws_s3_bucket" "cloudtrail_prod" {
   force_destroy = true
 }
 
-#tfsec:ignore:aws-s3-encryption-customer-key
 # AES256 encryption is currently sufficient.
+#tfsec:ignore:aws-s3-encryption-customer-key
 resource "aws_s3_bucket_server_side_encryption_configuration" "cloudtrail_staging" {
   bucket = aws_s3_bucket.cloudtrail_staging.id
 
@@ -20,8 +20,8 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "cloudtrail_stagin
   }
 }
 
-#tfsec:ignore:aws-s3-encryption-customer-key
 # AES256 encryption is currently sufficient.
+#tfsec:ignore:aws-s3-encryption-customer-key
 resource "aws_s3_bucket_server_side_encryption_configuration" "cloudtrail_prod" {
   bucket = aws_s3_bucket.cloudtrail_prod.id
 
