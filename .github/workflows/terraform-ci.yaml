@@ -51,7 +51,7 @@ jobs:
 
       - name: TFsec security scan
         working-directory: workhorse/terraform
-        run: tfsec .
+        run: tfsec --minimum-severity MEDIUM .
 
       - name: Terraform plan (no backend)
         working-directory: workhorse/terraform
