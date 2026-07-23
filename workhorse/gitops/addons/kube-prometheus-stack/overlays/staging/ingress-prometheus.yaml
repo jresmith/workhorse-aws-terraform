@@ -20,10 +20,10 @@ spec:
     - host: prometheus.staging.jresmith.com
       http:
         paths:
-        - path: /
-          pathType: Prefix
-          backend:
-            service:
-              name: kube-prometheus-stack-prometheus
-              port:
-                number: 9090
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: kube-prometheus-stack-prometheus
+                port:
+                  number: 9090

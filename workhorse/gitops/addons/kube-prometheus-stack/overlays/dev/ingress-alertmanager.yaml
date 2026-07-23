@@ -16,10 +16,10 @@ spec:
     - host: alertmanager.dev.local
       http:
         paths:
-        - path: /
-          pathType: Prefix
-          backend:
-            service:
-              name: kube-prometheus-stack-alertmanager
-              port:
-                number: 9093
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: kube-prometheus-stack-alertmanager
+                port:
+                  number: 9093

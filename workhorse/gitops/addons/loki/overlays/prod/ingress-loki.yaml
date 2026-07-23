@@ -16,13 +16,13 @@ metadata:
 spec:
   ingressClassName: alb
   rules:
-  - host: loki.jresmith.com
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: loki-gateway
-            port:
-              number: 80
+    - host: loki.jresmith.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: loki-gateway
+                port:
+                  number: 80
