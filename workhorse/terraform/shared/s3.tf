@@ -8,6 +8,8 @@ resource "aws_s3_bucket" "cloudtrail_prod" {
   force_destroy = true
 }
 
+#tfsec:ignore:aws-s3-encryption-customer-key
+# AES256 encryption is currently sufficient.
 resource "aws_s3_bucket_server_side_encryption_configuration" "cloudtrail_staging" {
   bucket = aws_s3_bucket.cloudtrail_staging.id
 
@@ -18,6 +20,8 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "cloudtrail_stagin
   }
 }
 
+#tfsec:ignore:aws-s3-encryption-customer-key
+# AES256 encryption is currently sufficient.
 resource "aws_s3_bucket_server_side_encryption_configuration" "cloudtrail_prod" {
   bucket = aws_s3_bucket.cloudtrail_prod.id
 
@@ -44,6 +48,22 @@ resource "aws_s3_bucket_public_access_block" "cloudtrail_prod" {
   block_public_policy     = true
   ignore_public_acls      = true
   restrict_public_buckets = true
+}
+
+resource "aws_s3_bucket_versioning" "cloudtrail_staging" {
+  bucket = aws_s3_bucket.cloudtrail_staging.id
+
+  versioning_configuration {
+    status = "Enabled"
+  }
+}
+
+resource "aws_s3_bucket_versioning" "cloudtrail_prod" {
+  bucket = aws_s3_bucket.cloudtrail_prod.id
+
+  versioning_configuration {
+    status = "Enabled"
+  }
 }
 
 data "aws_caller_identity" "current" {}
