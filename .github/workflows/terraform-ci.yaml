@@ -22,13 +22,13 @@ jobs:
         with:
           terraform_version: 1.8.0
 
-      - name: Install Terraform tools (tflint, tfsec)
-        run: |
-          curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
-          sudo mv tflint /usr/local/bin/tflint
-          curl -sSL https://github.com/aquasecurity/tfsec/releases/latest/download/tfsec-linux-amd64 \
-            -o tfsec
-          sudo install tfsec /usr/local/bin/tfsec
+      - name: Setup TFLint
+        uses: terraform-linters/setup-tflint@v4
+
+      - name: Run tfsec
+        uses: aquasecurity/tfsec-action@v1.0.3
+        with:
+          working_directory: workhorse/terraform
 
       - name: Terraform fmt
         working-directory: workhorse/terraform
