@@ -18,6 +18,10 @@ resource "aws_iam_role" "cloudtrail_cloudwatch" {
   })
 }
 
+#tfsec:ignore:aws-iam-no-policy-wildcards
+# CloudTrail creates log streams dynamically.
+# AWS requires the log-group ARN wildcard suffix (:*)
+# for logs:CreateLogStream and logs:PutLogEvents.
 resource "aws_iam_role_policy" "cloudtrail_cloudwatch_staging" {
   name = "cloudtrail-cloudwatch"
   role = aws_iam_role.cloudtrail_cloudwatch.id
@@ -40,6 +44,10 @@ resource "aws_iam_role_policy" "cloudtrail_cloudwatch_staging" {
   })
 }
 
+#tfsec:ignore:aws-iam-no-policy-wildcards
+# CloudTrail creates log streams dynamically.
+# AWS requires the log-group ARN wildcard suffix (:*)
+# for logs:CreateLogStream and logs:PutLogEvents.
 resource "aws_iam_role_policy" "cloudtrail_cloudwatch_prod" {
   name = "cloudtrail-cloudwatch"
   role = aws_iam_role.cloudtrail_cloudwatch.id

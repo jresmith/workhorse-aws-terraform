@@ -1,20 +1,10 @@
 resource "aws_s3_bucket" "cloudtrail_staging" {
   bucket = "workhorse-staging-cloudtrail"
-
-  block_public_acls = true
-  block_public_policy = true
-  ignore_public_acls = true
-  restrict_public_buckets = true
   force_destroy = true
 }
 
 resource "aws_s3_bucket" "cloudtrail_prod" {
   bucket = "workhorse-prod-cloudtrail"
-
-  block_public_acls = true
-  block_public_policy = true
-  ignore_public_acls = true
-  restrict_public_buckets = true
   force_destroy = true
 }
 
@@ -36,6 +26,24 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "cloudtrail_prod" 
       sse_algorithm = "AES256"
     }
   }
+}
+
+resource "aws_s3_bucket_public_access_block" "cloudtrail_staging" {
+  bucket = aws_s3_bucket.cloudtrail_staging.id
+
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
+}
+
+resource "aws_s3_bucket_public_access_block" "cloudtrail_prod" {
+  bucket = aws_s3_bucket.cloudtrail_prod.id
+
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
 }
 
 data "aws_caller_identity" "current" {}
