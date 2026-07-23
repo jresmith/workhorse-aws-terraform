@@ -18,20 +18,20 @@ metadata:
 spec:
   ingressClassName: alb
   rules:
-  - host: emojivoto.staging.jresmith.com
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: web
-            port:
-              number: 8080
-      - path: /metrics
-        pathType: Prefix
-        backend:
-          service:
-            name: voting-svc
-            port:
-              number: 8801
+    - host: emojivoto.staging.jresmith.com
+      http:
+        paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: web
+              port:
+                number: 8080
+        - path: /metrics
+          pathType: Prefix
+          backend:
+            service:
+              name: voting-svc
+              port:
+                number: 8801

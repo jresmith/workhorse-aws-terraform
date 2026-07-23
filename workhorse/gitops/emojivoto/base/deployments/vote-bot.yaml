@@ -14,10 +14,10 @@ spec:
         app: vote-bot
     spec:
       containers:
-      - name: vote-bot
-        image: ghcr.io/jresmith/emojivoto-web:v1
-        command:
-        - emojivoto-vote-bot
+        - name: vote-bot
+          image: ghcr.io/jresmith/emojivoto-web:v1
+          command:
+            - emojivoto-vote-bot
         env:
-        - name: WEB_HOST
-          value: web:8080
+          - name: WEB_HOST
+            value: web:8080

@@ -14,18 +14,18 @@ spec:
         app: voting-svc
     spec:
       containers:
-      - name: voting-svc
-        image: ghcr.io/jresmith/emojivoto-voting-svc:v1
-        imagePullPolicy: Always
-        env:
-          - name: GRPC_PORT
-            value: "8080"
-          - name: PROM_PORT
-            value: "8801"
-          - name: FAILURE_RATE
-            value: "0.5"
-        ports:
-          - name: grpc
-            containerPort: 8080
-          - name: metrics
-            containerPort: 8801
+        - name: voting-svc
+          image: ghcr.io/jresmith/emojivoto-voting-svc:v1
+          imagePullPolicy: Always
+          env:
+            - name: GRPC_PORT
+              value: "8080"
+            - name: PROM_PORT
+              value: "8801"
+            - name: FAILURE_RATE
+              value: "0.5"
+          ports:
+            - name: grpc
+              containerPort: 8080
+            - name: metrics
+              containerPort: 8801

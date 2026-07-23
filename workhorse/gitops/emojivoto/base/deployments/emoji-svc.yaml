@@ -14,16 +14,16 @@ spec:
         app: emoji-svc
     spec:
       containers:
-      - name: emoji-svc
-        image: ghcr.io/jresmith/emojivoto-emoji-svc:v1
-        imagePullPolicy: Always
-        env:
-        - name: GRPC_PORT
-          value: "8080"
-        - name: PROM_PORT
-          value: "8801"
-        ports:
-          - name: grpc
-            containerPort: 8080
-          - name: metrics
-            containerPort: 8801
+        - name: emoji-svc
+          image: ghcr.io/jresmith/emojivoto-emoji-svc:v1
+          imagePullPolicy: Always
+          env:
+          - name: GRPC_PORT
+            value: "8080"
+          - name: PROM_PORT
+            value: "8801"
+          ports:
+            - name: grpc
+              containerPort: 8080
+            - name: metrics
+              containerPort: 8801
