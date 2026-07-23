@@ -46,8 +46,11 @@ jobs:
         working-directory: workhorse/terraform
         run: tflint --recursive
 
-      - name: Show tfsec version
-        run: tfsec --version
+      - name: Debug
+        run: |
+          pwd
+          tfsec --version
+          echo "Running tfsec with MEDIUM threshold"
 
       - name: TFsec security scan
         working-directory: workhorse/terraform
