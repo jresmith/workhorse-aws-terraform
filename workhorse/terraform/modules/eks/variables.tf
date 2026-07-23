@@ -25,11 +25,11 @@ variable "public_subnet_ids" {
   default = []
 }
 
-#variable "enable_cluster_encryption" {
-#  type        = bool
-#  description = "Enable cluster encryption (not required in Staging Enivironment)"
-#  default     = true
-#}
+# variable "enable_cluster_encryption" {
+#   type        = bool
+#   description = "Enable cluster encryption (not required in Staging Enivironment)"
+#   default     = true
+# }
 
 variable "node_group_instance_types" {
   type = list(string)
