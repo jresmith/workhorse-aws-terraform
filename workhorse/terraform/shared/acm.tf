@@ -1,4 +1,4 @@
-# Staging Certificate and domain validation
+# Staging certificate and domain validation
 resource "aws_acm_certificate" "staging" {
   domain_name       = "*.staging.jresmith.com"
   validation_method = "DNS"
