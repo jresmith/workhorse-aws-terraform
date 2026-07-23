@@ -25,11 +25,6 @@ jobs:
       - name: Setup TFLint
         uses: terraform-linters/setup-tflint@v4
 
-      - name: Run tfsec
-        uses: aquasecurity/tfsec-action@v1.0.3
-        with:
-          working_directory: workhorse/terraform
-
       - name: Terraform fmt
         working-directory: workhorse/terraform
         run: terraform fmt -check -recursive
@@ -45,12 +40,6 @@ jobs:
       - name: TFLint
         working-directory: workhorse/terraform
         run: tflint --recursive
-
-      - name: Debug
-        run: |
-          pwd
-          tfsec --version
-          echo "Running tfsec with MEDIUM threshold"
 
       - name: TFsec security scan
         working-directory: workhorse/terraform
