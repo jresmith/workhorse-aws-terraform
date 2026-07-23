@@ -52,7 +52,7 @@ alloy:
         }
       }
 
-serviceMonitor: 
+serviceMonitor:
   enabled: true
 
 podMonitor:

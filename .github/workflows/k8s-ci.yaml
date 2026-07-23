@@ -41,9 +41,10 @@ jobs:
           https://github.com/yannh/kubeconform/releases/download/${KUBECONFORM_VERSION}/kubeconform-linux-amd64.tar.gz
           tar -xzf kubeconform.tar.gz
           sudo install kubeconform /usr/local/bin/
+
       - name: YAML lint (raw manifests)
         run: |
-          yamllint workhorse/gitops
+          yamllint -c .yamllint.yaml workhorse/gitops
 
       - name: Kustomize build + kubeconform (overlays)
         run: |

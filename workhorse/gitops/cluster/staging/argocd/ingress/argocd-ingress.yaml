@@ -18,13 +18,13 @@ metadata:
 spec:
   ingressClassName: alb
   rules:
-  - host: argocd.staging.jresmith.com
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: argocd-server
-            port:
-              number: 443
+    - host: argocd.staging.jresmith.com
+      http:
+        paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: argocd-server
+              port:
+                number: 443

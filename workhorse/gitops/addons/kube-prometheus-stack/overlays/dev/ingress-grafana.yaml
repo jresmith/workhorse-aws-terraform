@@ -13,13 +13,13 @@ spec:
       secretName: grafana-dev
   ingressClassName: nginx
   rules:
-  - host: grafana.dev.local
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: kube-prometheus-stack-grafana
-            port:
-              number: 80
+    - host: grafana.dev.local
+      http:
+        paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: kube-prometheus-stack-grafana
+              port:
+                number: 80
