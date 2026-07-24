@@ -41,9 +41,11 @@ jobs:
         working-directory: workhorse/terraform
         run: tflint --recursive
 
-      - name: TFsec security scan
-        working-directory: workhorse/terraform
-        run: tfsec --minimum-severity MEDIUM .
+      - name: Run tfsec
+        uses: aquasecurity/tfsec-action@v1.0.3
+        with:
+          working_directory: workhorse/terraform
+          additional_args: --minimum-severity MEDIUM
 
       - name: Terraform plan (no backend)
         working-directory: workhorse/terraform
