@@ -59,6 +59,9 @@ module "lambda_promtail" {
   keep_stream     = false
   batch_size      = 131072
 
+  loki_username = var.loki_username
+  loki_password = var.loki_password
+
   extra_labels    = "platform,aws"
   relabel_configs = var.relabel_configs
 

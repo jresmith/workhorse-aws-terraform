@@ -1,3 +1,4 @@
+# tflint-ignore: terraform_unused_declarations
 locals {
   lambda_promtail_relabel_configs = jsonencode([
     {

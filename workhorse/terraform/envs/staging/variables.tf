@@ -108,10 +108,3 @@ variable "loki_password" {
   sensitive   = true
   default     = null
 }
-
-variable "loki_bearer_token" {
-  description = "Optional Loki bearer token."
-  type        = string
-  sensitive   = true
-  default     = null
-}
