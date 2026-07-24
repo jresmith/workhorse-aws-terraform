@@ -64,15 +64,14 @@
 * ~Create Staging Deployments~
 * ~Following terraform deployment, expose to the internet~
 * ~Set up Persistent volumes using EKS EBS CSI, use Helm chart to deploy - noting that additional IAM access is required first~
-* Configure Horizontal Pod Autoscaling (HPA) based on load
 
 ## EKS
 
 * ~Enable Cloudwatch logging (potentially add Agent and ADOT to cluster)~
 
 ## CI
-* Use runner to validate that k8s config in the repo is valid (YAML syntax is fine initially) 
-* Use runner to validate that terraform config in the repo is valid (`terraform validate` command`)
+* ~Use runner to validate that k8s config in the repo is valid (YAML syntax is fine initially)~
+* ~Use runner to validate that terraform config in the repo is valid (`terraform validate` command`)~
 
 ## CD
 
@@ -110,6 +109,10 @@
   - ~CloudTrail~
 
 # Phase 3 (Production & Auxilary Cloud Features)
+
+## K8s
+
+* Configure Horizontal Pod Autoscaling (HPA) based on load
 
 ## Terraform
 
