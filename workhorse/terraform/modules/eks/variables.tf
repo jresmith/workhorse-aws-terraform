@@ -23,7 +23,7 @@ variable "private_subnet_ids" {
 #   type        = bool
 #   description = "Enable cluster encryption (not required in Staging Enivironment)"
 #   default     = true
-## }
+# }
 
 variable "node_group_instance_types" {
   type        = list(string)
