@@ -1,5 +1,5 @@
-# tflint-ignore: terraform_unused_declarations
 locals {
+  # tflint-ignore: terraform_unused_declarations
   lambda_promtail_relabel_configs = jsonencode([
     {
       source_labels = ["__aws_cloudwatch_log_group"]

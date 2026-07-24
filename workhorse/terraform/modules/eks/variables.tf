@@ -19,12 +19,6 @@ variable "private_subnet_ids" {
   description = "ID of Private Subnet to be used - Generated as part of VPC Module"
 }
 
-variable "public_subnet_ids" {
-  type        = list(string)
-  description = "ID of Public Subnet to be used - Generated as part of VPC Module (Optional: used for load balances if needed)"
-  default     = []
-}
-
 # variable "enable_cluster_encryption" {
 #   type        = bool
 #   description = "Enable cluster encryption (not required in Staging Enivironment)"
