@@ -19,7 +19,7 @@ module "vpc" {
 module "eks" {
   source = "../../modules/eks"
 
-  cluster_name    = var.cluster_name
+  cluster_name       = var.cluster_name
   kubernetes_version = var.kubernetes_version
 
   vpc_id             = module.vpc.vpc_id
@@ -44,12 +44,12 @@ module "lambda_promtail" {
 
   name           = "workhorse-prod-lambda-promtail"
   environment    = "prod"
-  cluster_name = var.cluster_name
+  cluster_name   = var.cluster_name
   aws_account_id = "945503455271"
 
-  lambda_image_uri = var.lambda_promtail_image_uri
+  lambda_image_uri   = var.lambda_promtail_image_uri
   loki_write_address = var.loki_write_address
-  lambda_subnet_ids = module.vpc.private_subnets
+  lambda_subnet_ids  = module.vpc.private_subnets
   lambda_security_group_ids = [
     aws_security_group.lambda_promtail.id
   ]
@@ -59,7 +59,7 @@ module "lambda_promtail" {
   keep_stream     = false
   batch_size      = 131072
 
-  extra_labels = "platform,aws"
+  extra_labels    = "platform,aws"
   relabel_configs = var.relabel_configs
 
   log_group_names = toset([
@@ -73,8 +73,8 @@ module "lambda_promtail" {
     main = module.vpc.vpc_id
   }
 
-  vpc_flow_log_traffic_type     = "ALL"
-  vpc_flow_log_retention_days   = 14
+  vpc_flow_log_traffic_type   = "ALL"
+  vpc_flow_log_retention_days = 14
 
   enable_route53_resolver_logs = true
 

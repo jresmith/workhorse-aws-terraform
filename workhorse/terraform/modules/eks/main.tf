@@ -5,12 +5,12 @@ module "eks" {
   name               = var.cluster_name
   kubernetes_version = var.kubernetes_version
 
-  vpc_id             = var.vpc_id
-  subnet_ids         = var.private_subnet_ids
+  vpc_id     = var.vpc_id
+  subnet_ids = var.private_subnet_ids
 
   endpoint_public_access  = var.endpoint_public_access
   endpoint_private_access = var.endpoint_private_access
- 
+
   enable_cluster_creator_admin_permissions = var.enable_cluster_creator_admin_permissions
 
   addons = {
@@ -37,11 +37,11 @@ module "eks" {
     default = {
       instance_types = var.node_group_instance_types
 
-      desired_size   = var.desired_size
-      max_size       = var.max_size
-      min_size       = var.min_size
+      desired_size = var.desired_size
+      max_size     = var.max_size
+      min_size     = var.min_size
 
-      subnet_ids     = var.private_subnet_ids
+      subnet_ids = var.private_subnet_ids
     }
   }
 
@@ -53,7 +53,7 @@ module "eks" {
     "scheduler"
   ]
 
-  create_cloudwatch_log_group = true
+  create_cloudwatch_log_group            = true
   cloudwatch_log_group_retention_in_days = 30
 
   tags = var.tags

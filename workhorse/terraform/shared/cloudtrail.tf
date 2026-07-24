@@ -14,7 +14,7 @@ resource "aws_cloudtrail" "main_staging" {
   include_global_service_events = true
   is_multi_region_trail         = true
   enable_logging                = true
-  enable_log_file_validation = true
+  enable_log_file_validation    = true
 
   cloud_watch_logs_group_arn = "${aws_cloudwatch_log_group.cloudtrail_staging.arn}:*"
 
@@ -47,7 +47,7 @@ resource "aws_cloudtrail" "main_prod" {
   include_global_service_events = true
   is_multi_region_trail         = true
   enable_logging                = true
-  enable_log_file_validation = true
+  enable_log_file_validation    = true
 
   cloud_watch_logs_group_arn = "${aws_cloudwatch_log_group.cloudtrail_prod.arn}:*"
 

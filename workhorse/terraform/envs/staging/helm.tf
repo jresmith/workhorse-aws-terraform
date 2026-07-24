@@ -42,12 +42,12 @@ resource "helm_release" "aws_load_balancer_controller" {
 }
 
 resource "helm_release" "argocd" {
-  name       = "argocd"
-  namespace  = "argocd" 
+  name             = "argocd"
+  namespace        = "argocd"
   create_namespace = true
 
-  wait = true
-  timeout = 600
+  wait            = true
+  timeout         = 600
   cleanup_on_fail = true
 
   repository = "https://argoproj.github.io/argo-helm"
@@ -60,15 +60,15 @@ resource "helm_release" "argocd" {
 }
 
 resource "helm_release" "external_dns" {
-  name       = "external-dns"
-  namespace  = "kube-system"
+  name      = "external-dns"
+  namespace = "kube-system"
 
   repository = "https://kubernetes-sigs.github.io/external-dns/"
   chart      = "external-dns"
-  version = "1.21.1"
+  version    = "1.21.1"
 
-  wait = true
-  timeout = 600
+  wait            = true
+  timeout         = 600
   cleanup_on_fail = true
 
   set = [

@@ -150,8 +150,8 @@ variable "enable_vpc_flow_logs" {
 
 variable "vpc_ids_for_flow_logs" {
   description = "VPC IDs for VPC Flow Logs."
-  type = map(string)
-  default = {}
+  type        = map(string)
+  default     = {}
 }
 
 variable "vpc_flow_log_retention_days" {
@@ -179,8 +179,8 @@ variable "enable_route53_resolver_logs" {
 
 variable "vpc_ids_for_route53_resolver_logs" {
   description = "VPC IDs to associate with Route53 Resolver query logging."
-  type = map(string)
-  default = {}
+  type        = map(string)
+  default     = {}
 }
 
 variable "route53_resolver_log_retention_days" {

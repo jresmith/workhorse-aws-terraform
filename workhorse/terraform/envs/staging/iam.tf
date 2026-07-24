@@ -62,7 +62,7 @@ resource "aws_iam_policy" "external_dns" {
 
         Resource = [
           "arn:aws:route53:::hostedzone/Z04740503B1A4DFFP02PZ", # jresmith.com
-          "arn:aws:route53:::hostedzone/Z09250614J6F24ZG0EMQ" # staging.jresmith.com
+          "arn:aws:route53:::hostedzone/Z09250614J6F24ZG0EMQ"   # staging.jresmith.com
         ]
       },
 

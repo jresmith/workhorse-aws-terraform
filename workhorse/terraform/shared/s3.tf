@@ -1,14 +1,14 @@
 # Bucket Logging not required in demo env
 #tfsec:ignore:aws-s3-enable-bucket-logging
 resource "aws_s3_bucket" "cloudtrail_staging" {
-  bucket = "workhorse-staging-cloudtrail"
+  bucket        = "workhorse-staging-cloudtrail"
   force_destroy = true
 }
 
 # Bucket Logging not required in demo env
 #tfsec:ignore:aws-s3-enable-bucket-logging
 resource "aws_s3_bucket" "cloudtrail_prod" {
-  bucket = "workhorse-prod-cloudtrail"
+  bucket        = "workhorse-prod-cloudtrail"
   force_destroy = true
 }
 

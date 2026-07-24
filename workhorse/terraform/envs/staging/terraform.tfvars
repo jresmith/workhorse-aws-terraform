@@ -27,7 +27,7 @@ enable_nat_gateway = true
 single_nat_gateway = true
 
 # EKS Variables
-cluster_name    = "workhorse-staging-eks"
+cluster_name       = "workhorse-staging-eks"
 kubernetes_version = "1.30"
 
 node_group_instance_types = ["t3.large"]
@@ -38,7 +38,7 @@ min_size                  = 1
 # Promtail Variables
 
 lambda_promtail_image_uri = "945503455271.dkr.ecr.us-west-2.amazonaws.com/lambda-promtail:v2"
-loki_write_address = "https://loki.staging.jresmith.com/loki/api/v1/push"
+loki_write_address        = "https://loki.staging.jresmith.com/loki/api/v1/push"
 
 relabel_configs = [
   {
