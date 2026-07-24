@@ -47,8 +47,14 @@ jobs:
           working_directory: workhorse/terraform
           additional_args: --minimum-severity MEDIUM
 
-      - name: Terraform plan (no backend)
-        working-directory: workhorse/terraform
+      - name: Terraform plan staging (no backend)
+        working-directory: workhorse/terraform/envs/staging
+        env:
+          TF_VAR_example: "ci"
+        run: terraform plan -lock=false
+
+      - name: Terraform plan prod (no backend)
+        working-directory: workhorse/terraform/envs/prod
         env:
           TF_VAR_example: "ci"
         run: terraform plan -lock=false

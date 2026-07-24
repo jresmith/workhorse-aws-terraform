@@ -4,7 +4,7 @@ resource "aws_cloudwatch_log_group" "cloudtrail_staging" {
   retention_in_days = 30
 }
 
-# CloudTrail logs are encrypted via S3 SSE-AES256.
+# CloudTrail logs are encrypted via S3 SSE-AES256
 #tfsec:ignore:aws-cloudtrail-enable-at-rest-encryption
 resource "aws_cloudtrail" "main_staging" {
   name = "workhorse-staging"
