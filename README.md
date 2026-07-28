@@ -8,7 +8,7 @@
 * ~Create only a Dev enviroment (with separate Staging & Prod Deployments in later phases)~
 * ~Deploy cert-manager via helm to web frontend traffic~
 * ~Implement an ingress-nginx via helm~
-* ~Implement an ingress for argocd UI & CLI~
+* ~Implement an Ingress for argocd UI & CLI~
 * ~Use a basic secret, using different secrects for each of dev~
 
 ## Terraform
