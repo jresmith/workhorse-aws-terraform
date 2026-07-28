@@ -1,0 +1,470 @@
+@font-face {
+  font-family: Fogtwono5;
+  src: url('../fonts/FogtwoNo5.ttf') format("truetype"), url('../fonts/FogtwoNo5.otf') format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Baunk;
+  src: url('../fonts/Baunk.ttf') format("truetype"), url('../fonts/Baunk.otf') format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Moniqa;
+  src: url('../fonts/Moniqa-BlackHeading.otf') format("opentype");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Elanorfreepersonaluse exbdit;
+  src: url('../fonts/ElanorFreePersonalUse-ExBdIt.otf') format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Elanorfreepersonaluse extlt;
+  src: url('../fonts/ElanorFreePersonalUse-ExtLt.otf') format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Kalmansk;
+  src: url('../fonts/Kalmansk-Regular.otf') format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Bosch;
+  src: url('../fonts/Bosch.otf') format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Glorifydemo bw3j3;
+  src: url('../fonts/Glorifydemo-BW3J3.otf') format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --navy: #132257;
+  --gold: #f0d658;
+}
+
+body {
+  background-color: var(--navy);
+  color: #333;
+  font-family: Glorifydemo bw3j3, sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+h1 {
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 0;
+  font-family: Glorifydemo bw3j3, sans-serif;
+  font-size: 160px;
+  font-weight: 700;
+  line-height: 124px;
+  position: relative;
+}
+
+h2 {
+  z-index: 3;
+  color: var(--gold);
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font-family: Glorifydemo bw3j3, sans-serif;
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 40px;
+  position: relative;
+}
+
+.hero-section {
+  background-image: url('../images/Untitled-1.png');
+  background-position: 0 0;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  overflow: hidden;
+}
+
+.container {
+  z-index: 2;
+  max-width: 1290px;
+  padding-right: 5%;
+}
+
+.hero-visual {
+  -webkit-text-fill-color: inherit;
+  background-color: #0000;
+  background-image: url('../images/IMG_0752edit-1.jpg');
+  background-position: 0 0;
+  background-size: cover;
+  background-clip: border-box;
+  border-radius: 20px;
+  width: 35%;
+  height: 380px;
+  padding-bottom: 0;
+  position: relative;
+  top: 25vh;
+}
+
+.hero-visual.right {
+  background-image: url('../images/images-1.jpeg');
+  background-position: 50%;
+  background-size: cover;
+  width: 25%;
+  top: -11.4vh;
+  left: 85%;
+}
+
+.hero-visual._2nd-right {
+  background-image: url('../images/pexels-yan-miranda-3378662.jpg');
+  background-position: 100%;
+  background-size: contain;
+  width: 25%;
+  top: -43.6vh;
+  left: 85%;
+}
+
+.hero-visual._2nd-left {
+  background-image: url('../images/gideon-hezekiah-tRf6Fu3RYE4-unsplash.jpg');
+  top: -18vh;
+}
+
+.big-text {
+  z-index: 3;
+  color: #f2e6d8;
+  text-transform: capitalize;
+  font-family: Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;
+  display: block;
+  top: -40px;
+}
+
+.big-text._2 {
+  top: -41vh;
+}
+
+.small-text-1 {
+  font-family: Lato, sans-serif;
+  top: -24vh;
+  left: 20%;
+}
+
+.small-text-1._2 {
+  top: -32.2vh;
+  left: 65%;
+}
+
+.small-text-1._3 {
+  top: -45.1vh;
+  left: 20%;
+}
+
+.small-text-1._4 {
+  top: -66.6vh;
+  left: 65%;
+}
+
+.fixed-banner {
+  z-index: 2147483647;
+  width: 100%;
+  margin-bottom: 16px;
+  position: fixed;
+  bottom: 0;
+}
+
+.hero-text {
+  width: 100%;
+  max-width: 700px;
+  font-size: 20px;
+}
+
+.hero-text.sticky {
+  color: #000;
+  text-align: center;
+  max-width: none;
+  padding-top: 16px;
+  padding-bottom: 16px;
+  font-family: Lato, sans-serif;
+  font-size: 18px;
+  font-style: normal;
+  line-height: 120%;
+}
+
+.email-sticky-link {
+  color: #ff6e41;
+  font-weight: 700;
+}
+
+.cross-wrapper {
+  cursor: pointer;
+  justify-content: center;
+  align-items: center;
+  width: auto;
+  height: 100%;
+  padding: 16px 32px;
+  display: flex;
+}
+
+.cross-icon-sticky {
+  width: 20px;
+  height: 20px;
+}
+
+.sticky-container-marketing {
+  width: 1160px;
+  max-width: 95%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.sticky-container-marketing.bg-color {
+  background-color: #fff;
+  border-radius: 60px;
+  justify-content: center;
+  align-items: center;
+  width: auto;
+  max-width: none;
+  height: 100%;
+  padding: 0 0 0 32px;
+  display: flex;
+}
+
+.fixed-banner-2 {
+  z-index: 2147483647;
+  width: 100%;
+  margin-bottom: 16px;
+  padding-left: 5%;
+  padding-right: 5%;
+  position: fixed;
+  bottom: 0;
+}
+
+.email-sticky-link-2 {
+  color: #ff6e41;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 120%;
+}
+
+.body {
+  background-color: var(--navy);
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
+  background-image: linear-gradient(#3c00ff80, #3c00ff80);
+  box-shadow: 0 2px 5px #0003;
+}
+
+@media screen and (max-width: 991px) {
+  h1 {
+    font-size: 120px;
+    line-height: 111px;
+  }
+
+  h2 {
+    font-size: 30px;
+    line-height: 35px;
+  }
+
+  .hero-visual.right, .hero-visual._2nd-right {
+    width: 35%;
+    left: 70%;
+  }
+
+  .small-text-1 {
+    left: 29%;
+  }
+
+  .small-text-1._2 {
+    left: 50%;
+  }
+
+  .small-text-1._3 {
+    left: 29%;
+  }
+
+  .small-text-1._4 {
+    left: 50%;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  h1 {
+    font-size: 100px;
+    line-height: 111px;
+  }
+
+  h2 {
+    font-size: 25px;
+    line-height: 27px;
+  }
+
+  .hero-visual {
+    width: 45%;
+  }
+
+  .hero-visual.right {
+    width: 45%;
+    top: -8.7vh;
+    left: 60%;
+  }
+
+  .hero-visual._2nd-right {
+    width: 45%;
+    left: 60%;
+  }
+
+  .small-text-1 {
+    left: 38%;
+  }
+
+  .small-text-1._2 {
+    left: 45%;
+  }
+
+  .small-text-1._3 {
+    left: 38%;
+  }
+
+  .small-text-1._4 {
+    left: 45%;
+  }
+
+  .hero-text.sticky {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 16px;
+  }
+
+  .cross-wrapper {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .sticky-container-marketing.bg-color {
+    padding-left: 20px;
+  }
+
+  .email-sticky-link-2 {
+    font-size: 16px;
+  }
+}
+
+@media screen and (max-width: 479px) {
+  h1 {
+    font-size: 56px;
+  }
+
+  .hero-visual {
+    width: 50%;
+  }
+
+  .hero-visual.right, .hero-visual._2nd-right {
+    width: 50%;
+    left: 58%;
+  }
+
+  .big-text {
+    top: 6px;
+  }
+
+  .small-text-1 {
+    top: -21vh;
+  }
+
+  .small-text-1._2 {
+    top: -32.9vh;
+    left: 20%;
+  }
+
+  .small-text-1._4 {
+    left: 20%;
+  }
+
+  .hero-text {
+    font-size: 16px;
+    line-height: 26px;
+  }
+
+  .hero-text.sticky, .email-sticky-link-2 {
+    font-size: 14px;
+  }
+}
+
+
+@font-face {
+  font-family: 'Fogtwono5';
+  src: url('../fonts/FogtwoNo5.ttf') format('truetype'), url('../fonts/FogtwoNo5.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Baunk';
+  src: url('../fonts/Baunk.ttf') format('truetype'), url('../fonts/Baunk.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Moniqa';
+  src: url('../fonts/Moniqa-BlackHeading.otf') format('opentype');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Elanorfreepersonaluse exbdit';
+  src: url('../fonts/ElanorFreePersonalUse-ExBdIt.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Elanorfreepersonaluse extlt';
+  src: url('../fonts/ElanorFreePersonalUse-ExtLt.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Kalmansk';
+  src: url('../fonts/Kalmansk-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Bosch';
+  src: url('../fonts/Bosch.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Glorifydemo bw3j3';
+  src: url('../fonts/Glorifydemo-BW3J3.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}

@@ -185,31 +185,86 @@
 * Warm ENIs/IP addresses (for scaling & redundancy)
 * could use prefix delegation and IPv6
 
-## Runbooks
-
-* If X happens, follow these steps
-  - Pod CrashLoopBackOff
-  - ArgoCD Out of Sync
-  - Loki ingestion failing
-  - Prometheus scraping failures
-* Each must include:
-  - Symptoms
-  - How to diagnose
-  - Root cause patterns
-  - Remediation Steps
-  - Preventions / Long term fixes
-
 ## Monitoring Strategy
 
 * What to Monitor & why
 * How alerts are structured
-* SLIs/SLOs
 * How logs and Metrics connect
+* Where we get logs
+  - Application Logs
+  - Load Balancer / Ingress Metrics
+  - Syntetic Testing (vote-bot)
+  - Client-Side (accessing UI myself)
 * Dashboards I've built
   - Purpose
   - Key panels
   - Why these metrics matter
   - How to interpret anomolies 
+
+## Expectations
+
+* How can the app fail?
+* What is an acceptable failure?
+  - Malformed requetss faul
+* Are all the users treated the same
+* What is an error?
+ - 400 or 500 from the app
+ - 400 or 500 from ALB/Proxy/Ingress Controller
+
+## Monitoring Ojectives
+
+* List of Emojis can be viewed
+  - Emojo Catalogue Avalibility
+  - Emojo Catalogue Latency
+* Votes can be cast
+  - UI (web service) Availibility
+  - UI (web service) Latency
+  - Vote Cast (Voting Service) Availibility
+  - Vote Cast (Voting Service) Latency
+  - Vote Processing Success Rate
+  - [End-to-end] Vote Processing time
+* Leaderboard can be viewed
+
+### SLIs (Measurements)
+
+* Availibility
+  - Http Requests Total (`sum(rate(http_requests_total[5m]))`)
+  - Error Counts (`sum(rate(http_requests_total{status=~"5.."}[5m]))`)
+  - Success Ratio (`rate(http_successes[5m] / rate(http_total[5m])`)
+  - API Availability (5m) (`avg_over_time(probe_success{endpoint="/health"}[5m])`)
+
+* Latency
+  - Response Latency (use histograms)
+  - p95 latancy (`histogram_quantile(0.95,rate(http_request_duration_seconds_bucket[5m]))`
+  - p99 latancy (`histogram_quantile(0.99,rate(http_request_duration_seconds_bucket[5m]))`
+  - Outliers (`count_over_time(http_request_duration_seconds{le="1"}[5m]) < count_over_time(http_request_total[5m])`)
+
+* Errors
+  - http_errors / http_total
+  - Error Rates (`sum(rate(http_request_errors_total[5m])) / sum(rate(http_requests_total[5m]))`)
+  - Request Success Rate
+
+* Throughput
+  - Requests per Second (`sum(rate(http_requests_total[5m]))`)
+  - rate(request counter metric)
+
+* Saturation - Golden Signals 
+  - CPU utilization stays below 80% during peak hours
+  cpu_usage / cpu_limit
+
+### SLOs (Internal Targets)
+
+* 99.9% of API requests should succeed (web, voting-svc, emoji-svc)
+* 99% of requests should complete within 300ms
+ - Why? Research shows users get impatient after 300ms
+* 99.9% of votes should process successfully
+* 95% of votes should process within 2 seconds
+ - Why? Research shows customer satisfaction drops after that point
+
+
+### SLAs (External Promises)
+
+* 99.9% Uptime
 
 ## SOPs
 
@@ -233,6 +288,20 @@
   - Fix 
   - Preventions
   - What I learned
+
+## Runbooks
+
+* If X happens, follow these steps
+  - Pod CrashLoopBackOff
+  - ArgoCD Out of Sync
+  - Loki ingestion failing
+  - Prometheus scraping failures
+* Each must include:
+  - Symptoms
+  - How to diagnose
+  - Root cause patterns
+  - Remediation Steps
+  - Preventions / Long term fixes
 
 ## Postmortem
 
