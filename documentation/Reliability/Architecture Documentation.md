@@ -4,3 +4,5 @@
 * Deployment Model (ArgoCd Gitops + Github, Terraform, Helm)
 * Networking (Load Balancers, Ingress, Pod Networking) & Security (IAM for Service accounts, Sealed Secets)
 * Storage (EBS, S3)
+
+## Resiliancy
