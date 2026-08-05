@@ -1,0 +1,137 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mxfile host="app.diagrams.net" modified="2026-08-05T06:15:00.000Z" agent="Microsoft 365 Copilot" version="26.0.0" type="device">
+  <diagram id="workhorse-cicd" name="CI-CD Pipeline Architecture">
+    <mxGraphModel dx="1800" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1920" pageHeight="1080" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" value="Workhorse EKS Lab | CI/CD Pipeline Architecture" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=28;fontStyle=1;fontColor=#0F172A;" vertex="1" parent="1">
+          <mxGeometry x="40" y="22" width="1200" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="subtitle" value="Commit → Build → Test → Deploy → Verify | GitLab CI with pull-based Argo CD delivery" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=13;fontColor=#475569;" vertex="1" parent="1">
+          <mxGeometry x="42" y="64" width="1000" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="ci_lane" value="Continuous Integration | GitLab" style="swimlane;html=1;startSize=42;rounded=1;arcSize=10;horizontal=1;fillColor=#FCF4FF;swimlaneFillColor=#FFFFFF;strokeColor=#A855F7;strokeWidth=2;fontSize=16;fontStyle=1;fontColor=#6B21A8;" vertex="1" parent="1">
+          <mxGeometry x="40" y="120" width="1800" height="310" as="geometry" />
+        </mxCell>
+        <mxCell id="cd_lane" value="Continuous Delivery | Argo CD Pull Model" style="swimlane;html=1;startSize=42;rounded=1;arcSize=10;horizontal=1;fillColor=#FFF1F2;swimlaneFillColor=#FFFFFF;strokeColor=#F43F5E;strokeWidth=2;fontSize=16;fontStyle=1;fontColor=#9F1239;" vertex="1" parent="1">
+          <mxGeometry x="40" y="465" width="1800" height="220" as="geometry" />
+        </mxCell>
+        <mxCell id="aws_lane" value="Runtime Target | AWS / Amazon EKS" style="swimlane;html=1;startSize=42;rounded=1;arcSize=10;horizontal=1;fillColor=#FFF7ED;swimlaneFillColor=#FFFFFF;strokeColor=#F59E0B;strokeWidth=2;fontSize=16;fontStyle=1;fontColor=#9A3412;" vertex="1" parent="1">
+          <mxGeometry x="40" y="720" width="1800" height="230" as="geometry" />
+        </mxCell>
+        <mxCell id="developer" value="Developer&lt;br&gt;&lt;font style=&quot;font-size:11px;font-weight:normal&quot;&gt;Commit / merge request&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=16;fillColor=#F8FAFC;strokeColor=#64748B;strokeWidth=2;fontColor=#0F172A;fontSize=13;fontStyle=1;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="80" y="205" width="165" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="gitlab_repo" value="GitLab Repository&lt;br&gt;&lt;font style=&quot;font-size:11px;font-weight:normal&quot;&gt;Source and pipeline definition&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=16;fillColor=#F8FAFC;strokeColor=#64748B;strokeWidth=2;fontColor=#0F172A;fontSize=13;fontStyle=1;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="285" y="205" width="190" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="build" value="BUILD&lt;br&gt;&lt;font style=&quot;font-size:11px;font-weight:normal&quot;&gt;Validate · compile/package&lt;br&gt;Build container image&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=16;fillColor=#EFF6FF;strokeColor=#2563EB;strokeWidth=2;fontColor=#1E3A8A;fontSize=13;fontStyle=1;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="515" y="190" width="195" height="105" as="geometry" />
+        </mxCell>
+        <mxCell id="test" value="TEST&lt;br&gt;&lt;font style=&quot;font-size:11px;font-weight:normal&quot;&gt;Formatting / linting&lt;br&gt;Terraform validation&lt;br&gt;Kubernetes validation&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=16;fillColor=#F0FDF4;strokeColor=#16A34A;strokeWidth=2;fontColor=#14532D;fontSize=13;fontStyle=1;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="750" y="190" width="205" height="105" as="geometry" />
+        </mxCell>
+        <mxCell id="security" value="SECURITY SCANS&lt;br&gt;&lt;font style=&quot;font-size:11px;font-weight:normal&quot;&gt;IaC and configuration scanning&lt;br&gt;Dependency / image scanning&lt;br&gt;Fail on policy threshold&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=16;fillColor=#FEF2F2;strokeColor=#DC2626;strokeWidth=2;fontColor=#7F1D1D;fontSize=13;fontStyle=1;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="995" y="180" width="225" height="125" as="geometry" />
+        </mxCell>
+        <mxCell id="gate" value="Quality &amp;amp;&lt;br&gt;Security Gate" style="rhombus;whiteSpace=wrap;html=1;fillColor=#FFF7ED;strokeColor=#EA580C;strokeWidth=2;fontColor=#7C2D12;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1260" y="195" width="120" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="registry" value="Container Registry&lt;br&gt;&lt;font style=&quot;font-size:11px;font-weight:normal&quot;&gt;Publish immutable image tag&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=16;fillColor=#FFFBEB;strokeColor=#D97706;strokeWidth=2;fontColor=#78350F;fontSize=13;fontStyle=1;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="1420" y="180" width="185" height="95" as="geometry" />
+        </mxCell>
+        <mxCell id="manifest_update" value="GitOps Change&lt;br&gt;&lt;font style=&quot;font-size:11px;font-weight:normal&quot;&gt;Update image tag / desired state&lt;br&gt;in GitLab repository&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=16;fillColor=#FFFBEB;strokeColor=#D97706;strokeWidth=2;fontColor=#78350F;fontSize=13;fontStyle=1;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="1640" y="180" width="165" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="ci_fail" value="Any failed build, test, or security gate stops promotion and reports status to the merge request." style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;fillColor=#F8FAFC;strokeColor=#CBD5E1;dashed=1;fontColor=#475569;fontSize=11;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="750" y="335" width="630" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="argocd" value="Argo CD&lt;br&gt;&lt;font style=&quot;font-size:11px;font-weight:normal&quot;&gt;Polls / watches GitLab&lt;br&gt;Detects desired-state change&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=16;fillColor=#FFF1F2;strokeColor=#E11D48;strokeWidth=2;fontColor=#881337;fontSize=13;fontStyle=1;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="300" y="530" width="220" height="92" as="geometry" />
+        </mxCell>
+        <mxCell id="sync" value="SYNC &amp;amp; DEPLOY&lt;br&gt;&lt;font style=&quot;font-size:11px;font-weight:normal&quot;&gt;Apply Kubernetes manifests&lt;br&gt;Reconcile drift&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=16;fillColor=#FFF1F2;strokeColor=#E11D48;strokeWidth=2;fontColor=#881337;fontSize=13;fontStyle=1;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="660" y="530" width="220" height="92" as="geometry" />
+        </mxCell>
+        <mxCell id="strategy" value="Deployment Strategy&lt;br&gt;&lt;font style=&quot;font-size:11px;font-weight:normal&quot;&gt;Kubernetes rolling update&lt;br&gt;Readiness gates control rollout&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=16;fillColor=#FFF1F2;strokeColor=#E11D48;strokeWidth=2;fontColor=#881337;fontSize=13;fontStyle=1;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="1020" y="525" width="235" height="102" as="geometry" />
+        </mxCell>
+        <mxCell id="health" value="Argo CD Health&lt;br&gt;&lt;font style=&quot;font-size:11px;font-weight:normal&quot;&gt;Sync and resource health status&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=16;fillColor=#ECFDF5;strokeColor=#059669;strokeWidth=2;fontColor=#064E3B;fontSize=13;fontStyle=1;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="1400" y="530" width="220" height="92" as="geometry" />
+        </mxCell>
+        <mxCell id="ingress" value="Ingress / AWS Load Balancer" style="rounded=1;whiteSpace=wrap;html=1;arcSize=16;fillColor=#FFFBEB;strokeColor=#D97706;strokeWidth=2;fontColor=#78350F;fontSize=13;fontStyle=1;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="235" y="800" width="230" height="72" as="geometry" />
+        </mxCell>
+        <mxCell id="eks" value="Amazon EKS Cluster" style="swimlane;html=1;startSize=32;rounded=1;arcSize=10;horizontal=1;fillColor=#EFF6FF;swimlaneFillColor=#FFFFFF;strokeColor=#2563EB;strokeWidth=2;fontSize=14;fontStyle=1;fontColor=#1E40AF;" vertex="1" parent="1">
+          <mxGeometry x="580" y="785" width="850" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="nodes" value="Worker Nodes" style="rounded=1;whiteSpace=wrap;html=1;arcSize=16;fillColor=#F0FDF4;strokeColor=#16A34A;strokeWidth=2;fontColor=#14532D;fontSize=13;fontStyle=1;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="635" y="835" width="175" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="workload_old" value="Existing Pods" style="rounded=1;whiteSpace=wrap;html=1;arcSize=16;fillColor=#F8FAFC;strokeColor=#64748B;strokeWidth=2;fontColor=#0F172A;fontSize=13;fontStyle=1;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="850" y="835" width="175" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="workload_new" value="New Version Pods" style="rounded=1;whiteSpace=wrap;html=1;arcSize=16;fillColor=#ECFDF5;strokeColor=#059669;strokeWidth=2;fontColor=#064E3B;fontSize=13;fontStyle=1;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="1065" y="835" width="205" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="verify" value="VERIFY&lt;br&gt;&lt;font style=&quot;font-size:11px;font-weight:normal&quot;&gt;Readiness / liveness&lt;br&gt;Smoke checks&lt;br&gt;Argo CD sync + health&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=16;fillColor=#ECFDF5;strokeColor=#059669;strokeWidth=2;fontColor=#064E3B;fontSize=13;fontStyle=1;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="1535" y="790" width="220" height="105" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" value="Commit / merge" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#475569;fontColor=#334155;fontSize=11;labelBackgroundColor=#FFFFFF;" edge="1" parent="1" source="developer" target="gitlab_repo">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" value="Pipeline starts" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#475569;fontColor=#334155;fontSize=11;labelBackgroundColor=#FFFFFF;" edge="1" parent="1" source="gitlab_repo" target="build">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#475569;fontColor=#334155;fontSize=11;labelBackgroundColor=#FFFFFF;" edge="1" parent="1" source="build" target="test">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e4" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#475569;fontColor=#334155;fontSize=11;labelBackgroundColor=#FFFFFF;" edge="1" parent="1" source="test" target="security">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e5" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#475569;fontColor=#334155;fontSize=11;labelBackgroundColor=#FFFFFF;" edge="1" parent="1" source="security" target="gate">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e6" value="Pass" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#475569;fontColor=#334155;fontSize=11;labelBackgroundColor=#FFFFFF;" edge="1" parent="1" source="gate" target="registry">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e7" value="Image reference" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#475569;fontColor=#334155;fontSize=11;labelBackgroundColor=#FFFFFF;" edge="1" parent="1" source="registry" target="manifest_update">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e8" value="Argo CD pulls desired state" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=3;strokeColor=#E11D48;dashed=1;dashPattern=7 4;fontColor=#881337;fontSize=11;labelBackgroundColor=#FFFFFF;" edge="1" parent="1" source="manifest_update" target="argocd">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e9" value="Change detected" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=3;strokeColor=#E11D48;dashed=1;dashPattern=7 4;fontColor=#881337;fontSize=11;labelBackgroundColor=#FFFFFF;" edge="1" parent="1" source="argocd" target="sync">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e10" value="Reconcile" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=3;strokeColor=#E11D48;dashed=1;dashPattern=7 4;fontColor=#881337;fontSize=11;labelBackgroundColor=#FFFFFF;" edge="1" parent="1" source="sync" target="strategy">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e11" value="Observe rollout" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=3;strokeColor=#E11D48;dashed=1;dashPattern=7 4;fontColor=#881337;fontSize=11;labelBackgroundColor=#FFFFFF;" edge="1" parent="1" source="strategy" target="health">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e12" value="Deploy to EKS" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=3;strokeColor=#E11D48;dashed=1;dashPattern=7 4;fontColor=#881337;fontSize=11;labelBackgroundColor=#FFFFFF;" edge="1" parent="1" source="sync" target="workload_new">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e13" value="Pull immutable image" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#D97706;dashed=1;dashPattern=6 4;fontColor=#78350F;fontSize=11;labelBackgroundColor=#FFFFFF;" edge="1" parent="1" source="registry" target="workload_new">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e14" value="Traffic after readiness" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#475569;fontColor=#334155;fontSize=11;labelBackgroundColor=#FFFFFF;" edge="1" parent="1" source="ingress" target="workload_new">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e15" value="Rolling replacement" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#2563EB;dashed=1;fontColor=#1E40AF;fontSize=11;labelBackgroundColor=#FFFFFF;" edge="1" parent="1" source="workload_old" target="workload_new">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e16" value="Health result" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#475569;fontColor=#334155;fontSize=11;labelBackgroundColor=#FFFFFF;" edge="1" parent="1" source="health" target="verify">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e17" value="Runtime checks" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#475569;fontColor=#334155;fontSize=11;labelBackgroundColor=#FFFFFF;" edge="1" parent="1" source="workload_new" target="verify">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e18" value="Feedback / remediate on failure" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#DC2626;dashed=1;dashPattern=4 4;fontColor=#7F1D1D;fontSize=11;labelBackgroundColor=#FFFFFF;" edge="1" parent="1" source="verify" target="developer">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

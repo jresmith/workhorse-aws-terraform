@@ -70,3 +70,8 @@
 * New Dashboard based on SLAs. Show how much Error Budget has been consumed
 * New Dashboard Level 1: Service Health OverView. "Is Everything Okay?"
 
+## Final Polish
+
+* Tidy Up Readme
+* Video demoing enivironment
+
