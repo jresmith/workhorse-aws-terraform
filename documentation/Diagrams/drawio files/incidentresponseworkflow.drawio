@@ -1,0 +1,80 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Incident Response Workflow" id="oBPT_iodGKSklJzInEF0">
+    <mxGraphModel dx="1030" dy="527" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="pl6w_ltn8lGWc7O0vMAa-1" parent="1" style="rounded=1;whiteSpace=wrap;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="Alert Sources&#xa;- CloudWatch&#xa;- Prometheus&#xa;- Loki&#xa;- ALB 5xx" vertex="1">
+          <mxGeometry height="120" width="220" x="100" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="pl6w_ltn8lGWc7O0vMAa-2" parent="1" style="rounded=1;whiteSpace=wrap;fillColor=#ffe6cc;strokeColor=#d79b00;" value="PagerDuty Routing&#xa;SRE On-Call Notified" vertex="1">
+          <mxGeometry height="80" width="220" x="100" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="pl6w_ltn8lGWc7O0vMAa-3" edge="1" parent="1" source="pl6w_ltn8lGWc7O0vMAa-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;strokeColor=#000000;" target="pl6w_ltn8lGWc7O0vMAa-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pl6w_ltn8lGWc7O0vMAa-4" parent="1" style="rounded=1;whiteSpace=wrap;fillColor=#d5e8d4;strokeColor=#82b366;" value="Initial Triage&#xa;- Grafana dashboards&#xa;- EKS node groups&#xa;- kubectl events&#xa;- Mesh telemetry&#xa;- ArgoCD deploy history" vertex="1">
+          <mxGeometry height="150" width="260" x="100" y="320" as="geometry" />
+        </mxCell>
+        <mxCell id="pl6w_ltn8lGWc7O0vMAa-5" edge="1" parent="1" source="pl6w_ltn8lGWc7O0vMAa-2" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#000000;" target="pl6w_ltn8lGWc7O0vMAa-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pl6w_ltn8lGWc7O0vMAa-6" parent="1" style="rhombus;whiteSpace=wrap;fillColor=#fff2cc;strokeColor=#d6b656;" value="Severity Decision&#xa;P1 or P2/P3?" vertex="1">
+          <mxGeometry height="100" width="160" x="140" y="500" as="geometry" />
+        </mxCell>
+        <mxCell id="pl6w_ltn8lGWc7O0vMAa-7" edge="1" parent="1" source="pl6w_ltn8lGWc7O0vMAa-4" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#000000;" target="pl6w_ltn8lGWc7O0vMAa-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pl6w_ltn8lGWc7O0vMAa-8" parent="1" style="rounded=1;whiteSpace=wrap;fillColor=#f8cecc;strokeColor=#b85450;" value="War Room Activated&#xa;- IC Assigned&#xa;- Cross-team escalation&#xa;- Status page updates" vertex="1">
+          <mxGeometry height="140" width="260" x="20" y="650" as="geometry" />
+        </mxCell>
+        <mxCell id="pl6w_ltn8lGWc7O0vMAa-9" edge="1" parent="1" source="pl6w_ltn8lGWc7O0vMAa-6" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#000000;" target="pl6w_ltn8lGWc7O0vMAa-8">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="100" y="600" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="pl6w_ltn8lGWc7O0vMAa-10" parent="1" style="rounded=1;whiteSpace=wrap;fillColor=#e1d5e7;strokeColor=#9673a6;" value="Continue Investigation&#xa;- No broad escalation" vertex="1">
+          <mxGeometry height="100" width="260" x="330" y="650" as="geometry" />
+        </mxCell>
+        <mxCell id="pl6w_ltn8lGWc7O0vMAa-11" edge="1" parent="1" source="pl6w_ltn8lGWc7O0vMAa-6" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#000000;" target="pl6w_ltn8lGWc7O0vMAa-10">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="400" y="600" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="pl6w_ltn8lGWc7O0vMAa-12" parent="1" style="rounded=1;whiteSpace=wrap;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="Deep Investigation&#xa;- Logs (Loki)&#xa;- Nodes (CloudWatch)&#xa;- Mesh telemetry&#xa;- ArgoCD history&#xa;- Resource limits" vertex="1">
+          <mxGeometry height="160" width="300" x="180" y="820" as="geometry" />
+        </mxCell>
+        <mxCell id="pl6w_ltn8lGWc7O0vMAa-13" edge="1" parent="1" source="pl6w_ltn8lGWc7O0vMAa-8" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#000000;" target="pl6w_ltn8lGWc7O0vMAa-12">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pl6w_ltn8lGWc7O0vMAa-14" edge="1" parent="1" source="pl6w_ltn8lGWc7O0vMAa-10" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#000000;" target="pl6w_ltn8lGWc7O0vMAa-12">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pl6w_ltn8lGWc7O0vMAa-15" parent="1" style="rounded=1;whiteSpace=wrap;fillColor=#d5e8d4;strokeColor=#82b366;" value="Containment Actions&#xa;- Rollback deploy&#xa;- Isolate node group&#xa;- Mesh failover&#xa;- Disable feature flag" vertex="1">
+          <mxGeometry height="140" width="300" x="180" y="1020" as="geometry" />
+        </mxCell>
+        <mxCell id="pl6w_ltn8lGWc7O0vMAa-16" edge="1" parent="1" source="pl6w_ltn8lGWc7O0vMAa-12" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#000000;" target="pl6w_ltn8lGWc7O0vMAa-15">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pl6w_ltn8lGWc7O0vMAa-17" parent="1" style="rounded=1;whiteSpace=wrap;fillColor=#ffe6cc;strokeColor=#d79b00;" value="Eradication&#xa;- Patch image&#xa;- Fix Terraform module&#xa;- Rotate IAM creds&#xa;- Update HPA config" vertex="1">
+          <mxGeometry height="140" width="300" x="180" y="1180" as="geometry" />
+        </mxCell>
+        <mxCell id="pl6w_ltn8lGWc7O0vMAa-18" edge="1" parent="1" source="pl6w_ltn8lGWc7O0vMAa-15" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#000000;" target="pl6w_ltn8lGWc7O0vMAa-17">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pl6w_ltn8lGWc7O0vMAa-19" parent="1" style="rounded=1;whiteSpace=wrap;fillColor=#f8cecc;strokeColor=#b85450;" value="Recovery&#xa;- Reintroduce traffic&#xa;- Validate autoscaling&#xa;- Validate node health&#xa;- Validate SLOs" vertex="1">
+          <mxGeometry height="140" width="300" x="180" y="1340" as="geometry" />
+        </mxCell>
+        <mxCell id="pl6w_ltn8lGWc7O0vMAa-20" edge="1" parent="1" source="pl6w_ltn8lGWc7O0vMAa-17" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#000000;" target="pl6w_ltn8lGWc7O0vMAa-19">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pl6w_ltn8lGWc7O0vMAa-21" parent="1" style="rounded=1;whiteSpace=wrap;fillColor=#e1d5e7;strokeColor=#9673a6;" value="Post-Incident Review&#xa;- Timeline&#xa;- Root cause&#xa;- Action items&#xa;- Runbook updates" vertex="1">
+          <mxGeometry height="140" width="300" x="180" y="1500" as="geometry" />
+        </mxCell>
+        <mxCell id="pl6w_ltn8lGWc7O0vMAa-22" edge="1" parent="1" source="pl6w_ltn8lGWc7O0vMAa-19" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#000000;" target="pl6w_ltn8lGWc7O0vMAa-21">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
