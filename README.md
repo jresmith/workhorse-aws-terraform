@@ -6,15 +6,7 @@
 
 ## 📚 Contents
 
-- #-project-overview
-- #-macro-architecture-diagram
-- #-lab-artifacts
-- [Technologyy-stack
-- [Architecturee--design-principles
-- [Repositoryy-layout
-- [How to Open Diagrams](#-howase-studies
-- [Platform Maturity Model](#-platform-maturityents
-- [Aboutt-me
+- 🚧 Planned
 
 ---
 
@@ -53,12 +45,10 @@ As an infrastructure and operations leader, this lab serves as a reference archi
 
 The diagram below represents the high-level architecture of the Workhorse platform.
 
-docs/architecture/workhorse-macro-architecture.png
+here
 
-## Source Files
+See other diagrams within `documentation > diagrams`
 
-- `workhorse-macro-architecture.drawio`
-- `workhorse-macro-architecture.png`
 
 ## Architecture Highlights
 
@@ -112,7 +102,7 @@ Provides a detailed representation of workload placement, networking, communicat
 
 Illustrates the complete delivery lifecycle:
 
-```text
+```
 Developer
     ↓
 Git Commit
@@ -236,41 +226,12 @@ This lab intentionally focuses on technologies commonly found in modern cloud-na
 
 # 🏛 Architecture & Design Principles
 
-The Workhorse platform is built around several core engineering principles.
-
-## Reliability First
-
-Infrastructure should continue operating despite individual component failures wherever practical.
-
-## Observability by Default
-
-Every platform component should generate meaningful operational telemetry including logs, metrics, and alerts.
-
-## Infrastructure as Code
-
-All infrastructure is declared, version-controlled, and reproducible.
-
-## GitOps Operations
-
-Git serves as the authoritative source of truth for platform configuration and application state.
-
-## Security by Design
-
-Security controls are introduced as foundational requirements rather than retrofitted later.
-
-## Automation Over Manual Processes
-
-Manual operations are minimized through repeatable automation.
-
-## Continuous Improvement
-
-The platform evolves through experimentation, testing, and iterative refinement.
-
+## 🚧 Planned
 ---
 
 # 📂 Repository Layout
 
-```text
+```
 workhorse/
 │
 ├── terraform/
@@ -310,92 +271,9 @@ workhorse/
 
 ---
 
-# 🖼 How to Open Diagrams
-
-Architecture diagrams are maintained in Draw.io format.
-
-## Option 1: diagrams.net
-
-1. Download the `.drawio` file.
-2. Open https://app.diagrams.net.
-3. Select **Open Existing Diagram**.
-4. Open the desired file.
-
-## Option 2: Visual Studio Code
-
-Install a Draw.io extension and open diagrams directly from Visual Studio Code.
-
-## Diagram Formats
-
-Where available:
-
-- `.drawio` (editable source)
-- `.png` (rendered image)
-
----
-
 # 🎯 Case Studies
 
-## Scenario 1: Production Incident Response
-
-### Situation
-
-A customer-facing service becomes unavailable.
-
-### Response
-
-1. Monitoring generates an alert.
-2. Initial triage confirms impact.
-3. Incident severity is determined.
-4. Mitigation actions are executed.
-5. Services are restored.
-6. Root cause analysis begins.
-7. Findings are documented.
-
-### Outcome
-
-Provides a repeatable framework for reducing service restoration time while improving operational learning.
-
----
-
-## Scenario 2: Platform Scaling
-
-### Situation
-
-Traffic increases beyond normal operating levels.
-
-### Response
-
-1. Workload demand increases.
-2. Platform resources scale.
-3. Kubernetes schedules additional pods.
-4. Monitoring validates system health.
-5. Capacity stabilizes.
-
-### Outcome
-
-The architecture supports controlled growth while maintaining reliability.
-
----
-
-## Scenario 3: GitOps Deployment
-
-### Situation
-
-A new application version is committed to Git.
-
-### Response
-
-1. Code is pushed to GitHub.
-2. CI validation executes.
-3. Security controls are applied.
-4. Deployment manifests are updated.
-5. Argo CD reconciles desired state.
-6. Verification confirms successful rollout.
-
-### Outcome
-
-Changes move from commit to production using a consistent, auditable process.
+## 🚧 Planned
 
 ---
 
@@ -434,22 +312,3 @@ Planned areas of exploration include:
 - Improved observability capabilities
 
 ---
-
-# 👨‍💻 About Me
-
-I am an infrastructure and operations leader with a strong focus on:
-
-- Cloud Platforms
-- Kubernetes
-- Platform Engineering
-- Observability
-- Automation
-- Operational Excellence
-
-This repository serves as a practical engineering laboratory used to design, test, document, and continuously improve modern cloud-native platform architectures.
-
----
-
-## Disclaimer
-
-> Workhorse is not intended to be a production environment. It is a continuously evolving engineering lab used to explore, validate, and document modern platform engineering concepts, architectures, and operational practices.
