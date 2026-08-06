@@ -35,6 +35,10 @@
   - Alert when service logs panic
   - Alert when no logs from Alloy
 
+## CI
+
+# Automatic deployment of terraform code changes. Pipeline to run terraform init/plan/apply following existing pipeline  
+
 ## CD 
 
 * Change package visibility on personal github to make them private and configure k8s to auth using PATs
