@@ -1,4 +1,5 @@
-[Work in Progress, in need of tiding up]
+# 🚧 Work in Progress
+
 * Install brew packages `protobuf`, `proto-gen-go`, `protoc-gen-go-grpc`
 * Pull https://github.com/BuoyantIO/emojivoto/tree/main
 * Update docker-compose.yaml to set prometheus ports a

@@ -1,3 +1,5 @@
+# 🚧 Work in Progress
+
 ## Architecture Documentation
 
 * High Level Diagram (EKS, Namespaces, services, Alloy, Loki, Prometheus, Grafana)

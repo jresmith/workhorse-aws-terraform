@@ -13,16 +13,15 @@
 
 ## Terraform
 
-* There do seem to be conflicts with DNS records when both staging and production are deployed the same time - seem to get created and then disappear will require investigation.
+* There do seem to be conflicts with DNS records when both staging and production are deployed the same time - seem to get created and then disappear. Will require investigation.
 * Implement across multiple AWS Regions (as part of SLI/SLO resiliancy plan)
 * Implement across multiple AZs (as pary of SLI/SLO planning)
 * Implement Cluster Autoscaler/Karpenter
 
 ### EKS 
 
-* Using one VPC per cluster (one for staging, one for prod) 
 * Warm ENIs/IP addresses (for scaling & redundancy)
-* could use prefix delegation and IPv6
+* Could use prefix delegation and IPv6
 
 ## Prometheus / Alertmanager
 
@@ -54,7 +53,7 @@
 
 * Design Decisions documentation
 * Architecture documentation
-* Architecture Diagrams
+* ~Architecture Diagrams~
 * Monitoring Strategy documentation
 * Alerting documentation
 * x2 Case Studies
