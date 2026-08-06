@@ -1,6 +1,6 @@
-# Workhorse Platform Lab
+# Workhorse Platform Environment
 
-> A cloud-native platform engineering lab demonstrating production-style infrastructure, GitOps application delivery, observability, security, incident response, and operational excellence practices on AWS.
+> A cloud-native platform engineering environment demonstrating production-style infrastructure, GitOps application delivery, observability, security, incident response, and operational excellence practices on AWS.
 
 ---
 
@@ -231,39 +231,51 @@ This lab intentionally focuses on technologies commonly found in modern cloud-na
 # 📂 Repository Layout
 
 ```
-workhorse/
-│
-├── terraform/
-│   ├── environments/
-│   │   ├── staging/
-│   │   └── production/
-│   │
-│   ├── modules/
-│   │   ├── networking/
-│   │   ├── eks/
-│   │   ├── observability/
-│   │   └── security/
-│   │
-│   └── shared/
-│
-├── kubernetes/
-│   ├── platform/
-│   ├── staging/
-│   └── production/
-│
-├── argocd/
-│
-├── github-actions/
-│
-├── diagrams/
-│   ├── macro-architecture/
-│   ├── eks-architecture/
-│   ├── cicd-pipeline/
-│   └── incident-response/
-│
-├── docs/
-│
-└── README.md
+├── documentation
+│ ├── Diagrams
+│ ├── Environment Setup, Maintenence & Upgrades
+│ ├── Planning
+│ ├── Reliability
+│ ├── Runbooks
+│ └── SOPs
+└── workhorse
+    ├── gitops
+    │ ├── addons
+    │ │ ├── alloy
+    │ │ ├── cert-manager
+    │ │ ├── ingress-nginx
+    │ │ ├── kube-prometheus-stack
+    │ │ ├── loki
+    │ │ ├── sealed-secrets
+    │ │ └── yace
+    │ ├── cluster
+    │ │ ├── dev
+    │ │ │ └── root
+    │ │ │     └── app-of-apps.yaml
+    │ │ ├── prod
+    │ │ │ └── root
+    │ │ │     └── app-of-apps.yaml
+    │ │ └── staging
+    │ │     └── root
+    │ │         └── app-of-apps.yaml
+    │ ├── emojivoto
+    │ │ ├── base
+    │ │ │ ├── deployments
+    │ │ │ └── services
+    │ │ ├── monitoring
+    │ │ │ ├── base
+    │ │ │ └── overlays
+    │ │ └── overlays
+    └── terraform
+        ├── envs
+        │ ├── prod
+        │ └── staging
+        ├── modules
+        │ ├── eks
+        │ ├── lambda-promtail
+        │ └── vpc
+        └── shared
+
 ```
 
 > Repository structure evolves as additional services, capabilities, and experiments are introduced.
