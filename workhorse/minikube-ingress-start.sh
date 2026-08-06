@@ -37,5 +37,8 @@ while true; do
     sleep 1
 done
 
+argocdadminpwd=$(kubectl get secret argocd-initial-admin-secret -n argocd -o jsonpath="{.data.password}" | base64 -d)
+echo "ArgoCD Admin Password is: ${argocdadminpwd}"
+
 #Using PID varible set earlier, keep script running until minikube service command has ended
 wait "$PID"
