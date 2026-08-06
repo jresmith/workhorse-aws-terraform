@@ -45,11 +45,9 @@ As an infrastructure and operations leader, this lab serves as a reference archi
 
 The diagram below represents the high-level architecture of the Workhorse platform.
 
-![Macro Architecture Diagram](documentation/Diagrams/workhorse-macro-architecture.drawio.png)
+<img width="1409" height="931" alt="workhorse-macro-architecture drawio" src="https://github.com/user-attachments/assets/172b783f-382e-420b-8ac3-923d53e8820c" />
 
-
-See other diagrams within `documentation > diagrams`
-
+See other diagrams within `documentation/Diagrams`
 
 ## Architecture Highlights
 
