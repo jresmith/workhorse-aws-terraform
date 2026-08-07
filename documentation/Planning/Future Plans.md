@@ -13,6 +13,7 @@
 ## Terraform
 
 * Set up encrypt-at-rest in EKS for Staging and Prod Secret
+* set up Cloudfront to sit in front of ALB
 
 ## Prometheus
 
