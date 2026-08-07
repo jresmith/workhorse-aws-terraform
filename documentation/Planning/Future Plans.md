@@ -37,7 +37,8 @@
 
 ## CI
 
-# Automatic deployment of terraform code changes. Pipeline to run terraform init/plan/apply following existing pipeline  
+* Automatic deployment of terraform code changes. Pipeline to run terraform init/plan/apply following existing pipeline
+* Check for spelling mistakes in Documentation directory 
 
 ## CD 
 
@@ -49,10 +50,14 @@
 
 ## Tempo (OpenTelemetry)
 
-* Deploy Tempo Helm, (updating Alloy to collect traces) add tempo to grafana and instrument emojo-voto to use OpenTelemetry
+* Instrument emojo-voto to use OpenTelemetry
+* Deploy Tempo Helm, (updating Alloy to collect traces) add tempo to grafana
 
 ## Documentation
 
 * Cost Analysis
 * DR Plan
+* Misc SOPs
+* Misc Runbooks
+* Misc Case Studies
 

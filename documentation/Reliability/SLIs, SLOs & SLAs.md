@@ -1,42 +1,105 @@
 # 🚧 Work in Progress
 
-## SLIs (Measurements)
+## Summary of Documentation
 
-* Availibility
-  - Http Requests Total (`sum(rate(http_requests_total[5m]))`)
-  - Error Counts (`sum(rate(http_requests_total{status=~"5.."}[5m]))`)
-  - Success Ratio (`rate(http_successes[5m] / rate(http_total[5m])`)
-  - API Availability (5m) (`avg_over_time(probe_success{endpoint="/health"}[5m])`)
+This document needs to breifly overview was SLIs, SLOs & SLAs are, how they should be determined for a particular application and how they should be monitored.
 
-* Latency
-  - Response Latency (use histograms)
-  - p95 latancy (`histogram_quantile(0.95,rate(http_request_duration_seconds_bucket[5m]))`
-  - p99 latancy (`histogram_quantile(0.99,rate(http_request_duration_seconds_bucket[5m]))`
-  - Outliers (`count_over_time(http_request_duration_seconds{le="1"}[5m]) < count_over_time(http_request_total[5m])`)
+SLIs (Service Level Indicators) are mesurables signals that we use to quantify the user experience of a service. They measure outcomes that matter to the end user, such as availability, latency, success rate, correctness & freshness.
 
-* Errors
-  - http_errors / http_total
-  - Error Rates (`sum(rate(http_request_errors_total[5m])) / sum(rate(http_requests_total[5m]))`)
-  - Request Success Rate
+They are not designed to identify root cause or to measure backend services. In this environment we use Prometheus to track SLIs, which scrapes a /metrics endpoint with returns application metrics for the application we want to track. However, application metrics alone do not provide a complete picture of service reliability. A user may experience an outage caused by DNS, load balancing, networking, Kubernetes, or cloud infrastructure even when the application itself is healthy.
+```
+User > CloudFront > AWS Load Balancer > EKS > Service > Pod > Application
+```
+For this reason, SLIs should be measured as close to the user as possible and may incorporate data from multiple sources, including Prometheus, Kubernetes, AWS Load Balancer metrics, and synthetic monitoring. This ensures that SLIs reflect the overall service experience rather than the behaviour of a single component within the system.
 
-* Throughput
-  - Requests per Second (`sum(rate(http_requests_total[5m]))`)
-  - rate(request counter metric)
+Correctness is also an important thing to track, are votes counted accurately, for example. If a vote is counted for a incorrect emoji, then this would be a failure and something we need to track as a indicator of user experience.
 
-* Saturation - Golden Signals 
-  - CPU utilization stays below 80% during peak hours
-  cpu_usage / cpu_limit
+Freshness measures how quickly newly generated data becomes visible to users. In this application, a freshness SLI could measure the delay between a vote being accepted and the leaderboard reflecting the updated result.
 
-## SLOs (Internal Targets)
+## User Journey
 
-* 99.9% of API requests should succeed (web, voting-svc, emoji-svc)
-* 99% of requests should complete within 300ms
- - Why? Research shows users get impatient after 300ms
-* 99.9% of votes should process successfully
-* 95% of votes should process within 2 seconds
- - Why? Research shows customer satisfaction drops after that point
+| User Journey           | SLI                    |
+| ---------------------- | ---------------------- |
+| Open website           | Availability           |
+| Load voting page       | Availability + Latency |
+| Cast vote              | Success Rate           |
+| View leaderboard       | Availability + Latency |
+| Vote counted correctly | Correctness            |
 
 
-## SLAs (External Promises)
+## SLIs
 
-* 99.9% Uptime
+| SLI Category | User Journey | Measurement | Example Metric | Why It Matters |
+| ----------------------- | ------------------------------------------------ | --------------------------------------------------- | ------------------------------------------ | ----------------------------------------------------------------------- |
+| Availability | User can access the application | Successful requests ÷ total requests | Non-5xx requests / total requests | Measures whether the application is reachable and functioning for users |
+| End-to-End Availability (🔜 Awaiting Voting Bot Tooling) | User can reach the application from the Internet | Successful synthetic checks ÷ total checks | `probe_success` | Includes DNS, TLS, CloudFront, ALB, EKS, Service and Pod failures |
+| Latency | Application responds quickly                     | Percentage of requests under latency threshold | p95 request latency < 300ms | Measures responsiveness experienced by users |
+| Vote Success | User can submit a vote                           | Successful votes ÷ total vote attempts | `vote_success_total / vote_requests_total` | Measures success of the application's primary business function |
+| Vote Latency | Voting completes quickly | Percentage of vote requests under threshold | p95 vote latency < 2s | Measures responsiveness of the most important workflow |
+| Leaderboard Freshness  (🔜 Awaiting Telememetry Tooling)  | User sees vote results reflected promptly | Time between vote acceptance and leaderboard update | Leaderboard update delay | Detects lag between backend processing and user-visible results |
+| Correctness (🔜 Awaiting Voting Bot Tooling) | Votes are counted accurately |Correct results ÷ total results | Vote count matches displayed leaderboard | Detects data integrity issues that availability metrics cannot catch |
+
+
+| Priority | SLI                     |
+| -------- | ----------------------- |
+| 1        | End-to-End Availability |
+| 2        | Request Availability    |
+| 3        | Request Latency         |
+| 4        | Vote Success Rate       |
+| 5        | Vote Latency            |
+| 6        | Correctness             |
+
+
+## SLOs
+
+SLOs (Service Level Objective) are reliability targets for our infrastructure, typically stricter than SLAs. But they also are used to set Error Budgets, used as a measure of reliability across multiple business functions, and helps to inform what needs to be prioritised in terms of engineering effort and operational investment.
+
+SLOs are informed by business goals, when converting business goals into SLOs, we ask:
+* Q: Which user journeys are critical? 
+  - A: For our app, we start my asking "How can this app fail?", user need to be able to access the Web UI, being able to see the voting options availible, being able to cast your vote, and then to see the leaderboard.
+* Q: What does “good enough” look like for those journeys (latency, availability, correctness)? 
+  - A: A small amount of latency is acceptable, each page should load successfully as close to 100% of the time as possible and a vote should succeed as close to 100% of the time as possible. We also need to determine what counts as an Error is it just 5xx messages from the application? No, user-facing issues may also originate from the load balencer, the Kubernetes platform itself, networking components, or cloud infrastructure. Therefore, these should be included when measuring availability.
+* Q: What trade-offs between cost and reliability are acceptable?
+  - A: We certain want HA, but does connectivity to this applicaton need to be so fast that we have presence in each AWS region? We expect that most 100% of the userbase will be within the US, however we do want reliability between AWS AZs, so we are prepared to have a K8s nodes across multiple availability zones within our chosen us-west-2 AWS region.
+
+| SLI | SLO | Reasoning |
+| ----------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------- |
+| End-to-End Availability (🔜 Awaiting Voting Bot Tooling) | 99.9% successful voting bot checks over a rolling 30-day period | Measures whether users can actually reach the application |
+| Request Availability | 99.9% of requests return a successful response over a rolling 30-day period | Core application reliability objective |
+| Request Latency | 95% of requests complete within 300ms over a rolling 30-day period | Represents a responsive web application experience |
+| Vote Success Rate | 99.9% of vote submissions are processed successfully over a rolling 30-day period | Measures the application's primary business function |
+| Vote Latency | 95% of vote submissions complete within 2 seconds over a rolling 30-day period    | Users should receive timely feedback when voting |
+| Correctness (🔜 Awaiting Voting Bot Tooling) | 99.9% of voting bot vote validation tests pass over a rolling 30-day period | Ensures votes are accurately recorded and displayed |
+
+
+### Error Budgets
+
+Error budgets are the allowed amount of service unavailibility we are allowed over a window of time. For example, for our 99.9% Service avialibilty SLO, that means we are allowed 0.1% downtime. Over a month we are allowed 43m 12s. 
+
+| Availability SLO | Allowed Downtime (30 Days) |
+| ---------------- | -------------------------- |
+| 99% | 7h 12m |
+| 99.5% | 3h 36m |
+| 99.9% | 43m 12s |
+| 99.95% | 21m 36s |
+| 99.99% | 4m 19s |
+
+Error budgets provide a mechanism for balancing reliability and feature delivery. Error budget is used up by service downtime, and if it runs out, it is expected that there be some change in behavour to reduce risk until the error budget has replenished. That may be pausing Feature Development, or perhaps pushing only critial updates for that time, and reliability work should take priority.
+
+## SLAs
+
+SLAs  are formal commitments to users or customers around service reliability. Is typically less strict than internal SLOs, providing before a customer facing commitment is breached.
+
+| Metric | SLA |
+| ---------------------------- | ------------------------ |
+| Service Availability | 99.5% per calendar month |
+| Vote Processing Success Rate | 99.0% per calendar month |
+
+This application is operated as a demonstration platform and no commercial guarantees are provided.
+
+## Future evolution
+
+In future, telemetry will be implemented into the Emojivoto application and will be used to add additional SLIs & SLOs.
+
+In future, the Voting Bot can be enhanced to generate synthetic traffic and validate user journeys. This would allow us to test end-to-end availability, latency, and correctness based on real application behaviour rather than individual infrastructure components.
+

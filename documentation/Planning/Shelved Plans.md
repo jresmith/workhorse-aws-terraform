@@ -1,4 +1,4 @@
-# Sheveled Plans
+# Shelved Plans
 
 ## K8s
 
