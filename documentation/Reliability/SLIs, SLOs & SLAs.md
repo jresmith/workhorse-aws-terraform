@@ -66,7 +66,7 @@ SLOs are informed by business goals, when converting business goals into SLOs, w
 * A: We certain want HA, but does connectivity to this applicaton need to be so fast that we have presence in each AWS region? We expect that most 100% of the userbase will be within the US, however we do want reliability between AWS AZs, so we are prepared to have a K8s nodes across multiple availability zones within our chosen us-west-2 AWS region.
 
 | SLI | SLO | Window | Reasoning |
-| ----------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------- |
+| ----------------------- | ----------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------- |
 | End-to-End Availability (🔜 Awaiting Voting Bot Tooling) | 99.9% successful voting bot checks | Rolling 30-day period | Measures whether users can actually reach the application |
 | Request Availability | 99.9% of requests return a successful response | Rolling 30-day period | Core application reliability objective |
 | Request Latency | 95% of requests complete within 300ms | Rolling 30-day period | Represents a responsive web application experience |
