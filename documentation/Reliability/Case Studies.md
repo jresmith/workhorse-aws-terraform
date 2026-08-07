@@ -7,6 +7,7 @@
   - Redis latency spike affecting emojivoto
   - NOde OOMKill due to misconfigured limits
   - ALB routing misconfiguartion
+  - DNS Record Conflicts between staging and production 
 * Include:
   - Symptoms
   - Investigation

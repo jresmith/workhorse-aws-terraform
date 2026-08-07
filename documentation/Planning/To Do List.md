@@ -51,11 +51,12 @@
 
 ## Documentation
 
-* Design Decisions documentation
+* ~Design Decisions documentation~
+* Add HPA to Design Decisions documentation
 * Architecture documentation
 * ~Architecture Diagrams~
 * Monitoring Strategy documentation
-* Alerting documentation
+* Alerting strategy documentation
 * x2 Case Studies
 * Postmortem
 * ~SLI, SLO & SLA documentation~

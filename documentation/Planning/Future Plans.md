@@ -2,13 +2,11 @@
 
 ## K8s
 
-* Build a HA Setup
-* Utilise pod identity if I plan on using a service account within AWS
-* Use different sizes of node and use Taints/Tolerations and Affinities to get pods onto specific nodes - keep dev nodes on minikube and staging/prod on cloud nodes. 
 * Implement Calico CNI in & set up Network Polices between pods, separating by tiers (Platform, Security & Application)
 * Setting up encrypt-at-rest for staging and production envs
 * Use an example of RBAC
 * Generate Admin cert for administration for Staging & Pro environments
+*  HashiCorp Vault or AWS Secrets Manager to manage Production scretes instead od Bitnami Seal Secrets
 
 ## Terraform
 
