@@ -2,7 +2,7 @@
 
 ## Summary of Documentation
 
-This document needs to breifly overview was SLIs, SLOs & SLAs are, how they should be determined for a particular application and how they should be monitored.
+This document provides an overview of SLIs, SLOs & SLAs, including how they are defined, how they should be derived from application requirements, and how they should be monitored.
 
 SLIs (Service Level Indicators) are mesurables signals that we use to quantify the user experience of a service. They measure outcomes that matter to the end user, such as availability, latency, success rate, correctness & freshness.
 
@@ -12,7 +12,7 @@ User > AWS Load Balancer > EKS > Service > Pod > Application
 ```
 For this reason, SLIs should be measured as close to the user as possible and may incorporate data from multiple sources, including Prometheus, Kubernetes, AWS Load Balancer metrics, and synthetic monitoring. This ensures that SLIs reflect the overall service experience rather than the behaviour of a single component within the system.
 
-Correctness is also an important thing to track, are votes counted accurately, for example. If a vote is counted for a incorrect emoji, then this would be a failure and something we need to track as a indicator of user experience.
+Correctness is also an important aspect of user experience to measure. For example, if a vote is counted for the wrong emoji, the request may still return successfully, but the outcome is incorrect from the user's perspective. This would be considered a correctness failure.
 
 Freshness measures how quickly newly generated data becomes visible to users. In this application, a freshness SLI could measure the delay between a vote being accepted and the leaderboard reflecting the updated result.
 
@@ -48,22 +48,22 @@ Freshness measures how quickly newly generated data becomes visible to users. In
 | 4        | Vote Success Rate       |
 | 5        | Vote Latency            |
 | 6        | Correctness             |
-
+| 7        | Freshness               |
 
 ## SLOs
 
-SLOs (Service Level Objective) are reliability targets for our infrastructure, typically stricter than SLAs. But they also are used to set Error Budgets, used as a measure of reliability across multiple business functions, and helps to inform what needs to be prioritised in terms of engineering effort and operational investment.
+SLOs (Service Level Objective) are reliability targets defined against one or more SLIs, they represent what at good enough looks like a user perspective. They are typically stricter than SLAs, and they are used to set Error Budgets, used as a measure of reliability across multiple business functions, and helps to inform what needs to be prioritised in terms of engineering effort and operational investment.
 
 SLOs are informed by business goals, when converting business goals into SLOs, we ask:
 
 * **Q: Which user journeys are critical?**
-* A: For our app, we start my asking "How can this app fail?", user need to be able to access the Web UI, being able to see the voting options availible, being able to cast your vote, and then to see the leaderboard.
+* A: For our application, we start my asking "How can this app fail?", user need to be able to access the Web UI, being able to see the voting options availible, being able to cast your vote, and then to see the leaderboard.
 
 * **Q: What does “good enough” look like for those journeys (latency, availability, correctness)?**
-* A: A small amount of latency is acceptable, each page should load successfully as close to 100% of the time as possible and a vote should succeed as close to 100% of the time as possible. We also need to determine what counts as an Error is it just 5xx messages from the application? No, user-facing issues may also originate from the load balencer, the Kubernetes platform itself, networking components, or cloud infrastructure. Therefore, these should be included when measuring availability.
+* A: A small amount of latency is acceptable provided the application remains responsive, each page should load successfully as close to 100% of the time as possible and a vote should succeed as close to 100% of the time as possible. We also need to determine what counts as an Error is it just 5xx messages from the application? No, user-facing issues may also originate from the load balencer, the Kubernetes platform itself, networking components, or cloud infrastructure. Therefore, these should be included when measuring availability.
 
 * **Q: What trade-offs between cost and reliability are acceptable?**
-* A: We certain want HA, but does connectivity to this applicaton need to be so fast that we have presence in each AWS region? We expect that most 100% of the userbase will be within the US, however we do want reliability between AWS AZs, so we are prepared to have a K8s nodes across multiple availability zones within our chosen us-west-2 AWS region.
+* A: We certainly want High Availibity, but does connectivity to this applicaton need to be so fast that we have presence in each AWS region, and does this application require a multi-region architecture, or is resilience across multiple Availability Zones sufficient? We expect that most 100% of the userbase will be within the US, however we do want reliability between AWS AZs, so we are prepared to have a K8s nodes across multiple availability zones within our chosen us-west-2 AWS region.
 
 | SLI | SLO | Window | Reasoning |
 | ----------------------- | ----------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------- |

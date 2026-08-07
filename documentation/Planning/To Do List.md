@@ -58,7 +58,7 @@
 * Alerting documentation
 * x2 Case Studies
 * Postmortem
-* SLI, SLO & SLA documentation
+* ~SLI, SLO & SLA documentation~
 * x2 Runbooks
 * x1 SOP
 

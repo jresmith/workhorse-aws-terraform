@@ -1,7 +1,7 @@
 # Design Decisions
 
 ## Purpose
-This document explains the **architectural decisions**, **tradeoffs**, and **rationale** behind the Workhorse platform. It is written to demonstrate engineering maturity, reliability thinking, and the ability to justify technical choices in a real SRE/Platform Engineering environment.
+This document explains the architectural decisions, tradeoffs, and ationalebehind the Workhorse platform. It is written to demonstrate engineering maturity, reliability thinking, and the ability to justify technical choices in a real SRE/Platform Engineering environment.
 
 ---
 
@@ -11,7 +11,7 @@ The platform was designed around four core objectives:
 - **Reliability** — predictable behavior under load, failure isolation, and clear SLOs  
 - **Scalability** — horizontal scaling, autoscaling, and multi‑AZ readiness  
 - **Operational Safety** — GitOps workflows, controlled promotion, and safe production defaults  
-- **Observability** — metrics, logs, traces, and actionable alerting tied to SLOs  
+- **Observability** — metrics, logs, and actionable alerting tied to SLOs  
 
 These goals guided every decision below.
 
