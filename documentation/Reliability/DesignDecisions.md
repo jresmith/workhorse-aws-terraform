@@ -91,7 +91,60 @@ Planned for future multi-region resiliency work.
 **Rationale:**
 - Prevents accidental production rollouts  
 - Demonstrates controlled release governance  
-- Mirrors real-world change management processes  
+- Mirrors real-world change management processes
+
+# 4. Terraform Architecture Decisions
+
+## 4.1 Modular Terraform Structure
+**Decision:** Build reusable modules for VPC, EKS, IAM, and Observability.
+
+**Rationale:**
+- Encourages composability and clarity  
+- Mirrors enterprise Terraform patterns  
+- Enables multi-region expansion  
+
+---
+
+## 4.2 State Management
+**Decision:** Remote state in S3 with DynamoDB locking.
+
+**Rationale:**
+- Prevents concurrent apply conflicts  
+- Enables team collaboration  
+- Supports multi-environment isolation  
+
+---
+
+## 4.3 DNS Record Conflicts (Known Issue)
+**Decision:** Investigate disappearing DNS records when staging and production are deployed simultaneously.
+
+**Rationale:**
+- Indicates potential lifecycle conflicts or shared naming  
+- Provides a real-world case study for debugging Terraform drift  
+
+**Why this matters:**
+- Demonstrates operational troubleshooting skills  
+- Shows understanding of Terraform resource lifecycle  
+
+---
+
+## 4.4 Multi-AZ & Multi-Region Expansion
+**Decision:** Expand to multiple AZs and regions as part of SLO resiliency planning.
+
+**Rationale:**
+- AZ redundancy protects against localized failures  
+- Multi-region supports disaster recovery and global reliability  
+- Aligns with SRE best practices for availability targets  
+
+---
+
+## 4.5 Cluster Autoscaler / Karpenter
+**Decision:** Adopt Karpenter for node lifecycle management.
+
+**Rationale:**
+- Faster scaling reactions  
+- Better bin-packing and cost efficiency  
+- Simplifies node group configuration  
 
 **Production sync policy:**
 ```yaml
