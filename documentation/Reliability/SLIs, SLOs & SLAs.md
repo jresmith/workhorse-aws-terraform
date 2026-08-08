@@ -1,6 +1,4 @@
-# 🚧 Work in Progress
-
-## Summary of Documentation
+# SLIs, SLOs & SLAs
 
 This document provides an overview of SLIs, SLOs & SLAs, including how they are defined, how they should be derived from application requirements, and how they should be monitored.
 

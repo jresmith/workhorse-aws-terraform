@@ -7,6 +7,9 @@
 * Use an example of RBAC
 * Generate Admin cert for administration for Staging & Pro environments
 *  HashiCorp Vault or AWS Secrets Manager to manage Production scretes instead od Bitnami Seal Secrets
+* Implement across multiple AWS Regions (as part of SLI/SLO resiliancy plan)
+* Implement Cluster Autoscaler/Karpenter
+
 
 ## Terraform
 
@@ -47,9 +50,12 @@
 
 * [TBD]
 
+## Telemetry
+
+* Instrument emojo-voto to use Telemetry
+
 ## Tempo (OpenTelemetry)
 
-* Instrument emojo-voto to use OpenTelemetry
 * Deploy Tempo Helm, (updating Alloy to collect traces) add tempo to grafana
 
 ## Documentation

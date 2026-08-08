@@ -13,7 +13,6 @@ Each section roughly follows the below format:
   - FinalChoice
   - Why it fits principles (simplicity, reliability, cost, observability)
 
-
 ---
 
 ## 1. Platform Goals

@@ -14,16 +14,15 @@
 ## Terraform
 
 * There do seem to be conflicts with DNS records when both staging and production are deployed the same time - seem to get created and then disappear. Will require investigation.
-* Implement across multiple AWS Regions (as part of SLI/SLO resiliancy plan)
-* Implement across multiple AZs (as pary of SLI/SLO planning)
-* Implement Cluster Autoscaler/Karpenter
 
-### EKS 
+## EKS 
 
 * Warm ENIs/IP addresses (for scaling & redundancy)
 * Could use prefix delegation and IPv6
 
-## Prometheus / Alertmanager
+## Alertmanager
+
+### Prometheus / Alertmanager
 
 * Create an alert for each of the SLOs
 * Create burn rate alert based on error budget consumption (over both a long period and a short period of time to catch spikes)
@@ -34,7 +33,7 @@
 * Performance degrading by 20% over 24 hours
 * Response time is >2x the baseline
 
-## Loki / Alertmanager (in conjunction with resiliancy documentation)
+### Loki / Alertmanager (in conjunction with resiliancy documentation)
 
 * Create useful Loki log labels. loki.relabel to promote the below to Loki labels.
   - _SYSTEMD_UNIT
@@ -52,14 +51,13 @@
 ## Documentation
 
 * ~Design Decisions documentation~
-* Add HPA to Design Decisions documentation
-* Architecture documentation
+* ~SLI, SLO & SLA documentation~
 * ~Architecture Diagrams~
+* Add HPA to Design Decisions documentation
+* Add Alerting strategy to Design Decisions documentation
 * Monitoring Strategy documentation
-* Alerting strategy documentation
 * x2 Case Studies
 * Postmortem
-* ~SLI, SLO & SLA documentation~
 * x2 Runbooks
 * x1 SOP
 
@@ -69,6 +67,7 @@
 * New Dashboard based on SLOs. Colour code Green, Yellow (close to violation) & Red
 * New Dashboard based on SLAs. Show how much Error Budget has been consumed
 * New Dashboard Level 1: Service Health OverView. "Is Everything Okay?"
+* New Dashboard Executive Dashboard 
 
 ## Final Polish
 
