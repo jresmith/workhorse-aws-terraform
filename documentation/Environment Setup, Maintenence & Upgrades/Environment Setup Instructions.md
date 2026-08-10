@@ -44,7 +44,7 @@ helm repo update
 ```
 * Install ArgoCD Helm Chart manually
 ```
-helm install argocd argocd/argo-cd --namespace argocd --create-namespace --version argo-cd-10.1.2 -f workhorse/gitops/cluster/dev/root/app-of-apps.yaml
+helm install argocd argocd/argo-cd --namespace argocd --create-namespace --version 10.1.2 -f workhorse/gitops/cluster/dev/root/app-of-apps.yaml
 ``` 
 * Add Git repo PAT token as a secret (update file to include PAT prior)
 ```
@@ -52,7 +52,7 @@ kubectl apply -f workhorse/gitops/repo/bootstrap-repo-creds-template.yaml
 ```
 * Apply app-of-apps.yaml
 ```
-kubectl apply -f workhorse/gitops/dev/root/app-of-apps.yaml
+kubectl apply -f workhorse/gitops/cluster/dev/root/app-of-apps.yaml
 ```
 * Get initial Admin password ArgoCD 
 ```
@@ -61,6 +61,10 @@ kubectl get secret argocd-initial-admin-secret -n argocd -o jsonpath="{.data.pas
 * Use minikube's service funtion to access ingress
 ```
 minikube service ingress-nginx-controller -n ingress-nginx
+```
+(N.B. If Ingress fails to start for whatever reason run the below command to portforward to the ArgoCD service)
+```
+kubectl port-forward svc/argocd-server -n argocd 8080:443
 ```
 Make note of the port used for forwarding, in this case, 61513 for https:
 
