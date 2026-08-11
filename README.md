@@ -237,9 +237,9 @@ This lab intentionally focuses on technologies commonly found in modern cloud-na
 
 ---
 
-# 🏛 Architecture & Design Principles
+# 🏛 Architecture & Design Decisions
 
-## 🚧 Planned
+* [Design Decisions Documentation](documentation/Architecture,\ Design\ &\ Reliability/DesignDecisions.md)
 ---
 
 # 📂 Repository Layout
