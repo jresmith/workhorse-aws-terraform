@@ -10,6 +10,9 @@
 * Implement across multiple AWS Regions (as part of SLI/SLO resiliancy plan)
 * Implement Cluster Autoscaler/Karpenter
 
+## EKS 
+
+* Warm ENIs/IP addresses (for scaling & redundancy)
 
 ## Terraform
 

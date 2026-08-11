@@ -1,5 +1,9 @@
 # Phase 3 (Production & Auxilary Cloud Features)
 
+## K8s
+
+* Implement liveness and readiness probes(?)
+
 ## ArgoCD
 
 * Manual approval required in deployment scenario 
@@ -13,8 +17,7 @@
 
 ## EKS 
 
-* Warm ENIs/IP addresses (for scaling & redundancy)
-* Could use prefix delegation and IPv6
+* Use prefix delegation and/or IPv6
 
 ## Alertmanager
 
