@@ -84,6 +84,9 @@ The page user's are shown after their vote is cast:
 The voting leaderboard page:
 <img width="1907" height="958" alt="Screenshot 2026-08-07 at 6 16 28 PM" src="https://github.com/user-attachments/assets/9b8edea8-233d-4f7f-a520-3c1ab2767cc9" />
 
+## App Traffic Flow
+
+<img width="1572" height="916" alt="emojivoto_traffic_flow drawio" src="https://github.com/user-attachments/assets/247d12aa-30c8-48d5-9416-c0b4f621931d" />
 
 ---
 
