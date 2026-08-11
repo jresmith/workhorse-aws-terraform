@@ -171,6 +171,7 @@ Demonstrates operational maturity and structured response procedures designed to
 
 Supporting documentation covers:
 
+- [Design Decisions Documentation](documentation/Architecture,%20Design%20&%20Reliability/DesignDecisions.md)
 - Infrastructure designs
 - Security decisions
 - Deployment strategies
@@ -227,11 +228,6 @@ This lab intentionally focuses on technologies commonly found in modern cloud-na
 - Security Scanning
 - Least Privilege Access Controls
 
----
-
-# 🏛 Architecture & Design Decisions
-
-* [Design Decisions Documentation](documentation/Architecture,%20Design%20&%20Reliability/DesignDecisions.md)
 ---
 
 # 📂 Repository Layout
