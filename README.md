@@ -159,15 +159,7 @@ Documents the operational process used to handle service incidents.
 
 ### Covers
 
-- Detection
-- Triage
-- Severity assessment
-- Escalation
-- Root cause investigation
-- Mitigation
-- Recovery
-- Communication
-- Post-incident review
+<img width="642" height="1642" alt="incident_responsework_flow drawio" src="https://github.com/user-attachments/assets/c59d13f7-9bed-4359-a51c-bd9534088b94" />
 
 ### Why It Exists
 
