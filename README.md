@@ -210,7 +210,7 @@ This lab intentionally focuses on technologies commonly found in modern cloud-na
 
 - GitHub
 
-## CI/CD
+## CI
 
 - GitHub Actions
 
@@ -303,8 +303,7 @@ This lab intentionally focuses on technologies commonly found in modern cloud-na
 | Loki Log Aggregation | ✅ Implemented |
 | Incident Response Framework | ✅ Implemented |
 | Multi-Environment Strategy | ✅ Implemented |
-| Policy Enforcement | 🚧 Planned |
-| Progressive Delivery | 🚧 Planned |
+| Network Policy Enforcement | 🚧 Planned |
 | Disaster Recovery Exercises | 🚧 Planned |
 | Cost Optimization Framework | 🚧 Planned |
 
