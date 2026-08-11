@@ -1,9 +1,5 @@
 # Phase 3 (Production & Auxilary Cloud Features)
 
-## K8s
-
-* Configure Horizontal Pod Autoscaling (HPA) based on load
-
 ## ArgoCD
 
 * Manual approval required in deployment scenario 
@@ -53,13 +49,14 @@
 * ~Design Decisions documentation~
 * ~SLI, SLO & SLA documentation~
 * ~Architecture Diagrams~
-* Add HPA to Design Decisions documentation
+* ~Add HPA to Design Decisions documentation~
+* ~x1 SOP~
 * Add Alerting strategy to Design Decisions documentation
 * Monitoring Strategy documentation
 * x2 Case Studies
 * Postmortem
 * x2 Runbooks
-* x1 SOP
+
 
 ## Prometheus
 

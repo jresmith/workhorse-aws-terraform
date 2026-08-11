@@ -73,10 +73,33 @@ These goals guided every decision below.
 ---
 
 ## 2.3 Horizontal Pod Autoscaling (HPA)
-**Decision:** [TBD]
+
+**Decision:** Implement Kubernetes Horizontal Pod Autoscaling (HPA) using Metrics Server and CPU-based scaling policies.
 
 **Rationale:**
-- [TBD]
+- Enables workloads to scale automatically in response to increased demand
+- Improves application availability during traffic spikes
+- Demonstrates Kubernetes-native elasticity and self-healing capabilities
+- Integrates directly with EKS and standard Kubernetes APIs
+- Aligns with cloud-native best practices for workload scaling
+
+**Alternatives considered:**
+- Fixed replica counts only
+- Manual scaling using `kubectl scale`
+- Custom metrics-based scaling using Prometheus Adapter
+- Event-driven autoscaling using KEDA
+
+**Rejected because:**
+- Fixed replica counts do not adapt to changing workload demand
+- Manual scaling requires operational intervention and ongoing monitoring
+- Prometheus Adapter introduces additional operational complexity for a small-scale lab environment
+- KEDA was considered unnecessary given the current application workload and scaling requirements
+
+**Tradeoff:**
+- Requires CPU and memory resource requests to be defined on workloads
+- Introduces a dependency on Metrics Server
+- Scaling decisions are limited to the metrics and thresholds configured
+- Additional replicas increase resource consumption during periods of high demand
 
 ---
 
