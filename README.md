@@ -168,27 +168,7 @@ Provides a detailed representation of workload placement, networking, communicat
 
 Illustrates the complete delivery lifecycle:
 
-```
-Developer
-    ↓
-Git Commit
-    ↓
-GitHub Actions
-    ↓
-Validation
-    ↓
-Linting
-    ↓
-Security Scanning
-    ↓
-Terraform Planning
-    ↓
-Deployment
-    ↓
-Argo CD Reconciliation
-    ↓
-Verification
-```
+<img width="1633" height="980" alt="workhorse-cicd-pipeline-architecture drawio" src="https://github.com/user-attachments/assets/2421910e-f5fe-4376-9552-79f3d9615378" />
 
 ### Included Components
 
@@ -221,6 +201,10 @@ Supporting documentation covers:
 ### Why It Exists
 
 Documents engineering decisions and provides context behind architectural choices.
+
+### Detailed Architecture Diagram
+
+<img width="2432" height="1833" alt="workhorse-eks-kubernetes-architecture-pod-networking drawio" src="https://github.com/user-attachments/assets/66eadd23-d4d5-40b3-8809-bff6db493146" />
 
 ---
 
