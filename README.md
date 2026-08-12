@@ -75,6 +75,10 @@ The architecture intentionally illustrates boundaries between:
 
 # 🖥️  App Demonstration
 
+## 🧩 What This Application Is
+
+Emojivoto is a small, cloud‑native, microservices demo application originally built by Buoyant (the creators of Linkerd). It’s designed to showcase service‑mesh behavior, distributed systems patterns, and modern Kubernetes‑native architecture. The app itself is a playful voting system where users vote for their favorite emoji, but under the hood it models a realistic multi‑tier system with several independently deployable services.
+
 Application landing page displaying voting options:
 <img width="1905" height="958" alt="Screenshot 2026-08-07 at 6 16 05 PM" src="https://github.com/user-attachments/assets/3793c9c3-e7fb-4c5b-81c5-168ea863e6bc" />
 
@@ -87,6 +91,52 @@ The voting leaderboard page:
 ## App Traffic Flow
 
 <img width="1572" height="916" alt="emojivoto_traffic_flow drawio" src="https://github.com/user-attachments/assets/247d12aa-30c8-48d5-9416-c0b4f621931d" />
+
+## Why I Chose Emojivoto
+
+I chose Emojivoto for this portfolio project because it provides a compact, production-style environment that lets me demonstrate real SRE and platform engineering skills.
+
+Key reasons:
+
+- **Multi-tier architecture**  
+  The app is made up of several services that communicate over HTTP and gRPC. This lets me showcase Kubernetes deployment patterns, service communication, and how to manage a multi-service application.
+
+- **Built-in Prometheus `/metrics` endpoint**  
+  Each service exposes a Prometheus-compatible `/metrics` endpoint out of the box. This made it ideal for integrating with an observability stack (Prometheus, Grafana, etc.) without needing to instrument the code myself.
+
+- **Lightweight but realistic**  
+  The app is small enough to deploy quickly, but structured enough to model real operational concerns like service dependencies, latency, and monitoring.
+
+- **Open source**  
+  Emojivoto is open source and actively used in the Linkerd ecosystem, following modern cloud-native best practices.
+
+---
+
+## What I Built
+
+To use Emojivoto in this portfolio, I didn’t just deploy the upstream images—I built and hosted my own.
+
+- **Custom container images**  
+  I cloned the Emojivoto repository, built the container images for each service, and published them to my GitHub Container Registry. This demonstrates control over the build pipeline and image lifecycle.
+
+- **Kubernetes deployment**  
+  I deployed the application to Kubernetes using declarative manifests, showing how to run a multi-service workload in a cluster.
+
+- **Observability integration**  
+  Using the built-in `/metrics` endpoints, I wired the application into a Prometheus-based monitoring stack to collect and visualize metrics for the different services.
+
+---
+
+## Why This Matters for My Portfolio
+
+This project gives me a concrete way to demonstrate:
+
+- Kubernetes orchestration  
+- Container image build and registry usage  
+- Multi-tier, microservices architecture  
+- Metrics and observability using Prometheus  
+
+Emojivoto is a simple app, but it provides a realistic platform to showcase cloud-native and SRE-oriented engineering practices.
 
 ---
 
