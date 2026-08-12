@@ -1,6 +1,6 @@
 <mxfile host="Electron" agent="Microsoft 365 Copilot">
   <diagram id="workhorse-pod-networking" name="EKS Architecture - Cross-node Pod Networking">
-    <mxGraphModel dx="3535" dy="3480" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2200" pageHeight="1200" background="light-dark(#FFFFFF,#FFFFFF)" math="0" shadow="0">
+    <mxGraphModel dx="1768" dy="2340" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2200" pageHeight="1200" background="light-dark(#FFFFFF,#FFFFFF)" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -296,7 +296,7 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="e31" edge="1" parent="data" source="st_pods" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#000000;fontColor=#1E40AF;fontSize=10;labelBackgroundColor=#FFFFFF;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="a_st" value="Scheduled instance">
+        <mxCell id="e31" edge="1" parent="data" source="st_pods" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeWidth=3;strokeColor=#000000;fontColor=#1E40AF;fontSize=10;labelBackgroundColor=#FFFFFF;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="a_st" value="Scheduled instance">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="712.59" y="469.94000000000005" />
@@ -305,7 +305,7 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="e32" edge="1" parent="data" source="st_pods" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#000000;fontColor=#1E40AF;fontSize=10;labelBackgroundColor=#FFFFFF;exitX=0.574;exitY=1.009;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitPerimeter=0;" target="b_st" value="Scheduled instance">
+        <mxCell id="e32" edge="1" parent="data" source="st_pods" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeWidth=3;strokeColor=#000000;fontColor=#1E40AF;fontSize=10;labelBackgroundColor=#FFFFFF;exitX=0.574;exitY=1.009;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitPerimeter=0;" target="b_st" value="Scheduled instance">
           <mxGeometry relative="1" x="-0.1138" y="-2" as="geometry">
             <mxPoint as="offset" />
             <Array as="points">
@@ -316,7 +316,7 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="e33" edge="1" parent="data" source="pr_pods" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#000000;fontColor=#1E40AF;fontSize=10;labelBackgroundColor=#FFFFFF;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="b_pr" value="Scheduled instance">
+        <mxCell id="e33" edge="1" parent="data" source="pr_pods" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeWidth=3;strokeColor=#000000;fontColor=#1E40AF;fontSize=10;labelBackgroundColor=#FFFFFF;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="b_pr" value="Scheduled instance">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="1212.47" y="489.94000000000005" />
@@ -325,7 +325,7 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="e34" edge="1" parent="data" source="pr_pods" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeWidth=2;fontColor=#1E40AF;fontSize=10;labelBackgroundColor=#FFFFFF;exitX=0.656;exitY=1.009;exitDx=0;exitDy=0;strokeColor=#000000;exitPerimeter=0;" target="c_pr" value="Scheduled instance">
+        <mxCell id="e34" edge="1" parent="data" source="pr_pods" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeWidth=3;fontColor=#1E40AF;fontSize=10;labelBackgroundColor=#FFFFFF;exitX=0.656;exitY=1.009;exitDx=0;exitDy=0;strokeColor=#000000;exitPerimeter=0;" target="c_pr" value="Scheduled instance">
           <mxGeometry relative="1" x="0.0029" as="geometry">
             <mxPoint as="offset" />
             <Array as="points">
@@ -492,7 +492,7 @@
         <mxCell id="alb" parent="aws" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;fillColor=#FFF7ED;strokeColor=#EA580C;strokeWidth=2;fontColor=#7C2D12;fontSize=10;fontStyle=1;spacing=4;" value="Application Load Balancer" vertex="1">
           <mxGeometry height="70" width="185" x="853" y="130" as="geometry" />
         </mxCell>
-        <mxCell id="e3" edge="1" parent="aws" source="alb" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#475569;fontColor=#334155;fontSize=10;labelBackgroundColor=#FFFFFF;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" target="st_ing" value="Staging">
+        <mxCell id="e3" edge="1" parent="aws" source="alb" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeWidth=3;strokeColor=light-dark(#000000,#000000);fontColor=#334155;fontSize=10;labelBackgroundColor=#FFFFFF;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" target="st_ing" value="Staging">
           <mxGeometry relative="1" x="0.246" as="geometry">
             <mxPoint as="offset" />
             <Array as="points">
@@ -501,7 +501,7 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="e6" edge="1" parent="aws" source="alb" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#475569;fontColor=#334155;fontSize=10;labelBackgroundColor=#FFFFFF;exitX=0.612;exitY=1.036;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="pr_ing" value="Production">
+        <mxCell id="e6" edge="1" parent="aws" source="alb" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeWidth=3;strokeColor=#000000;fontColor=#334155;fontSize=10;labelBackgroundColor=#FFFFFF;exitX=0.612;exitY=1.036;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="pr_ing" value="Production">
           <mxGeometry relative="1" x="0.0178" y="-70" as="geometry">
             <mxPoint as="offset" />
             <Array as="points">
@@ -513,7 +513,7 @@
         <mxCell id="r53" parent="aws" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;fillColor=#FFF7ED;strokeColor=#EA580C;strokeWidth=2;fontColor=#7C2D12;fontSize=10;fontStyle=1;spacing=4;" value="Route 53" vertex="1">
           <mxGeometry height="50" width="120" x="355" y="140" as="geometry" />
         </mxCell>
-        <mxCell id="e2" edge="1" parent="aws" source="r53" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#475569;fontColor=#334155;fontSize=10;labelBackgroundColor=#FFFFFF;" target="alb" value="Route">
+        <mxCell id="e2" edge="1" parent="aws" source="r53" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeWidth=3;strokeColor=#000000;fontColor=#334155;fontSize=10;labelBackgroundColor=#FFFFFF;" target="alb" value="Route">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="e12" edge="1" parent="aws" source="albctl" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#2563EB;dashed=1;dashPattern=6 4;fontColor=#1E40AF;fontSize=10;labelBackgroundColor=#FFFFFF;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="alb" value="Provision / reconcile">
@@ -528,8 +528,10 @@
         <mxCell id="user" parent="aws" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;fillColor=#F8FAFC;strokeColor=#64748B;strokeWidth=2;fontColor=#0F172A;fontSize=10;fontStyle=1;spacing=4;" value="Users" vertex="1">
           <mxGeometry height="50" width="110" x="60" y="140" as="geometry" />
         </mxCell>
-        <mxCell id="e1" edge="1" parent="aws" source="user" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#475569;fontColor=#334155;fontSize=10;labelBackgroundColor=#FFFFFF;" target="r53" value="DNS / HTTPS">
-          <mxGeometry relative="1" as="geometry" />
+        <mxCell id="e1" edge="1" parent="aws" source="user" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeWidth=3;strokeColor=#000000;fontColor=#334155;fontSize=10;labelBackgroundColor=#FFFFFF;startSize=19;endSize=7;" target="r53" value="DNS / HTTPS">
+          <mxGeometry relative="1" x="0.2973" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
         </mxCell>
         <mxCell id="lambda" parent="aws" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;fillColor=#FFF1F2;strokeColor=#E11D48;strokeWidth=2;fontColor=#881337;fontSize=10;fontStyle=1;spacing=4;" value="Lambda Promtail&lt;br&gt;&lt;font style=&quot;font-size:9px;font-weight:normal&quot;&gt;AWS log shipping&lt;/font&gt;" vertex="1">
           <mxGeometry height="60" width="160" x="85" y="619" as="geometry" />
