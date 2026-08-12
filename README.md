@@ -247,11 +247,15 @@ This lab intentionally focuses on technologies commonly found in modern cloud-na
 - Prometheus
 - Grafana
 - Loki
+- YACE
+- Alloy
 - CloudWatch
 
 ## Security
 
 - AWS IAM
+- Sealed Secrets
+- cert-manager
 - IAM Roles for Service Accounts / Pod Identity
 - Security Scanning
 - Least Privilege Access Controls
