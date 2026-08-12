@@ -197,8 +197,8 @@ Supporting documentation covers:
 - [SLIs, SLOs & SLAs](documentation/Architecture%2C%20Design%20%26%20Reliability/SLIs%2C%20SLOs%20%26%20SLAs.md)
 - [SOPs](documentation/Environment%20Setup%2C%20Maintenence%20%26%20Upgrades/SOPs)
 - [Runbooks](documentation/Environment%20Setup%2C%20Maintenence%20%26%20Upgrades/Runbooks)
-- Case Studies
-- Post Mortems
+- [Case Studies](documentation/Architecture%2C%20Design%20%26%20Reliability/Case%20Studies)
+- [Post Mortems](documentation/Environment%20Setup%2C%20Maintenence%20%26%20Upgrades/Post%20Mortems)
 - [Environment Setup Instructions](documentation/Environment%20Setup%2C%20Maintenence%20%26%20Upgrades/Environment%20Setup%20Instructions.md)
 
 ### Why It Exists
