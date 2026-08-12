@@ -305,12 +305,6 @@ This lab intentionally focuses on technologies commonly found in modern cloud-na
 
 ---
 
-# 🎯 Case Studies
-
-## 🚧 Planned
-
----
-
 ## 🚨 Incident Response Workflow
 
 Documents the operational process used to handle service incidents.
