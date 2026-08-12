@@ -1,6 +1,6 @@
 # Workhorse Platform Environment
 
-Developed by jresmith
+## 👨‍💻 Developed by jresmith
 
 > A cloud-native platform engineering environment demonstrating production-style infrastructure, GitOps application delivery, observability, security, incident response, and operational excellence practices on AWS.
 
