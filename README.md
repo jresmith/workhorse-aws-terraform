@@ -197,6 +197,7 @@ Supporting documentation covers:
 - [Monitoring Strategy](https://github.com/jresmith/workhorse-aws-terraform/blob/main/documentation/Architecture%2C%20Design%20%26%20Reliability/Monitoring%20Strategy.md)
 - Networking models
 - Operational workflows
+- [SLIs, SLOs & SLAs](documentation/Architecture%2C%20Design%20%26%20Reliability/SLIs%2C%20SLOs%20%26%20SLAs.md)
 - [SOPs](documentation/Environment%20Setup%2C%20Maintenence%20%26%20Upgrades/SOPs)
 - [Runbooks](documentation/Environment%20Setup%2C%20Maintenence%20%26%20Upgrades/Runbooks)
 - Case Studies
