@@ -202,7 +202,7 @@ Demonstrates how code safely progresses from commit to production through a repe
 
 ### Detailed Architecture Diagram
 
-<img width="2432" height="1833" alt="workhorse-eks-kubernetes-architecture-pod-networking drawio" src="https://github.com/user-attachments/assets/66eadd23-d4d5-40b3-8809-bff6db493146" />
+<img width="4864" height="3666" alt="workhorse-eks-kubernetes-architecture-pod-networking drawio" src="https://github.com/user-attachments/assets/8d0030bc-c85e-4577-b408-faadaa3a3129" />
 
 ---
 
