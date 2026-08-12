@@ -94,7 +94,7 @@ The voting leaderboard page:
 
 ## Why I Chose Emojivoto
 
-I chose Emojivoto for this portfolio project because it provides a compact, production-style environment that lets me demonstrate real SRE and platform engineering skills.
+I chose Emojivoto for this lab project because it provides a compact, production-style environment that lets me demonstrate real SRE and platform engineering skills.
 
 Key reasons:
 
@@ -114,7 +114,7 @@ Key reasons:
 
 ## What I Built
 
-To use Emojivoto in this portfolio, I didn’t just deploy the upstream images—I built and hosted my own.
+To use Emojivoto in this lab, I didn’t just deploy the upstream images—I built and hosted my own.
 
 - **Custom container images**  
   I cloned the Emojivoto repository, built the container images for each service, and published them to my GitHub Container Registry. This demonstrates control over the build pipeline and image lifecycle.
@@ -127,7 +127,7 @@ To use Emojivoto in this portfolio, I didn’t just deploy the upstream images�
 
 ---
 
-## Why This Matters for My Portfolio
+## Why This Matters for My Lab
 
 This project gives me a concrete way to demonstrate:
 
