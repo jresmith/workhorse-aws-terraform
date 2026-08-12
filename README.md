@@ -194,9 +194,14 @@ Supporting documentation covers:
 - Infrastructure designs
 - Security decisions
 - Deployment strategies
-- Monitoring standards
+- [Monitoring Strategy](https://github.com/jresmith/workhorse-aws-terraform/blob/main/documentation/Architecture%2C%20Design%20%26%20Reliability/Monitoring%20Strategy.md)
 - Networking models
 - Operational workflows
+- [SOPs](documentation/Environment%20Setup%2C%20Maintenence%20%26%20Upgrades/Environment%20Setup%20Instructions.md)
+- [Runbooks](documentation/Environment%20Setup%2C%20Maintenence%20%26%20Upgrades/Runbooks)
+- Case Studies
+- Post Mortems
+- [Environment Setup Instructions](documentation/Environment%20Setup%2C%20Maintenence%20%26%20Upgrades/SOPs)
 
 ### Why It Exists
 
