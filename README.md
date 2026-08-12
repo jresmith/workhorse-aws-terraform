@@ -47,6 +47,28 @@ As an infrastructure and operations leader, this lab serves as a reference archi
 - Scale environments consistently
 - Automate platform operations
 
+## 🧠 Key Skills Demonstrated
+
+- **Infrastructure as Code** — Terraform modules, multi‑environment deployments  
+- **Kubernetes Platform Engineering** — EKS, networking, ingress, pod identity  
+- **GitOps Delivery** — Argo CD app‑of‑apps, environment separation  
+- **CI/CD Automation** — GitHub Actions validation, scanning, deployment workflows  
+- **Observability** — Prometheus, Grafana, Loki, YACE, CloudWatch  
+- **Reliability Engineering** — SLIs/SLOs, monitoring strategy, incident response  
+- **Security & Governance** — IAM, cert‑manager, sealed secrets, least‑privilege access  
+- **Operational Excellence** — SOPs, runbooks, postmortems, architecture documentation  
+
+
+## 🧭 How to Use This Repository
+
+- Review architecture diagrams in `documentation/`  
+- Explore Terraform IaC in `workhorse/terraform/`  
+- Inspect GitOps and Application configuration in `workhorse/gitops/` 
+
+## 🖼️ Live Video Demo
+
+🚧 Coming Soon
+
 ---
 
 # 🏗 Macro Architecture Diagram
