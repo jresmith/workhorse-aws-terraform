@@ -83,8 +83,7 @@ The architecture intentionally illustrates boundaries between:
 
 Supporting documentation covers:
 
-- [Design Decisions Documentation](documentation/Architecture,%20Design%20&%20Reliability/DesignDecisions.md)
-- Infrastructure designs
+- [Design Decisions](documentation/Architecture,%20Design%20&%20Reliability/DesignDecisions.md)
 - [Monitoring Strategy](https://github.com/jresmith/workhorse-aws-terraform/blob/main/documentation/Architecture%2C%20Design%20%26%20Reliability/Monitoring%20Strategy.md)
 - [SLIs, SLOs & SLAs](documentation/Architecture%2C%20Design%20%26%20Reliability/SLIs%2C%20SLOs%20%26%20SLAs.md)
 - [SOPs](documentation/Environment%20Setup%2C%20Maintenence%20%26%20Upgrades/SOPs)
@@ -327,37 +326,21 @@ Demonstrates operational maturity and structured response procedures designed to
 
 ---
 
-# 📈 Platform Maturity Model
-
-| Capability | Status |
-|------------|---------|
-| AWS Infrastructure as Code | ✅ Implemented |
-| Amazon EKS Platform | ✅ Implemented |
-| GitHub Actions CI/CD | ✅ Implemented |
-| Argo CD GitOps | ✅ Implemented |
-| Prometheus Monitoring | ✅ Implemented |
-| Grafana Visualization | ✅ Implemented |
-| Loki Log Aggregation | ✅ Implemented |
-| Incident Response Framework | ✅ Implemented |
-| Multi-Environment Strategy | ✅ Implemented |
-| Network Policy Enforcement | 🚧 Planned |
-| Disaster Recovery Exercises | 🚧 Planned |
-| Cost Optimization Framework | 🚧 Planned |
-
----
-
 # 🔮 Future Improvements
 
-Planned areas of exploration include:
+Planned areas of exploration in the near future include:
 
-- Advanced policy enforcement
-- Progressive delivery strategies
+- **Calico** CNI and **Network Policy Enforcement** between pods, separating by tiers (Platform, Security & Application)
+- Implement **HashiCorp Vault** or **AWS Secrets Manager** to manage Production secrets instead of Bitnami Sealed Secrets
+- Implement Cluster Autoscaler using **Karpenter**, utilizing worker notes across multiple AWS regions
+- Implement **LokiRuler** to alert based on logging activity
+- Deploy **CloudFront** in front of ALB to serve Application Web UI
+- Automated Review & Deployment of IaC changes via Github CI/CD
+- Instrument emojo-voto to use **Telemetry** and deloy Tempo to collect **Trace** data
+- Platform resiliency testing (**Chaos Engineering**)
+- Disaster Recovery documentation
 - Cost optimization initiatives
-- Disaster recovery testing
-- Platform resiliency testing
-- Enhanced security controls
-- Automated compliance validation
-- Multi-cluster experimentation
-- Improved observability capabilities
+
+[Full List of Potential Future Improvements](https://github.com/jresmith/workhorse-aws-terraform/blob/main/documentation/Repo%20Development/Future%20Plans.md)
 
 ---
