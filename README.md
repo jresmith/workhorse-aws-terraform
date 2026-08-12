@@ -4,7 +4,7 @@
 
 ---
 
-## 📚 Contents
+## 📚 README Contents
 
 - [Project Overview](https://github.com/jresmith/workhorse-aws-terraform/tree/main#-project-overview)
 - [Macro Architecture Diagram](https://github.com/jresmith/workhorse-aws-terraform/tree/main#-macro-architecture-diagram)
@@ -79,7 +79,7 @@ The architecture intentionally illustrates boundaries between:
 - Kubernetes workloads
 - Platform services
 
-## 📖 Platform Documentation
+## 📖 Platform & Reliability Documentation
 
 Supporting documentation covers:
 
