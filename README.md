@@ -206,20 +206,6 @@ Demonstrates how code safely progresses from commit to production through a repe
 
 ---
 
-## 🚨 Incident Response Workflow
-
-Documents the operational process used to handle service incidents.
-
-### Covers
-
-<img width="642" height="1642" alt="incident_responsework_flow drawio" src="https://github.com/user-attachments/assets/c59d13f7-9bed-4359-a51c-bd9534088b94" />
-
-### Why It Exists
-
-Demonstrates operational maturity and structured response procedures designed to minimize outage impact and reduce mean time to recovery (MTTR).
-
----
-
 ## 📖 Platform Documentation
 
 Supporting documentation covers:
@@ -340,6 +326,20 @@ This lab intentionally focuses on technologies commonly found in modern cloud-na
 # 🎯 Case Studies
 
 ## 🚧 Planned
+
+---
+
+## 🚨 Incident Response Workflow
+
+Documents the operational process used to handle service incidents.
+
+### Covers
+
+<img width="642" height="1642" alt="incident_responsework_flow drawio" src="https://github.com/user-attachments/assets/c59d13f7-9bed-4359-a51c-bd9534088b94" />
+
+### Why It Exists
+
+Demonstrates operational maturity and structured response procedures designed to minimize outage impact and reduce mean time to recovery (MTTR).
 
 ---
 
