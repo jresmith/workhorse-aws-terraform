@@ -20,7 +20,7 @@
 
 # 🧭 Project Overview
 
-Workhorse is a hands-on platform engineering lab designed to model how modern cloud infrastructure is built, operated, secured, and continuously improved.
+Workhorse is a hands-on platform engineering lab I designed and built to model how modern cloud infrastructure is provisioned, operated, secured, and continuously improved.
 
 The repository demonstrates:
 
@@ -55,6 +55,8 @@ The diagram below represents the high-level architecture of the Workhorse platfo
 
 <img width="1409" height="931" alt="workhorse-macro-architecture drawio" src="https://github.com/user-attachments/assets/172b783f-382e-420b-8ac3-923d53e8820c" />
 
+This architecture models a realistic multi‑environment AWS/EKS platform with GitOps delivery, observability, and production‑grade networking and security boundaries.
+
 See other diagrams within `documentation/Diagrams`
 
 ## Architecture Highlights
@@ -79,6 +81,13 @@ The architecture intentionally illustrates boundaries between:
 - Kubernetes workloads
 - Platform services
 
+## Why This Platform Matters
+
+- Shows end‑to‑end platform engineering capability
+- Demonstrates production‑grade IaC, GitOps, observability, and operational workflows
+- Models real SRE practices including SLIs/SLOs, incident response, and reliability design
+- Provides a multi‑environment AWS/EKS setup similar to what modern platform teams run
+
 ## 📖 Platform & Reliability Documentation
 
 Supporting documentation covers:
@@ -92,6 +101,8 @@ Supporting documentation covers:
 - [Post Mortems](documentation/Environment%20Setup%2C%20Maintenence%20%26%20Upgrades/Post%20Mortems)
 - [Environment Setup Instructions](documentation/Environment%20Setup%2C%20Maintenence%20%26%20Upgrades/Environment%20Setup%20Instructions.md)
 
+These documents demonstrate operational maturity and show how I approach reliability engineering, platform design, and production readiness.
+
 ---
 
 # 🖥️  App Demonstration
@@ -100,10 +111,10 @@ Supporting documentation covers:
 
 Emojivoto is a small, cloud‑native, microservices demo application originally built by Buoyant (the creators of Linkerd). It’s designed to showcase service‑mesh behavior, distributed systems patterns, and modern Kubernetes‑native architecture. The app itself is a playful voting system where users vote for their favorite emoji, but under the hood it models a realistic multi‑tier system with several independently deployable services.
 
-Application landing page displaying voting options:
+Application Landing page displaying voting options:
 <img width="1905" height="958" alt="Screenshot 2026-08-07 at 6 16 05 PM" src="https://github.com/user-attachments/assets/3793c9c3-e7fb-4c5b-81c5-168ea863e6bc" />
 
-The page user's are shown after their vote is cast:
+The page users see after casting a votet:
 <img width="1903" height="960" alt="Screenshot 2026-08-07 at 6 16 15 PM" src="https://github.com/user-attachments/assets/74112190-65c8-40bc-843c-75b9b51b7cf2" />
 
 The voting leaderboard page:
@@ -164,6 +175,8 @@ Emojivoto is a simple app, but it provides a realistic platform to showcase clou
 # 📑 Artifacts
 
 The repository contains architectural diagrams, workflows, and operational documentation used throughout the platform.
+
+These artifacts illustrate how the platform operates, how workloads are deployed, and how reliability is maintained across environments.
 
 ## 🖥 EKS Architecture
 
@@ -264,6 +277,8 @@ This lab intentionally focuses on technologies commonly found in modern cloud-na
 
 # 📂 Repository Layout
 
+The layout follows a standard platform‑engineering pattern: Terraform for infrastructure, GitOps for cluster state, and documentation for operational workflows.
+
 ```
 ├── documentation
 │ ├── Diagrams
@@ -320,7 +335,7 @@ This lab intentionally focuses on technologies commonly found in modern cloud-na
 
 Documents the operational process used to handle service incidents.
 
-### Covers
+This workflow models how platform teams coordinate during outages, escalate issues, and restore service quickly.
 
 <img width="642" height="1642" alt="incident_responsework_flow drawio" src="https://github.com/user-attachments/assets/c59d13f7-9bed-4359-a51c-bd9534088b94" />
 
@@ -336,11 +351,11 @@ Planned areas of exploration in the near future include:
 
 - **Calico** CNI and **Network Policy Enforcement** between pods, separating by tiers (Platform, Security & Application)
 - Implement **HashiCorp Vault** or **AWS Secrets Manager** to manage Production secrets instead of Bitnami Sealed Secrets
-- Implement Cluster Autoscaler using **Karpenter**, utilizing worker notes across multiple AWS regions
+- Implement Cluster Autoscaler using **Karpenter**, utilizing worker nodes across multiple AWS regions
 - Implement **LokiRuler** to alert based on logging activity
 - Deploy **CloudFront** in front of ALB to serve Application Web UI
 - Automated Review & Deployment of IaC changes via Github CI/CD
-- Instrument emojo-voto to use **Telemetry** and deloy Tempo to collect **Trace** data
+- Instrument emojo-voto to use **Telemetry** and deploy Tempo to collect **Trace** data
 - Platform resiliency testing (**Chaos Engineering**)
 - Disaster Recovery documentation
 - Cost optimization initiatives
