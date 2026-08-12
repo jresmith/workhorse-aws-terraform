@@ -8,7 +8,7 @@
 
 - [Project Overview](https://github.com/jresmith/workhorse-aws-terraform/tree/main#-project-overview)
 - [Macro Architecture Diagram](https://github.com/jresmith/workhorse-aws-terraform/tree/main#-macro-architecture-diagram)
-- [Platform Documentation](https://github.com/jresmith/workhorse-aws-terraform/tree/main#-platform-documentation)
+- [Platform & Reliability Documentation](https://github.com/jresmith/workhorse-aws-terraform/blob/main/README.md#-platform--reliability-documentation)
 - [App Demonstration](https://github.com/jresmith/workhorse-aws-terraform/tree/main#%EF%B8%8F--app-demonstration)
 - [Artifacts](https://github.com/jresmith/workhorse-aws-terraform/tree/main#-artifacts)
 - [Technology Stack](https://github.com/jresmith/workhorse-aws-terraform/tree/main#-technology-stack)
