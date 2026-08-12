@@ -71,6 +71,20 @@ The architecture intentionally illustrates boundaries between:
 - Kubernetes workloads
 - Platform services
 
+## 📖 Platform Documentation
+
+Supporting documentation covers:
+
+- [Design Decisions Documentation](documentation/Architecture,%20Design%20&%20Reliability/DesignDecisions.md)
+- Infrastructure designs
+- [Monitoring Strategy](https://github.com/jresmith/workhorse-aws-terraform/blob/main/documentation/Architecture%2C%20Design%20%26%20Reliability/Monitoring%20Strategy.md)
+- [SLIs, SLOs & SLAs](documentation/Architecture%2C%20Design%20%26%20Reliability/SLIs%2C%20SLOs%20%26%20SLAs.md)
+- [SOPs](documentation/Environment%20Setup%2C%20Maintenence%20%26%20Upgrades/SOPs)
+- [Runbooks](documentation/Environment%20Setup%2C%20Maintenence%20%26%20Upgrades/Runbooks)
+- [Case Studies](documentation/Architecture%2C%20Design%20%26%20Reliability/Case%20Studies)
+- [Post Mortems](documentation/Environment%20Setup%2C%20Maintenence%20%26%20Upgrades/Post%20Mortems)
+- [Environment Setup Instructions](documentation/Environment%20Setup%2C%20Maintenence%20%26%20Upgrades/Environment%20Setup%20Instructions.md)
+
 ---
 
 # 🖥️  App Demonstration
@@ -185,25 +199,6 @@ Illustrates the complete delivery lifecycle:
 Demonstrates how code safely progresses from commit to production through a repeatable and auditable automation pipeline.
 
 ---
-
-## 📖 Platform Documentation
-
-Supporting documentation covers:
-
-- [Design Decisions Documentation](documentation/Architecture,%20Design%20&%20Reliability/DesignDecisions.md)
-- Infrastructure designs
-- Security decisions
-- [Monitoring Strategy](https://github.com/jresmith/workhorse-aws-terraform/blob/main/documentation/Architecture%2C%20Design%20%26%20Reliability/Monitoring%20Strategy.md)
-- [SLIs, SLOs & SLAs](documentation/Architecture%2C%20Design%20%26%20Reliability/SLIs%2C%20SLOs%20%26%20SLAs.md)
-- [SOPs](documentation/Environment%20Setup%2C%20Maintenence%20%26%20Upgrades/SOPs)
-- [Runbooks](documentation/Environment%20Setup%2C%20Maintenence%20%26%20Upgrades/Runbooks)
-- [Case Studies](documentation/Architecture%2C%20Design%20%26%20Reliability/Case%20Studies)
-- [Post Mortems](documentation/Environment%20Setup%2C%20Maintenence%20%26%20Upgrades/Post%20Mortems)
-- [Environment Setup Instructions](documentation/Environment%20Setup%2C%20Maintenence%20%26%20Upgrades/Environment%20Setup%20Instructions.md)
-
-### Why It Exists
-
-Documents engineering decisions and provides context behind architectural choices.
 
 ### Detailed Architecture Diagram
 
