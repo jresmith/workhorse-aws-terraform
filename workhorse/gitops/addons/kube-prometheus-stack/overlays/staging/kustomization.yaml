@@ -8,6 +8,7 @@ resources:
   - ingress-prometheus.yaml
   - ingress-alertmanager.yaml
   - ingress-grafana.yaml
+  - slack-webhook-sealedsecret.yaml
 
 helmCharts:
   - name: kube-prometheus-stack
