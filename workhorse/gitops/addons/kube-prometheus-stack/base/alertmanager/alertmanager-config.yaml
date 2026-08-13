@@ -1,0 +1,39 @@
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: AlertmanagerConfig
+metadata:
+  name: emojivoto-slack
+  namespace: monitoring
+  labels:
+    release: kube-prometheus-stack
+spec:
+  route:
+    receiver: slack-emojivoto-alerts
+    groupBy:
+      - alertname
+      - slo
+      - namespace
+      - severity
+    groupWait: 30s
+    groupInterval: 5m
+    repeatInterval: 4h
+    matchers:
+      - name: application
+        value: emojivoto
+        matchType: "="
+
+  receivers:
+    - name: slack-emojivoto-alerts
+      slackConfigs:
+        - apiURL:
+            name: alertmanager-slack-webhook
+            key: url
+          sendResolved: true
+          title: >-
+            [{{ .Status | toUpper }}][{{ .CommonLabels.severity | toUpper }}]
+            {{ .CommonLabels.alertname }}
+          text: >-
+            *SLO:* {{ .CommonLabels.slo }}
+            *Environment:* {{ .CommonLabels.namespace }}
+            *Summary:* {{ .CommonAnnotations.summary }}
+            *Description:* {{ .CommonAnnotations.description }}
+            *Runbook:* {{ .CommonAnnotations.runbook_url }}

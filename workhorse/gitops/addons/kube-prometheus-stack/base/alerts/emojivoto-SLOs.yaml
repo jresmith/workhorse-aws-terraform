@@ -1,0 +1,394 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: emojivoto-slos
+  namespace: monitoring
+  labels:
+    release: kube-prometheus-stack
+spec:
+  groups:
+    # -------------------------------------------------------------------------
+    # Long-window burn-rate recording rules
+    # -------------------------------------------------------------------------
+    - name: emojivoto.slo.burn-rate.long
+      interval: 1m
+      rules:
+        # Request Availability: 99.9%
+        - record: emojivoto:slo_burn_rate:1h
+          labels:
+            application: emojivoto
+            slo: request-availability
+          expr: |
+            (
+              sum by (namespace) (
+                rate(response_total{
+                  namespace=~"emojivoto-.*",
+                  deployment="web",
+                  direction="inbound",
+                  classification="failure"
+                }[1h])
+              )
+              /
+              clamp_min(
+                sum by (namespace) (
+                  rate(response_total{
+                    namespace=~"emojivoto-.*",
+                    deployment="web",
+                    direction="inbound"
+                  }[1h])
+                ),
+                1e-9
+              )
+            ) / 0.001
+
+        - record: emojivoto:slo_burn_rate:6h
+          labels:
+            application: emojivoto
+            slo: request-availability
+          expr: |
+            (
+              sum by (namespace) (
+                rate(response_total{
+                  namespace=~"emojivoto-.*",
+                  deployment="web",
+                  direction="inbound",
+                  classification="failure"
+                }[6h])
+              )
+              /
+              clamp_min(
+                sum by (namespace) (
+                  rate(response_total{
+                    namespace=~"emojivoto-.*",
+                    deployment="web",
+                    direction="inbound"
+                  }[6h])
+                ),
+                1e-9
+              )
+            ) / 0.001
+
+        - record: emojivoto:slo_burn_rate:1d
+          labels:
+            application: emojivoto
+            slo: request-availability
+          expr: |
+            (
+              sum by (namespace) (
+                rate(response_total{
+                  namespace=~"emojivoto-.*",
+                  deployment="web",
+                  direction="inbound",
+                  classification="failure"
+                }[1d])
+              )
+              /
+              clamp_min(
+                sum by (namespace) (
+                  rate(response_total{
+                    namespace=~"emojivoto-.*",
+                    deployment="web",
+                    direction="inbound"
+                  }[1d])
+                ),
+                1e-9
+              )
+            ) / 0.001
+
+        - record: emojivoto:slo_burn_rate:3d
+          labels:
+            application: emojivoto
+            slo: request-availability
+          expr: |
+            (
+              sum by (namespace) (
+                rate(response_total{
+                  namespace=~"emojivoto-.*",
+                  deployment="web",
+                  direction="inbound",
+                  classification="failure"
+                }[3d])
+              )
+              /
+              clamp_min(
+                sum by (namespace) (
+                  rate(response_total{
+                    namespace=~"emojivoto-.*",
+                    deployment="web",
+                    direction="inbound"
+                  }[3d])
+                ),
+                1e-9
+              )
+            ) / 0.001
+
+    # -------------------------------------------------------------------------
+    # Short-window recording rules
+    # -------------------------------------------------------------------------
+    - name: emojivoto.slo.burn-rate.short
+      interval: 1m
+      rules:
+        - record: emojivoto:slo_burn_rate:5m
+          labels:
+            application: emojivoto
+            slo: request-availability
+          expr: |
+            (
+              sum by (namespace) (
+                rate(response_total{
+                  namespace=~"emojivoto-.*",
+                  deployment="web",
+                  direction="inbound",
+                  classification="failure"
+                }[5m])
+              )
+              /
+              clamp_min(
+                sum by (namespace) (
+                  rate(response_total{
+                    namespace=~"emojivoto-.*",
+                    deployment="web",
+                    direction="inbound"
+                  }[5m])
+                ),
+                1e-9
+              )
+            ) / 0.001
+
+        - record: emojivoto:slo_burn_rate:30m
+          labels:
+            application: emojivoto
+            slo: request-availability
+          expr: |
+            (
+              sum by (namespace) (
+                rate(response_total{
+                  namespace=~"emojivoto-.*",
+                  deployment="web",
+                  direction="inbound",
+                  classification="failure"
+                }[30m])
+              )
+              /
+              clamp_min(
+                sum by (namespace) (
+                  rate(response_total{
+                    namespace=~"emojivoto-.*",
+                    deployment="web",
+                    direction="inbound"
+                  }[30m])
+                ),
+                1e-9
+              )
+            ) / 0.001
+
+        - record: emojivoto:slo_burn_rate:2h
+          labels:
+            application: emojivoto
+            slo: request-availability
+          expr: |
+            (
+              sum by (namespace) (
+                rate(response_total{
+                  namespace=~"emojivoto-.*",
+                  deployment="web",
+                  direction="inbound",
+                  classification="failure"
+                }[2h])
+              )
+              /
+              clamp_min(
+                sum by (namespace) (
+                  rate(response_total{
+                    namespace=~"emojivoto-.*",
+                    deployment="web",
+                    direction="inbound"
+                  }[2h])
+                ),
+                1e-9
+              )
+            ) / 0.001
+
+    # -------------------------------------------------------------------------
+    # Multi-window burn-rate alert rules
+    # -------------------------------------------------------------------------
+    - name: emojivoto.slo.alerts
+      interval: 1m
+      rules:
+        - alert: EmojivotoSLOBurnRateUrgent
+          expr: |
+            emojivoto:slo_burn_rate:1h{application="emojivoto"} > 720
+            and on (namespace, slo)
+            emojivoto:slo_burn_rate:5m{application="emojivoto"} > 720
+          for: 2m
+          labels:
+            application: emojivoto
+            severity: urgent
+          annotations:
+            summary: "Emojivoto is consuming its error budget at an urgent rate"
+            description: >-
+              The {{ $labels.slo }} SLO is burning at more than 720x across
+              both the 1-hour and 5-minute windows. At this rate, the complete
+              30-day error budget can be consumed in approximately one hour.
+            runbook_url: "https://github.com/jresmith/workhorse-aws-terraform/tree/main/workhorse/documentation"
+
+        - alert: EmojivotoSLOBurnRateHigh
+          expr: |
+            emojivoto:slo_burn_rate:6h{application="emojivoto"} > 30
+            and on (namespace, slo)
+            emojivoto:slo_burn_rate:30m{application="emojivoto"} > 30
+          for: 5m
+          labels:
+            application: emojivoto
+            severity: high
+          annotations:
+            summary: "Emojivoto is consuming its error budget at a high rate"
+            description: >-
+              The {{ $labels.slo }} SLO is burning at more than 30x across
+              both the 6-hour and 30-minute windows.
+            runbook_url: "https://github.com/jresmith/workhorse-aws-terraform/tree/main/workhorse/documentation"
+
+        - alert: EmojivotoSLOBurnRateMedium
+          expr: |
+            emojivoto:slo_burn_rate:1d{application="emojivoto"} > 15
+            and on (namespace, slo)
+            emojivoto:slo_burn_rate:2h{application="emojivoto"} > 15
+          for: 10m
+          labels:
+            application: emojivoto
+            severity: medium
+          annotations:
+            summary: "Emojivoto is consuming its error budget at a sustained rate"
+            description: >-
+              The {{ $labels.slo }} SLO is burning at more than 15x across
+              both the 1-day and 2-hour windows.
+            runbook_url: "https://github.com/jresmith/workhorse-aws-terraform/tree/main/workhorse/documentation"
+
+        - alert: EmojivotoSLOBurnRateLow
+          expr: |
+            emojivoto:slo_burn_rate:3d{application="emojivoto"} > 7.5
+            and on (namespace, slo)
+            emojivoto:slo_burn_rate:6h{application="emojivoto"} > 7.5
+          for: 15m
+          labels:
+            application: emojivoto
+            severity: low
+          annotations:
+            summary: "Emojivoto is gradually consuming its error budget"
+            description: >-
+              The {{ $labels.slo }} SLO is burning at more than 7.5x across
+              both the 3-day and 6-hour windows.
+            runbook_url: "https://github.com/jresmith/workhorse-aws-terraform/tree/main/workhorse/documentation"
+
+    # -------------------------------------------------------------------------
+    # Latency trend and baseline rules
+    # -------------------------------------------------------------------------
+    - name: emojivoto.performance.recording
+      interval: 1m
+      rules:
+        - record: emojivoto:request_latency_p95_ms:5m
+          labels:
+            application: emojivoto
+            slo: request-latency
+          expr: |
+            histogram_quantile(
+              0.95,
+              sum by (namespace, le) (
+                rate(response_latency_ms_bucket{
+                  namespace=~"emojivoto-.*",
+                  deployment="web",
+                  direction="inbound"
+                }[5m])
+              )
+            )
+
+        - record: emojivoto:vote_latency_p95_ms:5m
+          labels:
+            application: emojivoto
+            slo: vote-latency
+          expr: |
+            histogram_quantile(
+              0.95,
+              sum by (namespace, le) (
+                rate(route_response_latency_ms_bucket{
+                  namespace=~"emojivoto-.*",
+                  deployment="voting",
+                  direction="inbound",
+                  rt_route=~".*[Vv]ote.*"
+                }[5m])
+              )
+            )
+
+    - name: emojivoto.performance.alerts
+      interval: 1m
+      rules:
+        - alert: EmojivotoPerformanceDegraded20Percent
+          expr: |
+            emojivoto:request_latency_p95_ms:5m{application="emojivoto"}
+              >
+            1.20 *
+            emojivoto:request_latency_p95_ms:5m{application="emojivoto"}
+              offset 24h
+          for: 15m
+          labels:
+            application: emojivoto
+            severity: medium
+            slo: request-latency
+          annotations:
+            summary: "Emojivoto request latency has degraded by more than 20%"
+            description: >-
+              Current five-minute p95 response latency is more than 20% higher
+              than the equivalent measurement 24 hours ago.
+            runbook_url: "https://github.com/jresmith/workhorse-aws-terraform/tree/main/workhorse/documentation"
+
+        - alert: EmojivotoResponseTimeTwiceBaseline
+          expr: |
+            emojivoto:request_latency_p95_ms:5m{application="emojivoto"}
+              >
+            2 *
+            avg_over_time(
+              emojivoto:request_latency_p95_ms:5m{
+                application="emojivoto"
+              }[7d]
+            )
+          for: 10m
+          labels:
+            application: emojivoto
+            severity: high
+            slo: request-latency
+          annotations:
+            summary: "Emojivoto response time is more than twice its baseline"
+            description: >-
+              Current five-minute p95 request latency is more than twice the
+              seven-day rolling average.
+            runbook_url: "https://github.com/jresmith/workhorse-aws-terraform/tree/main/workhorse/documentation"
+
+        - alert: EmojivotoRequestLatencySLOBreach
+          expr: |
+            emojivoto:request_latency_p95_ms:5m{application="emojivoto"} > 300
+          for: 15m
+          labels:
+            application: emojivoto
+            severity: high
+            slo: request-latency
+          annotations:
+            summary: "Emojivoto request latency is outside its SLO"
+            description: >-
+              The p95 request latency has exceeded the 300 ms SLO threshold
+              for at least 15 minutes.
+            runbook_url: "https://github.com/jresmith/workhorse-aws-terraform/tree/main/workhorse/documentation"
+
+        - alert: EmojivotoVoteLatencySLOBreach
+          expr: |
+            emojivoto:vote_latency_p95_ms:5m{application="emojivoto"} > 2000
+          for: 15m
+          labels:
+            application: emojivoto
+            severity: high
+            slo: vote-latency
+          annotations:
+            summary: "Emojivoto vote latency is outside its SLO"
+            description: >-
+              The p95 vote latency has exceeded the 2-second SLO threshold
+              for at least 15 minutes.
+            runbook_url: "https://github.com/jresmith/workhorse-aws-terraform/tree/main/workhorse/documentation"

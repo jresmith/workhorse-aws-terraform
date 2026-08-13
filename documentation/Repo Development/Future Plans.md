@@ -6,13 +6,14 @@
 * Setting up encrypt-at-rest for staging and production envs
 * Use an example of RBAC
 * Generate Admin cert for administration for Staging & Pro environments
-*  HashiCorp Vault or AWS Secrets Manager to manage Production scretes instead od Bitnami Seal Secrets
+*  Implement HashiCorp Vault or AWS Secrets Manager to manage Production secrets instead of Bitnami Sealed Secrets
 * Implement across multiple AWS Regions (as part of SLI/SLO resiliancy plan)
 * Implement Cluster Autoscaler/Karpenter
 
 ## EKS 
 
 * Warm ENIs/IP addresses (for scaling & redundancy)
+* Use prefix delegation and/or IPv6
 
 ## Terraform
 

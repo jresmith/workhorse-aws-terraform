@@ -1,0 +1,12 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: test-alert
+
+spec:
+  groups:
+    - name: test
+      rules:
+        - alert: SlackIntegrationTest
+          expr: vector(1)
+          for: 1m

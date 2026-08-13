@@ -6,7 +6,12 @@ prometheus:
   ingress:
     enabled: false
   prometheusSpec:
-    storageSpec: {}
+    ruleSelector:
+      matchLabels:
+        release: kube-prometheus-stack
+    ruleNamespaceSelector:
+      matchLabels:
+        monitoring: enabled
 
 grafana:
   enabled: true
@@ -29,9 +34,19 @@ alertmanager:
     type: ClusterIP
   ingress:
     enabled: false
+  alertmanagerSpec:
+    alertmanagerConfigSelector:
+      matchLabels:
+        release: kube-prometheus-stack
+    alertmanagerConfigNamespaceSelector:
+      matchLabels:
+        monitoring: enabled
 
 nodeExporter:
   enabled: true
 
 kubeStateMetrics:
   enabled: true
+
+
+
