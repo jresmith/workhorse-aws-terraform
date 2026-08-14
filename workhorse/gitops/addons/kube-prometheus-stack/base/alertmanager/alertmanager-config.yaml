@@ -16,10 +16,6 @@ spec:
     groupWait: 30s
     groupInterval: 5m
     repeatInterval: 4h
-    matchers:
-      - name: application
-        value: emojivoto
-        matchType: "="
 
   receivers:
     - name: slack-emojivoto-alerts
