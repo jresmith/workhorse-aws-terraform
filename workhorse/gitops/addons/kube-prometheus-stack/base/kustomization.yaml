@@ -5,7 +5,6 @@ namespace: monitoring
 
 resources:
 - alerts
-- alertmanager
 
 configMapGenerator:
   - name: grafana-dashboard-emojivoto
