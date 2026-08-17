@@ -1,0 +1,114 @@
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: AlertmanagerConfig
+metadata:
+  name: emojivoto-slack
+  namespace: monitoring
+  labels:
+    release: kube-prometheus-stack
+spec:
+  route:
+    receiver: staging-platform-alerts
+    routes:
+      - receiver: staging-platform-alerts
+        continue: true
+        groupBy:
+          - alertname
+          - environment
+          - severity
+        groupWait: 30s
+        groupInterval: 5m
+        repeatInterval: 4h
+        matchers:
+          - name: environment
+            value: staging
+            matchType: "="
+
+          - name: alert_category
+            value: platform
+            matchType: "="
+      - receiver: staging-service-alerts
+        continue: true
+        groupBy:
+          - alertname
+          - environment
+          - severity
+        groupWait: 30s
+        groupInterval: 5m
+        repeatInterval: 4h
+        matchers:
+          - name: environment
+            value: staging
+            matchType: "="
+
+          - name: alert_category
+            value: service
+            matchType: "="
+      - receiver: staging-slo-alerts
+        continue: true
+        groupBy:
+          - alertname
+          - slo
+          - environment
+          - severity
+        groupWait: 30s
+        groupInterval: 5m
+        repeatInterval: 4h
+        matchers:
+          - name: environment
+            value: staging
+            matchType: "="
+
+          - name: alert_category
+            value: slo
+            matchType: "="
+
+
+  receivers:
+    - name: staging-platform-alerts
+      slackConfigs:
+        - apiURL:
+            name: alertmanager-slack-webhook-platform-alerts-staging
+            key: url
+          sendResolved: true
+          title: >-
+            [{{ .Status | toUpper }}][{{ .CommonLabels.severity | toUpper }}]
+            {{ .CommonLabels.alertname }}
+          text: >-
+            *Environment:* {{ .CommonLabels.environment }}
+            *Namespace:* {{ .CommonLabels.namespace }}
+            *Summary:* {{ .CommonAnnotations.summary }}
+            *Description:* {{ .CommonAnnotations.description }}
+            *Runbook:* {{ .CommonAnnotations.runbook_url }}
+    - name: staging-service-alerts
+      slackConfigs:
+        - apiURL:
+            name: alertmanager-slack-webhook-service-alerts-staging
+            key: url
+          sendResolved: true
+          title: >-
+            [{{ .Status | toUpper }}][{{ .CommonLabels.severity | toUpper }}]
+            {{ .CommonLabels.alertname }}
+          text: >-
+            *Application:* {{ .CommonLabels.application }}
+            *Environment:* {{ .CommonLabels.environment }}
+            *Severity:* {{ .CommonLabels.severity }}
+            *Namespace:* {{ .CommonLabels.namespace }}
+            *Summary:* {{ .CommonAnnotations.summary }}
+            *Description:* {{ .CommonAnnotations.description }}
+            *Runbook:* {{ .CommonAnnotations.runbook_url }}
+    - name: staging-slo-alerts
+      slackConfigs:
+        - apiURL:
+            name: alertmanager-slack-webhook-slo-alerts-staging
+            key: url
+          sendResolved: true
+          title: >-
+            [{{ .Status | toUpper }}][{{ .CommonLabels.severity | toUpper }}]
+            {{ .CommonLabels.alertname }}
+          text: >-
+            *SLO:* {{ .CommonLabels.slo }}
+            *Environment:* {{ .CommonLabels.environment }}
+            *Severity:* {{ .CommonLabels.severity }}
+            *Summary:* {{ .CommonAnnotations.summary }}
+            *Description:* {{ .CommonAnnotations.description }}
+            *Runbook:* {{ .CommonAnnotations.runbook_url }}

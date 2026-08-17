@@ -1,0 +1,113 @@
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: AlertmanagerConfig
+metadata:
+  name: emojivoto-slack
+  namespace: monitoring
+  labels:
+    release: kube-prometheus-stack
+spec:
+  route:
+    receiver: prod-platform-alerts
+    routes:
+      - receiver: prod-platform-alerts
+        continue: true
+        groupBy:
+          - alertname
+          - environment
+          - severity
+        groupWait: 30s
+        groupInterval: 5m
+        repeatInterval: 4h
+        matchers:
+          - name: environment
+            value: prod
+            matchType: "="
+
+          - name: alert_category
+            value: platform
+            matchType: "="
+      - receiver: prod-service-alerts
+        continue: true
+        groupBy:
+          - alertname
+          - environment
+          - severity
+        groupWait: 30s
+        groupInterval: 5m
+        repeatInterval: 4h
+        matchers:
+          - name: environment
+            value: prod
+            matchType: "="
+
+          - name: alert_category
+            value: service
+            matchType: "="
+      - receiver: prod-slo-alerts
+        continue: true
+        groupBy:
+          - alertname
+          - slo
+          - environment
+          - severity
+        groupWait: 30s
+        groupInterval: 5m
+        repeatInterval: 4h
+        matchers:
+          - name: environment
+            value: prod
+            matchType: "="
+
+          - name: alert_category
+            value: slo
+            matchType: "="
+
+  receivers:
+    - name: prod-platform-alerts
+      slackConfigs:
+        - apiURL:
+            name: alertmanager-slack-webhook-platform-alerts-prod
+            key: url
+          sendResolved: true
+          title: >-
+            [{{ .Status | toUpper }}][{{ .CommonLabels.severity | toUpper }}]
+            {{ .CommonLabels.alertname }}
+          text: >-
+            *Environment:* {{ .CommonLabels.environment }}
+            *Namespace:* {{ .CommonLabels.namespace }}
+            *Summary:* {{ .CommonAnnotations.summary }}
+            *Description:* {{ .CommonAnnotations.description }}
+            *Runbook:* {{ .CommonAnnotations.runbook_url }}
+    - name: prod-service-alerts
+      slackConfigs:
+        - apiURL:
+            name: alertmanager-slack-webhook-service-alerts-prod
+            key: url
+          sendResolved: true
+          title: >-
+            [{{ .Status | toUpper }}][{{ .CommonLabels.severity | toUpper }}]
+            {{ .CommonLabels.alertname }}
+          text: >-
+            *Application:* {{ .CommonLabels.application }}
+            *Environment:* {{ .CommonLabels.environment }}
+            *Severity:* {{ .CommonLabels.severity }}
+            *Namespace:* {{ .CommonLabels.namespace }}
+            *Summary:* {{ .CommonAnnotations.summary }}
+            *Description:* {{ .CommonAnnotations.description }}
+            *Runbook:* {{ .CommonAnnotations.runbook_url }}
+    - name: prod-slo-alerts
+      slackConfigs:
+        - apiURL:
+            name: alertmanager-slack-webhook-slo-alerts-prod
+            key: url
+          sendResolved: true
+          title: >-
+            [{{ .Status | toUpper }}][{{ .CommonLabels.severity | toUpper }}]
+            {{ .CommonLabels.alertname }}
+          text: >-
+            *SLO:* {{ .CommonLabels.slo }}
+            *Environment:* {{ .CommonLabels.environment }}
+            *Severity:* {{ .CommonLabels.severity }}
+            *Summary:* {{ .CommonAnnotations.summary }}
+            *Description:* {{ .CommonAnnotations.description }}
+            *Runbook:* {{ .CommonAnnotations.runbook_url }}

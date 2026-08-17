@@ -1,0 +1,47 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: alertmanager-routing-test-dev
+  namespace: monitoring
+  labels:
+    release: kube-prometheus-stack
+
+spec:
+  groups:
+    - name: receiver-tests
+      rules:
+
+        # DEV
+
+        - alert: DevPlatformReceiverTest
+          expr: vector(1)
+          for: 1m
+          labels:
+            environment: dev
+            alert_category: platform
+            severity: info
+          annotations:
+            summary: Testing dev platform receiver
+
+        - alert: DevServiceReceiverTest
+          expr: vector(1)
+          for: 1m
+          labels:
+            environment: dev
+            alert_category: service
+            application: emojivoto
+            severity: info
+          annotations:
+            summary: Testing dev service receiver
+
+        - alert: DevSLOReceiverTest
+          expr: vector(1)
+          for: 1m
+          labels:
+            environment: dev
+            alert_category: slo
+            application: emojivoto
+            slo: request-availability
+            severity: info
+          annotations:
+            summary: Testing dev SLO receiver
