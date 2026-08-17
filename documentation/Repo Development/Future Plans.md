@@ -41,6 +41,20 @@
   - Alert when service logs panic
   - Alert when no logs from Alloy
 
+### Loki / Alertmanager
+
+* Create useful Loki log labels. loki.relabel to promote the below to Loki labels.
+  - _SYSTEMD_UNIT
+  - _HOSTNAME
+  - _TRANSPORT
+* After the above Set up Node alerts for
+  - Kubelet problems: `{job="systemd-journal"} |= "Failed"`
+  - CNI failures: `{job="aws-routed-eni"} |= "error"`
+  - OOM kills: `{job="systemd-journal"} |= "Out of memory"`
+  - And more...
+* Add Monitoring for monitoring
+
+
 ## CI
 
 * Automatic deployment of terraform code changes. Pipeline to run terraform init/plan/apply following existing pipeline
