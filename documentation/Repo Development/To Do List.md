@@ -15,10 +15,6 @@
 
 * There do seem to be conflicts with DNS records when both staging and production are deployed the same time - seem to get created and then disappear. Will require investigation.
 
-## EKS 
-
-* Use prefix delegation and/or IPv6
-
 ## Alertmanager
 
 ### Prometheus / Alertmanager
@@ -72,5 +68,5 @@
 ## Final Polish
 
 * Video demoing enivironment
-* Add UI of Web App to Readme
+* Add UI of Prometheus Dashboards App to Readme
 
