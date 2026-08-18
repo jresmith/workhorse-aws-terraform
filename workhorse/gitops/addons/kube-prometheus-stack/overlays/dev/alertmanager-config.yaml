@@ -74,9 +74,13 @@ spec:
             {{ .CommonLabels.alertname }}
           text: >-
             *Environment:* {{ .CommonLabels.environment }}
+
             *Namespace:* {{ .CommonLabels.namespace }}
+
             *Summary:* {{ .CommonAnnotations.summary }}
+
             *Description:* {{ .CommonAnnotations.description }}
+
             *Runbook:* {{ .CommonAnnotations.runbook_url }}
     - name: dev-service-alerts
       slackConfigs:
@@ -89,11 +93,17 @@ spec:
             {{ .CommonLabels.alertname }}
           text: >-
             *Application:* {{ .CommonLabels.application }}
+
             *Environment:* {{ .CommonLabels.environment }}
+
             *Severity:* {{ .CommonLabels.severity }}
+
             *Namespace:* {{ .CommonLabels.namespace }}
+
             *Summary:* {{ .CommonAnnotations.summary }}
+
             *Description:* {{ .CommonAnnotations.description }}
+
             *Runbook:* {{ .CommonAnnotations.runbook_url }}
     - name: dev-slo-alerts
       slackConfigs:
@@ -106,8 +116,13 @@ spec:
             {{ .CommonLabels.alertname }}
           text: >-
             *SLO:* {{ .CommonLabels.slo }}
+
             *Environment:* {{ .CommonLabels.environment }}
+
             *Severity:* {{ .CommonLabels.severity }}
+
             *Summary:* {{ .CommonAnnotations.summary }}
+
             *Description:* {{ .CommonAnnotations.description }}
+
             *Runbook:* {{ .CommonAnnotations.runbook_url }}

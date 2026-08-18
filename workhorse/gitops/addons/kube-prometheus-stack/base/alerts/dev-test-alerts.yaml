@@ -17,6 +17,7 @@ spec:
           expr: vector(1)
           for: 1m
           labels:
+            namespace: monitoring
             environment: dev
             alert_category: platform
             severity: info
@@ -27,6 +28,7 @@ spec:
           expr: vector(1)
           for: 1m
           labels:
+            namespace: monitoring
             environment: dev
             alert_category: service
             application: emojivoto
@@ -38,6 +40,7 @@ spec:
           expr: vector(1)
           for: 1m
           labels:
+            namespace: monitoring
             environment: dev
             alert_category: slo
             application: emojivoto
