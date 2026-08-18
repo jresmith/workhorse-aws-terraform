@@ -75,9 +75,13 @@ spec:
             {{ .CommonLabels.alertname }}
           text: >-
             *Environment:* {{ .CommonLabels.environment }}
+
             *Namespace:* {{ .CommonLabels.namespace }}
+
             *Summary:* {{ .CommonAnnotations.summary }}
+
             *Description:* {{ .CommonAnnotations.description }}
+
             *Runbook:* {{ .CommonAnnotations.runbook_url }}
     - name: staging-service-alerts
       slackConfigs:
@@ -90,11 +94,17 @@ spec:
             {{ .CommonLabels.alertname }}
           text: >-
             *Application:* {{ .CommonLabels.application }}
+
             *Environment:* {{ .CommonLabels.environment }}
+
             *Severity:* {{ .CommonLabels.severity }}
+
             *Namespace:* {{ .CommonLabels.namespace }}
+
             *Summary:* {{ .CommonAnnotations.summary }}
+
             *Description:* {{ .CommonAnnotations.description }}
+
             *Runbook:* {{ .CommonAnnotations.runbook_url }}
     - name: staging-slo-alerts
       slackConfigs:
@@ -107,8 +117,13 @@ spec:
             {{ .CommonLabels.alertname }}
           text: >-
             *SLO:* {{ .CommonLabels.slo }}
+
             *Environment:* {{ .CommonLabels.environment }}
+
             *Severity:* {{ .CommonLabels.severity }}
+
             *Summary:* {{ .CommonAnnotations.summary }}
+
             *Description:* {{ .CommonAnnotations.description }}
+
             *Runbook:* {{ .CommonAnnotations.runbook_url }}
