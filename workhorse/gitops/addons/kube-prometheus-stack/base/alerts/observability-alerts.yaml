@@ -1,0 +1,58 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: observability-alerts
+  namespace: monitoring
+  labels:
+    release: kube-prometheus-stack
+
+spec:
+  groups:
+
+    - name: observability.alerts
+      interval: 1m
+      rules:
+
+        # Alert when Prometheus cannot be scraped for 5 minutes.
+        - alert: PrometheusDown
+          expr: |
+            up{job=~".*prometheus.*"} == 0
+          for: 5m
+          labels:
+            severity: critical
+            alert_category: infrastructure
+          annotations:
+            summary: Prometheus is unavailable
+
+        # Alert when Alertmanager cannot be scraped for 5 minutes.
+        - alert: AlertmanagerDown
+          expr: |
+            up{job=~".*alertmanager.*"} == 0
+          for: 5m
+          labels:
+            severity: critical
+            alert_category: infrastructure
+          annotations:
+            summary: Alertmanager is unavailable
+
+        # Alert when Grafana cannot be scraped for 5 minutes.
+        - alert: GrafanaDown
+          expr: |
+            up{job=~".*grafana.*"} == 0
+          for: 5m
+          labels:
+            severity: high
+            alert_category: infrastructure
+          annotations:
+            summary: Grafana is unavailable
+
+        # Alert when Loki cannot be scraped for 5 minutes.
+        - alert: LokiDown
+          expr: |
+            up{job=~".*loki.*"} == 0
+          for: 5m
+          labels:
+            severity: high
+            alert_category: infrastructure
+          annotations:
+            summary: Loki is unavailable

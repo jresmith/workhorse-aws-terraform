@@ -1,19 +1,51 @@
 apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
-  name: emojivoto-slos
+  name: emojivoto-availability-slo
   namespace: monitoring
   labels:
     release: kube-prometheus-stack
 spec:
   groups:
-    # -------------------------------------------------------------------------
-    # Long-window burn-rate recording rules
-    # -------------------------------------------------------------------------
+
     - name: emojivoto.slo.burn-rate.long
       interval: 1m
       rules:
-        # Request Availability: 99.9%
+        # Calculate the 1-hour availability SLO burn rate.
+        #
+        # rate(response_total[1h])
+        #   Converts the request counters into requests-per-second over the last hour.
+        #
+        # classification="failure"
+        #   Selects only failed requests to calculate the failure rate.
+        #
+        # sum by (namespace)
+        #   Aggregates all pods and replicas within each namespace into a single value.
+        #
+        # numerator
+        #   Total failed request rate over the last hour.
+        #
+        # denominator
+        #   Total request rate over the last hour.
+        #
+        # failure rate
+        #   failed requests / total requests.
+        #
+        # clamp_min(..., 1e-9)
+        #   Prevents divide-by-zero errors when request volume is zero.
+        #
+        # 1e-9
+        #   A tiny number used as a safety guard when no traffic exists.
+        #
+        # / 0.001
+        #   Converts the failure rate into a burn rate using the 99.9% SLO.
+        #   A 99.9% SLO allows 0.1% failures, which equals 0.001.
+        #
+        # Example:
+        #   0.1% failures = burn rate 1x
+        #   1.0% failures = burn rate 10x
+        #   10% failures = burn rate 100x
+        #
         - record: emojivoto:slo_burn_rate:1h
           labels:
             application: emojivoto
@@ -40,7 +72,7 @@ spec:
                 1e-9
               )
             ) / 0.001
-
+        # Same logic as the emojivoto:slo_burn_rate:1h above but over a 6 hour period instead
         - record: emojivoto:slo_burn_rate:6h
           labels:
             application: emojivoto
@@ -67,7 +99,7 @@ spec:
                 1e-9
               )
             ) / 0.001
-
+        # Same logic as the emojivoto:slo_burn_rate:1h above but over a 24 hour period instead
         - record: emojivoto:slo_burn_rate:1d
           labels:
             application: emojivoto
@@ -94,7 +126,7 @@ spec:
                 1e-9
               )
             ) / 0.001
-
+        # Same logic as the emojivoto:slo_burn_rate:1h above but over a 3 day period instead
         - record: emojivoto:slo_burn_rate:3d
           labels:
             application: emojivoto
@@ -122,12 +154,10 @@ spec:
               )
             ) / 0.001
 
-    # -------------------------------------------------------------------------
-    # Short-window recording rules
-    # -------------------------------------------------------------------------
     - name: emojivoto.slo.burn-rate.short
       interval: 1m
       rules:
+        # Same logic as the emojivoto:slo_burn_rate:1h above but over a 5 min period instead
         - record: emojivoto:slo_burn_rate:5m
           labels:
             application: emojivoto
@@ -154,7 +184,7 @@ spec:
                 1e-9
               )
             ) / 0.001
-
+        # Same logic as the emojivoto:slo_burn_rate:1h above but over a 30 min period instead
         - record: emojivoto:slo_burn_rate:30m
           labels:
             application: emojivoto
@@ -181,7 +211,7 @@ spec:
                 1e-9
               )
             ) / 0.001
-
+        # Same logic as the emojivoto:slo_burn_rate:1h above but over a 2 hour period instead
         - record: emojivoto:slo_burn_rate:2h
           labels:
             application: emojivoto
@@ -209,12 +239,11 @@ spec:
               )
             ) / 0.001
 
-    # -------------------------------------------------------------------------
-    # Multi-window burn-rate alert rules
-    # -------------------------------------------------------------------------
-    - name: emojivoto.slo.alerts
+    - name: emojivoto.slo.availability.alerts
       interval: 1m
       rules:
+        # Alert when the error budget burn rate exceeds 30x over both the
+        # 30-minute and 6-hour windows and remains above the threshold for 5 minutes.
         - alert: EmojivotoSLOBurnRateUrgent
           expr: |
             emojivoto:slo_burn_rate:1h{application="emojivoto"} > 720
@@ -224,14 +253,8 @@ spec:
           labels:
             application: emojivoto
             severity: urgent
-          annotations:
-            summary: "Emojivoto is consuming its error budget at an urgent rate"
-            description: >-
-              The {{ $labels.slo }} SLO is burning at more than 720x across
-              both the 1-hour and 5-minute windows. At this rate, the complete
-              30-day error budget can be consumed in approximately one hour.
-            runbook_url: "https://github.com/jresmith/workhorse-aws-terraform/tree/main/workhorse/documentation"
-
+        # Alert when the error budget burn rate exceeds 15x over both the
+        # 2-hour and 1-day windows and remains above the threshold for 10 minutes.
         - alert: EmojivotoSLOBurnRateHigh
           expr: |
             emojivoto:slo_burn_rate:6h{application="emojivoto"} > 30
@@ -241,13 +264,8 @@ spec:
           labels:
             application: emojivoto
             severity: high
-          annotations:
-            summary: "Emojivoto is consuming its error budget at a high rate"
-            description: >-
-              The {{ $labels.slo }} SLO is burning at more than 30x across
-              both the 6-hour and 30-minute windows.
-            runbook_url: "https://github.com/jresmith/workhorse-aws-terraform/tree/main/workhorse/documentation"
-
+        # Alert when the error budget burn rate exceeds 7.5x over both the
+        # 6-hour and 3-day windows and remains above the threshold for 15 minutes.
         - alert: EmojivotoSLOBurnRateMedium
           expr: |
             emojivoto:slo_burn_rate:1d{application="emojivoto"} > 15
@@ -257,13 +275,8 @@ spec:
           labels:
             application: emojivoto
             severity: medium
-          annotations:
-            summary: "Emojivoto is consuming its error budget at a sustained rate"
-            description: >-
-              The {{ $labels.slo }} SLO is burning at more than 15x across
-              both the 1-day and 2-hour windows.
-            runbook_url: "https://github.com/jresmith/workhorse-aws-terraform/tree/main/workhorse/documentation"
-
+        # Alert when the error budget burn rate exceeds 7.5x over both the
+        # 6-hour and 3-day windows and remains above the threshold for 15 minutes.
         - alert: EmojivotoSLOBurnRateLow
           expr: |
             emojivoto:slo_burn_rate:3d{application="emojivoto"} > 7.5
@@ -273,122 +286,3 @@ spec:
           labels:
             application: emojivoto
             severity: low
-          annotations:
-            summary: "Emojivoto is gradually consuming its error budget"
-            description: >-
-              The {{ $labels.slo }} SLO is burning at more than 7.5x across
-              both the 3-day and 6-hour windows.
-            runbook_url: "https://github.com/jresmith/workhorse-aws-terraform/tree/main/workhorse/documentation"
-
-    # -------------------------------------------------------------------------
-    # Latency trend and baseline rules
-    # -------------------------------------------------------------------------
-    - name: emojivoto.performance.recording
-      interval: 1m
-      rules:
-        - record: emojivoto:request_latency_p95_ms:5m
-          labels:
-            application: emojivoto
-            slo: request-latency
-          expr: |
-            histogram_quantile(
-              0.95,
-              sum by (namespace, le) (
-                rate(response_latency_ms_bucket{
-                  namespace=~"emojivoto-.*",
-                  deployment="web",
-                  direction="inbound"
-                }[5m])
-              )
-            )
-
-        - record: emojivoto:vote_latency_p95_ms:5m
-          labels:
-            application: emojivoto
-            slo: vote-latency
-          expr: |
-            histogram_quantile(
-              0.95,
-              sum by (namespace, le) (
-                rate(route_response_latency_ms_bucket{
-                  namespace=~"emojivoto-.*",
-                  deployment="voting",
-                  direction="inbound",
-                  rt_route=~".*[Vv]ote.*"
-                }[5m])
-              )
-            )
-
-    - name: emojivoto.performance.alerts
-      interval: 1m
-      rules:
-        - alert: EmojivotoPerformanceDegraded20Percent
-          expr: |
-            emojivoto:request_latency_p95_ms:5m{application="emojivoto"}
-              >
-            1.20 *
-            emojivoto:request_latency_p95_ms:5m{application="emojivoto"}
-              offset 24h
-          for: 15m
-          labels:
-            application: emojivoto
-            severity: medium
-            slo: request-latency
-          annotations:
-            summary: "Emojivoto request latency has degraded by more than 20%"
-            description: >-
-              Current five-minute p95 response latency is more than 20% higher
-              than the equivalent measurement 24 hours ago.
-            runbook_url: "https://github.com/jresmith/workhorse-aws-terraform/tree/main/workhorse/documentation"
-
-        - alert: EmojivotoResponseTimeTwiceBaseline
-          expr: |
-            emojivoto:request_latency_p95_ms:5m{application="emojivoto"}
-              >
-            2 *
-            avg_over_time(
-              emojivoto:request_latency_p95_ms:5m{
-                application="emojivoto"
-              }[7d]
-            )
-          for: 10m
-          labels:
-            application: emojivoto
-            severity: high
-            slo: request-latency
-          annotations:
-            summary: "Emojivoto response time is more than twice its baseline"
-            description: >-
-              Current five-minute p95 request latency is more than twice the
-              seven-day rolling average.
-            runbook_url: "https://github.com/jresmith/workhorse-aws-terraform/tree/main/workhorse/documentation"
-
-        - alert: EmojivotoRequestLatencySLOBreach
-          expr: |
-            emojivoto:request_latency_p95_ms:5m{application="emojivoto"} > 300
-          for: 15m
-          labels:
-            application: emojivoto
-            severity: high
-            slo: request-latency
-          annotations:
-            summary: "Emojivoto request latency is outside its SLO"
-            description: >-
-              The p95 request latency has exceeded the 300 ms SLO threshold
-              for at least 15 minutes.
-            runbook_url: "https://github.com/jresmith/workhorse-aws-terraform/tree/main/workhorse/documentation"
-
-        - alert: EmojivotoVoteLatencySLOBreach
-          expr: |
-            emojivoto:vote_latency_p95_ms:5m{application="emojivoto"} > 2000
-          for: 15m
-          labels:
-            application: emojivoto
-            severity: high
-            slo: vote-latency
-          annotations:
-            summary: "Emojivoto vote latency is outside its SLO"
-            description: >-
-              The p95 vote latency has exceeded the 2-second SLO threshold
-              for at least 15 minutes.
-            runbook_url: "https://github.com/jresmith/workhorse-aws-terraform/tree/main/workhorse/documentation"

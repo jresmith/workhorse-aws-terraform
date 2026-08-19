@@ -1,0 +1,39 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: emojivoto-performance-degradation
+  namespace: monitoring
+  labels:
+    release: kube-prometheus-stack
+spec:
+  groups:
+
+    - name: emojivoto.performance.alerts
+      interval: 1m
+      rules:
+        # Alert when current request latency is more than 20% worse than the equivalent latency observed 24 hours ago.
+        - alert: EmojivotoPerformanceDegraded20Percent
+          expr: |
+            emojivoto:request_latency_p95_ms:5m{application="emojivoto"}
+            >
+            1.20 *
+            emojivoto:request_latency_p95_ms:5m{application="emojivoto"} offset 24h
+          for: 15m
+          labels:
+            application: emojivoto
+            severity: medium
+        # Alert when current request latency exceeds twice the seven-day rolling average.
+        - alert: EmojivotoResponseTimeTwiceBaseline
+          expr: |
+            emojivoto:request_latency_p95_ms:5m{application="emojivoto"}
+            >
+            2 *
+            avg_over_time(
+              emojivoto:request_latency_p95_ms:5m{
+                application="emojivoto"
+              }[7d]
+            )
+          for: 10m
+          labels:
+            application: emojivoto
+            severity: high

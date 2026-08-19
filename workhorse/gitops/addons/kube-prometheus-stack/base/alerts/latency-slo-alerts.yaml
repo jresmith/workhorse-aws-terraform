@@ -1,0 +1,70 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: emojivoto-latency-slo
+  namespace: monitoring
+  labels:
+    release: kube-prometheus-stack
+spec:
+  groups:
+
+    - name: emojivoto.latency.recording
+      interval: 1m
+      rules:
+        # Calculate the 95th percentile latency for web frontend requests using a 5-minute rolling window.
+        # Used by latency SLO and performance degradation alert
+        - record: emojivoto:request_latency_p95_ms:5m
+          labels:
+            application: emojivoto
+            slo: request-latency
+          expr: |
+            histogram_quantile(
+              0.95,
+              sum by (namespace, le) (
+                rate(response_latency_ms_bucket{
+                  namespace=~"emojivoto-.*",
+                  deployment="web",
+                  direction="inbound"
+                }[5m])
+              )
+            )
+        # Calculate the 95th percentile latency for vote transactions using a 5-minute rolling window.
+        # Used to measure performance of the application's primary user interaction.
+        - record: emojivoto:vote_latency_p95_ms:5m
+          labels:
+            application: emojivoto
+            slo: vote-latency
+          expr: |
+            histogram_quantile(
+              0.95,
+              sum by (namespace, le) (
+                rate(route_response_latency_ms_bucket{
+                  namespace=~"emojivoto-.*",
+                  deployment="voting",
+                  direction="inbound",
+                  rt_route=~".*[Vv]ote.*"
+                }[5m])
+              )
+            )
+
+    - name: emojivoto.latency.slo.alerts
+      interval: 1m
+      rules:
+        # Alert when the 95th percentile web request latency exceeds 300ms for more than 15 minutes.
+        - alert: EmojivotoRequestLatencySLOBreach
+          expr: |
+            emojivoto:request_latency_p95_ms:5m{application="emojivoto"} > 300
+          for: 15m
+          labels:
+            application: emojivoto
+            severity: high
+            slo: request-latency
+        # Alert when the 95th percentile vote transaction latency exceeds 2 seconds for more than 15 minutes.
+        - alert: EmojivotoVoteLatencySLOBreach
+          expr: |
+            emojivoto:vote_latency_p95_ms:5m{application="emojivoto"} > 2000
+          for: 15m
+          labels:
+            application: emojivoto
+            severity: high
+            slo: vote-latency

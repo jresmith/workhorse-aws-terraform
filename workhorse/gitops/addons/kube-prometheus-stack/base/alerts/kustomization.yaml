@@ -4,4 +4,9 @@ kind: Kustomization
 namespace: monitoring
 
 resources:
-  - emojivoto-SLOs.yaml
+  - availability-slo-alerts.yaml
+  - observability-alerts.yaml
+  - service-alerts.yaml
+  - infrastructure-alerts.yaml
+  - latency-slo-alerts.yaml
+  - performance-degradation-alerts.yaml

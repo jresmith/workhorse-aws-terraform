@@ -1,0 +1,79 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: emojivoto-service-alerts
+  namespace: monitoring
+  labels:
+    release: kube-prometheus-stack
+
+spec:
+  groups:
+
+    - name: emojivoto.service.alerts
+      interval: 1m
+      rules:
+
+        # Alert when more than 5% of requests have failed over the
+        # previous 5 minutes and the condition persists for 5 minutes.
+        - alert: EmojivotoHighErrorRate
+          expr: |
+            (
+              sum by (namespace) (
+                rate(response_total{
+                  namespace=~"emojivoto-.*",
+                  deployment="web",
+                  classification="failure"
+                }[5m])
+              )
+              /
+              clamp_min(
+                sum by (namespace) (
+                  rate(response_total{
+                    namespace=~"emojivoto-.*",
+                    deployment="web"
+                  }[5m])
+                ),
+                1e-9
+              )
+            ) > 0.05
+          for: 5m
+          labels:
+            application: emojivoto
+            severity: high
+            alert_category: service
+          annotations:
+            summary: High request error rate detected
+
+        # Alert when no successful requests have been observed for
+        # 5 consecutive minutes.
+        - alert: EmojivotoNoSuccessfulRequests
+          expr: |
+            sum by (namespace) (
+              rate(response_total{
+                namespace=~"emojivoto-.*",
+                deployment="web",
+                classification!="failure"
+              }[5m])
+            ) == 0
+          for: 5m
+          labels:
+            application: emojivoto
+            severity: critical
+            alert_category: service
+          annotations:
+            summary: No successful requests detected
+
+        # Alert when the Horizontal Pod Autoscaler has reached its
+        # configured maximum replica count for 15 minutes.
+        - alert: EmojivotoHPAMaxReplicasReached
+          expr: |
+            kube_horizontalpodautoscaler_status_current_replicas
+            ==
+            kube_horizontalpodautoscaler_spec_max_replicas
+          for: 15m
+          labels:
+            application: emojivoto
+            severity: medium
+            alert_category: service
+          annotations:
+            summary: HPA has reached maximum capacity

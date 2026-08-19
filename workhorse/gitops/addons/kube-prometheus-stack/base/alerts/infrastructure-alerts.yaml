@@ -1,0 +1,88 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: emojivoto-infrastructure-alerts
+  namespace: monitoring
+  labels:
+    release: kube-prometheus-stack
+
+spec:
+  groups:
+
+    - name: emojivoto.infrastructure.alerts
+      interval: 1m
+      rules:
+
+        # Alert when the number of available replicas is lower than
+        # the desired replica count for 15 minutes.
+        - alert: DeploymentReplicasMismatch
+          expr: |
+            kube_deployment_status_replicas_available{
+            namespace=~"emojivoto-.*"
+            }
+            <
+            kube_deployment_spec_replicas{
+            namespace=~"emojivoto-.*"
+            }
+          for: 15m
+          labels:
+            application: emojivoto
+            severity: high
+            alert_category: infrastructure
+          annotations:
+            summary: Deployment has unavailable replicas
+
+        # Alert when a container has restarted during the previous
+        # 15 minutes and continues restarting.
+        - alert: PodCrashLooping
+          expr: |
+            rate(
+              kube_pod_container_status_restarts_total{
+                namespace=~"emojivoto-.*"
+              }[15m]
+            ) > 0
+          for: 15m
+          labels:
+            application: emojivoto
+            severity: high
+            alert_category: infrastructure
+          annotations:
+            summary: Pod is repeatedly restarting
+
+        # Alert when a container has been terminated due to an
+        # out-of-memory event during the previous 30 minutes.
+        - alert: ContainerOOMKilled
+          expr: |
+            increase(
+              kube_pod_container_status_restarts_total{
+                namespace=~"emojivoto-.*"
+              }[30m]
+            ) > 0
+            and
+            kube_pod_container_status_last_terminated_reason{
+              namespace=~"emojivoto-.*",
+              reason="OOMKilled"
+            } == 1
+          for: 5m
+          labels:
+            application: emojivoto
+            severity: high
+            alert_category: infrastructure
+          annotations:
+            summary: Container terminated due to OOM
+
+        # Alert when a pod remains NotReady for more than
+        # 15 minutes.
+        - alert: PodNotReady
+          expr: |
+            kube_pod_status_ready{
+              namespace=~"emojivoto-.*",
+              condition="true"
+            } == 0
+          for: 15m
+          labels:
+            application: emojivoto
+            severity: medium
+            alert_category: infrastructure
+          annotations:
+            summary: Pod is not ready
