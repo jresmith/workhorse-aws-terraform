@@ -359,6 +359,9 @@ prod-platform-alerts
 prod-service-alerts
 prod-slo-alerts
 ```
+
+<img width="1918" height="957" alt="Screenshot 2026-08-20 at 4 33 28 PM" src="https://github.com/user-attachments/assets/e6381e3c-a3d1-4b6c-bbd3-eadd4519f126" />
+
 ---
 
 ## How Alerts Are Structured
