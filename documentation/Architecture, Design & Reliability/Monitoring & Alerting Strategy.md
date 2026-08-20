@@ -150,150 +150,6 @@ Will alerts continue to be delivered?
 
 ---
 
-## How Alerts Are Structured
-
-Alerts are grouped into logical operational categories.
-
-### Infrastructure Alerts
-
-Platform issues that may eventually impact users.
-
-Examples:
-
-- DeploymentReplicasMismatch
-- PodCrashLooping
-- ContainerOOMKilled
-- PodNotReady
-- HPAMaxReplicasReached
-
-### Service Alerts
-
-Application issues that affect behaviour but may not yet represent an SLO breach.
-
-Examples:
-
-- High Error Rate
-- No Successful Requests
-
-### Availability SLO Alerts
-
-Customer-impacting availability issues.
-
-Examples:
-
-- Burn Rate Urgent
-- Burn Rate High
-- Burn Rate Medium
-- Burn Rate Low
-
-### Latency SLO Alerts
-
-Customer-impacting performance issues.
-
-Examples:
-
-- RequestLatencySLOBreach
-- VoteLatencySLOBreach
-
-### Performance Degradation Alerts
-
-Early warning indicators.
-
-Examples:
-
-- Response Time Degraded 20%
-- Response Time Twice Baseline
-
-### Observability Alerts
-
-Failures within the monitoring platform itself.
-
-Examples:
-
-- PrometheusDown
-- AlertmanagerDown
-- GrafanaDown
-- LokiDown
-
----
-
-## How Metrics and Logs Work Together
-
-Metrics and logs solve different problems.
-
-### Metrics Answer
-
-```text
-What is happening?
-```
-
-Examples:
-
-```text
-Error rate increased.
-
-Latency increased.
-
-Pods restarted.
-
-Traffic dropped.
-```
-
-Metrics are primarily used for:
-
-- Dashboards
-- Alerts
-- SLO calculations
-- Trend analysis
-
-### Logs Answer
-
-```text
-Why is it happening?
-```
-
-Examples:
-
-```text
-Application exception.
-
-Database timeout.
-
-Authentication failure.
-
-Failed API request.
-```
-
-Logs are used for troubleshooting after metrics or alerts identify an issue.
-
-### Typical Investigation Workflow
-
-```text
-Alert Fires
-        ↓
-Dashboard Review
-        ↓
-Identify Impacted Service
-        ↓
-Inspect Logs
-        ↓
-Determine Root Cause
-```
-
-Example:
-
-```text
-High Error Rate Alert
-        ↓
-Grafana Shows Error Spike
-        ↓
-Loki Shows Database Timeouts
-        ↓
-Root Cause Identified
-```
-
----
-
 ## Signal Sources
 
 Workhorse collects telemetry from multiple sources to validate both platform health and user experience.
@@ -309,18 +165,6 @@ Examples:
 - Failed requests
 - Startup failures
 
-Collection flow:
-
-```text
-Application Containers
-        ↓
-stdout / stderr
-        ↓
-Promtail
-        ↓
-Loki
-```
-
 ### Load Balancer / Service Mesh / Ingress Metrics
 
 Traffic metrics provide visibility into client-facing requests.
@@ -335,12 +179,11 @@ Examples:
 
 Sources include:
 
-- Linkerd
 - Kubernetes Services
 - Ingress Controller
 - AWS Load Balancer
 
-### Synthetic Testing (Vote Bot)
+### Synthetic Testing (Vote Bot) [PLANNED]
 
 Synthetic traffic continuously exercises the application.
 
@@ -377,152 +220,7 @@ This helps validate that monitoring data reflects real-world user experience.
 
 Grafana dashboards provide operational visibility into the platform.
 
-## Availability Dashboard
-
-### Purpose
-
-Visualize service availability and successful request rates.
-
-### Key Panels
-
-- Request volume
-- Success rate
-- Error rate
-- Burn rate
-
-### Why These Metrics Matter
-
-Availability is the primary indicator of customer impact.
-
-### How to Interpret Anomalies
-
-Examples:
-
-```text
-Increased burn rate
-        ↓
-Reliability degradation
-
-Increasing error rate
-        ↓
-Application instability
-
-Traffic with no successful responses
-        ↓
-Potential outage
-```
-
----
-
-## Latency Dashboard
-
-### Purpose
-
-Visualize application responsiveness.
-
-### Key Panels
-
-- p50 latency
-- p95 latency
-- p99 latency
-- Vote latency
-
-### Why These Metrics Matter
-
-Users directly experience latency.
-
-### How to Interpret Anomalies
-
-Examples:
-
-```text
-Sudden p95 spike
-        ↓
-Performance regression
-
-Steady latency increase
-        ↓
-Resource saturation
-
-High latency during scaling
-        ↓
-Capacity constraint
-```
-
----
-
-## Infrastructure Dashboard
-
-### Purpose
-
-Monitor Kubernetes workload health.
-
-### Key Panels
-
-- Pod status
-- Replica counts
-- Pod restarts
-- Resource utilisation
-- HPA status
-
-### Why These Metrics Matter
-
-Infrastructure issues often occur before user-facing impact.
-
-### How to Interpret Anomalies
-
-Examples:
-
-```text
-Increasing restart count
-        ↓
-Application instability
-
-Unavailable replicas
-        ↓
-Failed deployment
-
-Pods NotReady
-        ↓
-Dependency issue
-```
-
----
-
-## Observability Dashboard
-
-### Purpose
-
-Monitor the health of the monitoring platform.
-
-### Key Panels
-
-- Prometheus health
-- Loki health
-- Alertmanager health
-- Grafana health
-
-### Why These Metrics Matter
-
-If observability fails, troubleshooting becomes significantly harder.
-
-### How to Interpret Anomalies
-
-Examples:
-
-```text
-Prometheus Down
-        ↓
-Metrics unavailable
-
-Alertmanager Down
-        ↓
-No alerts delivered
-
-Loki Down
-        ↓
-Logs unavailable
-```
+# 🚧 Work in Progress
 
 ---
 
@@ -640,88 +338,32 @@ Monitoring objectives are based on validating key user journeys.
 
 ## Emoji Catalogue Can Be Viewed
 
-### Objectives
-
-- Emoji Catalogue Availability
-- Emoji Catalogue Latency
-
-### Questions
-
-```text
-Can users retrieve the available emojis?
-
-How quickly can they retrieve them?
-```
+| Objective | Question |
+|------------|----------|
+| Emoji Catalogue Availability | Can users retrieve the available emojis? |
+| Emoji Catalogue Latency | How quickly can they retrieve them? |
 
 ---
 
 ## Votes Can Be Cast
 
-### UI (Web Service) Availability
-
-Question:
-
-```text
-Can users access the voting interface?
-```
-
-### UI (Web Service) Latency
-
-Question:
-
-```text
-How quickly does the UI respond?
-```
-
-### Vote Cast (Voting Service) Availability
-
-Question:
-
-```text
-Can users successfully submit votes?
-```
-
-### Vote Cast (Voting Service) Latency
-
-Question:
-
-```text
-How quickly are vote requests processed?
-```
-
-### Vote Processing Success Rate
-
-Question:
-
-```text
-What percentage of vote requests complete successfully?
-```
-
-### End-to-End Vote Processing Time
-
-Question:
-
-```text
-How long does it take from vote submission until the vote appears in the application?
-```
+| Objective | Question |
+|------------|----------|
+| UI (Web Service) Availability | Can users access the voting interface? |
+| UI (Web Service) Latency | How quickly does the UI respond? |
+| Vote Cast (Voting Service) Availability | Can users successfully submit votes? |
+| Vote Cast (Voting Service) Latency | How quickly are vote requests processed? |
+| Vote Processing Success Rate | What percentage of vote requests complete successfully? |
+| End-to-End Vote Processing Time | How long does it take from vote submission until the vote appears in the application? |
 
 ---
 
 ## Leaderboard Can Be Viewed
 
-### Objectives
-
-- Leaderboard Availability
-- Leaderboard Latency
-
-### Questions
-
-```text
-Can users retrieve leaderboard data?
-
-How quickly can leaderboard data be displayed?
-```
-
+| Objective | Question |
+|------------|----------|
+| Leaderboard Availability | Can users retrieve leaderboard data? |
+| Leaderboard Latency | How quickly can leaderboard data be displayed? |
 ---
 
 # Alert Routing Strategy
@@ -780,3 +422,70 @@ The primary objective is to ensure users can:
 - View leaderboard results
 
 while providing sufficient visibility to rapidly detect, investigate, and resolve operational issues within the platform.
+
+---
+
+## How Alerts Are Structured
+
+Alerts are grouped into logical operational categories.
+
+### Infrastructure Alerts
+
+Platform issues that may eventually impact users.
+
+Examples:
+
+- DeploymentReplicasMismatch
+- PodCrashLooping
+- ContainerOOMKilled
+- PodNotReady
+- HPAMaxReplicasReached
+
+### Service Alerts
+
+Application issues that affect behaviour but may not yet represent an SLO breach.
+
+Examples:
+
+- High Error Rate
+- No Successful Requests
+
+### Availability SLO Alerts
+
+Customer-impacting availability issues.
+
+Examples:
+
+- Burn Rate Urgent
+- Burn Rate High
+- Burn Rate Medium
+- Burn Rate Low
+
+### Latency SLO Alerts
+
+Customer-impacting performance issues.
+
+Examples:
+
+- RequestLatencySLOBreach
+- VoteLatencySLOBreach
+
+### Performance Degradation Alerts
+
+Early warning indicators.
+
+Examples:
+
+- Response Time Degraded 20%
+- Response Time Twice Baseline
+
+### Observability Alerts
+
+Failures within the monitoring platform itself.
+
+Examples:
+
+- PrometheusDown
+- AlertmanagerDown
+- GrafanaDown
+- LokiDown
