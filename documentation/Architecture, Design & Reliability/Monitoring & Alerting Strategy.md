@@ -62,6 +62,150 @@ When possible, alerts are based on service behaviour and user outcomes rather th
 
 ---
 
+# Monitoring Objectives
+
+Monitoring objectives are based on validating key user journeys.
+
+---
+
+## Emoji Catalogue Can Be Viewed
+
+| Objective | Question |
+|------------|----------|
+| Emoji Catalogue Availability | Can users retrieve the available emojis? |
+| Emoji Catalogue Latency | How quickly can they retrieve them? |
+
+---
+
+## Votes Can Be Cast
+
+| Objective | Question |
+|------------|----------|
+| UI (Web Service) Availability | Can users access the voting interface? |
+| UI (Web Service) Latency | How quickly does the UI respond? |
+| Vote Cast (Voting Service) Availability | Can users successfully submit votes? |
+| Vote Cast (Voting Service) Latency | How quickly are vote requests processed? |
+| Vote Processing Success Rate | What percentage of vote requests complete successfully? |
+| End-to-End Vote Processing Time | How long does it take from vote submission until the vote appears in the application? |
+
+---
+
+## Leaderboard Can Be Viewed
+
+| Objective | Question |
+|------------|----------|
+| Leaderboard Availability | Can users retrieve leaderboard data? |
+| Leaderboard Latency | How quickly can leaderboard data be displayed? |
+
+---
+
+# Reliability Expectations
+
+## How Can The Application Fail?
+
+Examples include:
+
+```text
+Service unavailable
+
+Requests timing out
+
+High latency
+
+Vote submission failures
+
+Application crashes
+
+Database connectivity failures
+
+Ingress failures
+
+Load balancer failures
+
+Observability platform failures
+```
+
+---
+
+## What Is An Acceptable Failure?
+
+Not every failed request represents a reliability issue.
+
+Expected failures include:
+
+```text
+Malformed requests
+
+Invalid parameters
+
+Unsupported operations
+
+Incorrect URLs
+
+User-generated errors
+```
+
+These may legitimately generate 4xx responses.
+
+---
+
+## Are All Users Treated Equally?
+
+Yes.
+
+Workhorse does not currently differentiate between users when calculating SLIs, SLOs, or error budgets.
+
+All requests contribute equally towards reliability calculations.
+
+---
+
+## What Is Considered An Error?
+
+Workhorse defines errors as requests that fail to achieve the intended outcome.
+
+### Application Errors
+
+Examples:
+
+```text
+HTTP 5xx Responses
+
+Unhandled Exceptions
+
+Failed Vote Processing
+```
+
+### Platform Errors
+
+Examples:
+
+```text
+ALB 5xx
+
+Ingress Controller 5xx
+
+Linkerd Routing Failures
+
+Proxy Failures
+```
+
+### Potential Client Errors
+
+Examples:
+
+```text
+Unexpected HTTP 4xx
+
+Vote Submission Rejected
+
+Application Validation Errors
+```
+
+Expected user-generated 4xx responses may be excluded from SLO calculations where appropriate.
+
+---
+
+
 # Monitoring Strategy
 
 ## What We Monitor and Why
@@ -222,149 +366,7 @@ Grafana dashboards provide operational visibility into the platform.
 
 # 🚧 Work in Progress
 
----
 
-# Reliability Expectations
-
-## How Can The Application Fail?
-
-Examples include:
-
-```text
-Service unavailable
-
-Requests timing out
-
-High latency
-
-Vote submission failures
-
-Application crashes
-
-Database connectivity failures
-
-Ingress failures
-
-Load balancer failures
-
-Observability platform failures
-```
-
----
-
-## What Is An Acceptable Failure?
-
-Not every failed request represents a reliability issue.
-
-Expected failures include:
-
-```text
-Malformed requests
-
-Invalid parameters
-
-Unsupported operations
-
-Incorrect URLs
-
-User-generated errors
-```
-
-These may legitimately generate 4xx responses.
-
----
-
-## Are All Users Treated Equally?
-
-Yes.
-
-Workhorse does not currently differentiate between users when calculating SLIs, SLOs, or error budgets.
-
-All requests contribute equally towards reliability calculations.
-
----
-
-## What Is Considered An Error?
-
-Workhorse defines errors as requests that fail to achieve the intended outcome.
-
-### Application Errors
-
-Examples:
-
-```text
-HTTP 5xx Responses
-
-Unhandled Exceptions
-
-Failed Vote Processing
-```
-
-### Platform Errors
-
-Examples:
-
-```text
-ALB 5xx
-
-Ingress Controller 5xx
-
-Linkerd Routing Failures
-
-Proxy Failures
-```
-
-### Potential Client Errors
-
-Examples:
-
-```text
-Unexpected HTTP 4xx
-
-Vote Submission Rejected
-
-Application Validation Errors
-```
-
-Expected user-generated 4xx responses may be excluded from SLO calculations where appropriate.
-
----
-
-# Monitoring Objectives
-
-Monitoring objectives are based on validating key user journeys.
-
----
-
-## Emoji Catalogue Can Be Viewed
-
-| Objective | Question |
-|------------|----------|
-| Emoji Catalogue Availability | Can users retrieve the available emojis? |
-| Emoji Catalogue Latency | How quickly can they retrieve them? |
-
----
-
-## Votes Can Be Cast
-
-| Objective | Question |
-|------------|----------|
-| UI (Web Service) Availability | Can users access the voting interface? |
-| UI (Web Service) Latency | How quickly does the UI respond? |
-| Vote Cast (Voting Service) Availability | Can users successfully submit votes? |
-| Vote Cast (Voting Service) Latency | How quickly are vote requests processed? |
-| Vote Processing Success Rate | What percentage of vote requests complete successfully? |
-| End-to-End Vote Processing Time | How long does it take from vote submission until the vote appears in the application? |
-
----
-
-## Leaderboard Can Be Viewed
-
-| Objective | Question |
-|------------|----------|
-| Leaderboard Availability | Can users retrieve leaderboard data? |
-| Leaderboard Latency | How quickly can leaderboard data be displayed? |
----
 
 # Alert Routing Strategy
 
@@ -399,30 +401,6 @@ prod-platform-alerts
 prod-service-alerts
 prod-slo-alerts
 ```
-
----
-
-# Summary
-
-Workhorse implements a layered observability strategy combining:
-
-- Infrastructure Monitoring
-- Service Monitoring
-- SLO Monitoring
-- Performance Monitoring
-- Synthetic Monitoring
-- Dashboarding
-- Log Aggregation
-- Alerting
-
-The primary objective is to ensure users can:
-
-- View the emoji catalogue
-- Cast votes successfully
-- View leaderboard results
-
-while providing sufficient visibility to rapidly detect, investigate, and resolve operational issues within the platform.
-
 ---
 
 ## How Alerts Are Structured
@@ -489,3 +467,28 @@ Examples:
 - AlertmanagerDown
 - GrafanaDown
 - LokiDown
+
+---
+
+# Summary
+
+Workhorse implements a layered observability strategy combining:
+
+- Infrastructure Monitoring
+- Service Monitoring
+- SLO Monitoring
+- Performance Monitoring
+- Synthetic Monitoring
+- Dashboarding
+- Log Aggregation
+- Alerting
+
+The primary objective is to ensure users can:
+
+- View the emoji catalogue
+- Cast votes successfully
+- View leaderboard results
+
+while providing sufficient visibility to rapidly detect, investigate, and resolve operational issues within the platform.
+
+
