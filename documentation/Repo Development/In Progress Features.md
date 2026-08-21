@@ -31,8 +31,12 @@
 * New Dashboard Level 1: Service Health OverView. "Is Everything Okay?"
 * New Dashboard Executive Dashboard 
 
+## R
+
+* Update JT & JD for last 2 positions to tailor more towards. Include IC, PM etc.
+
 ## Final Polish
 
-* Video demoing the environment
+* Video demoing the environment (what should I cover?)
 * Add UI of Prometheus Dashboards App to Readme
 * Update Monitoring Strategy documentation with Dashboard screenshots
