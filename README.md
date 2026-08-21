@@ -67,10 +67,6 @@ As an infrastructure and operations leader, this lab serves as a reference archi
 - Explore Terraform IaC in `workhorse/terraform/`  
 - Inspect GitOps and Application configuration in `workhorse/gitops/` 
 
-## 🖼️ Live Video Demo
-
-🚧 Coming Soon
-
 ---
 
 # 🏗 Macro Architecture Diagram

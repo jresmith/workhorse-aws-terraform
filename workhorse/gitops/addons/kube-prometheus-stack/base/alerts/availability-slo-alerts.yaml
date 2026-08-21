@@ -242,8 +242,8 @@ spec:
     - name: emojivoto.slo.availability.alerts
       interval: 1m
       rules:
-        # Alert when the error budget burn rate exceeds 30x over both the
-        # 30-minute and 6-hour windows and remains above the threshold for 5 minutes.
+        # Alert when the error budget burn rate exceeds 720x over both the
+        # 5-minute and 1-hour windows and remains above the threshold for 2 minutes.
         - alert: EmojivotoSLOBurnRateUrgent
           expr: |
             emojivoto:slo_burn_rate:1h{application="emojivoto"} > 720
@@ -253,8 +253,8 @@ spec:
           labels:
             application: emojivoto
             severity: urgent
-        # Alert when the error budget burn rate exceeds 15x over both the
-        # 2-hour and 1-day windows and remains above the threshold for 10 minutes.
+        # Alert when the error budget burn rate exceeds 30x over both the
+        # 30-minute and 6-hour windows and remains above the threshold for 5 minutes.
         - alert: EmojivotoSLOBurnRateHigh
           expr: |
             emojivoto:slo_burn_rate:6h{application="emojivoto"} > 30
@@ -264,8 +264,8 @@ spec:
           labels:
             application: emojivoto
             severity: high
-        # Alert when the error budget burn rate exceeds 7.5x over both the
-        # 6-hour and 3-day windows and remains above the threshold for 15 minutes.
+        # Alert when the error budget burn rate exceeds 15x over both the
+        # 2-hour and 1-day windows and remains above the threshold for 10 minutes.
         - alert: EmojivotoSLOBurnRateMedium
           expr: |
             emojivoto:slo_burn_rate:1d{application="emojivoto"} > 15
