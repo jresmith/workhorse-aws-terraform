@@ -40,3 +40,4 @@
 * Video demoing the environment (what should I cover?)
 * Add UI of Prometheus Dashboards App to Readme
 * Update Monitoring Strategy documentation with Dashboard screenshots
+* Photos on site (x4 P and x1 Headshot)
