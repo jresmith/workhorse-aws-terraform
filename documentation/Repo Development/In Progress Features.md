@@ -23,7 +23,6 @@
 * Postmortem
 * x2 Runbooks
 
-
 ## Prometheus
 
 * New Dashboard based on SLIs. Stat Panel at the top, more detail below.
