@@ -15,14 +15,10 @@
 
 * There do seem to be conflicts with DNS records when both staging and production are deployed the same time - seem to get created and then disappear. Will require investigation.
 
-
-
 # Phase 5 (Documentation)
 
 ## Documentation
 
-* Add Alerting strategy to Design Decisions documentation
-* Monitoring Strategy documentation
 * x2 Case Studies
 * Postmortem
 * x2 Runbooks
@@ -38,6 +34,6 @@
 
 ## Final Polish
 
-* Video demoing enivironment
+* Video demoing the environment
 * Add UI of Prometheus Dashboards App to Readme
-
+* Update Monitoring Strategy documentation with Dashboard screenshots
