@@ -1,19 +1,13 @@
-# Phase 3 (Production & Auxilary Cloud Features)
-
-## K8s
-
-* Implement liveness and readiness probes(?)
-
-## ArgoCD
-
-* Manual approval required in deployment scenario 
-* In prod ensure argocd config [syncPolicy: automated: prune: false]
-
 # Phase 4 (Documentation & Resiliancy Planning)
 
 ## Terraform
 
 * There do seem to be conflicts with DNS records when both staging and production are deployed the same time - seem to get created and then disappear. Will require investigation.
+
+## ArgoCD
+
+* Manual approval required in deployment scenario 
+* In prod ensure argocd config [syncPolicy: automated: prune: false]
 
 # Phase 5 (Documentation)
 
@@ -33,7 +27,7 @@
 
 ## R
 
-* Update JT & JD for last 2 positions to tailor more towards. Include IC, PM etc.
+* Update JT & JD for last 2 positions to tailor more towards. Include IC, PostM etc.
 
 ## Final Polish
 

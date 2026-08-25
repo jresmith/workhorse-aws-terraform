@@ -23,22 +23,19 @@ The Workhorse observability stack uses the following path to collect and query a
 Application Pods
       |
       v
-Log Collector
+Alloy (Log Collector)
       |
       v
-Loki Gateway or Distributor
+Loki
       |
       v
-Loki Ingester
-      |
-      v
-Object Storage or Persistent Storage
+Filesystem Storage
       |
       v
 Grafana
 ```
 
-A failure involving the log collector, Loki gateway, distributor, ingester, storage backend, or network path can interrupt log ingestion.
+A failure involving the log collector (Alloy), Loki, storage backend, or network path can interrupt log ingestion.
 
 ---
 
@@ -52,7 +49,7 @@ The incident presented the following symptoms:
 - Log collector pods reported retries or failed batch submissions.
 - Loki components reported an increased number of ingestion errors.
 - Application pods remained healthy and continued serving traffic.
-- Prometheus metrics remained available.
+- Prometheus metrics remain available.
 - Grafana remained accessible, but Loki queries returned incomplete or empty results.
 - No application outage was detected outside the logging pipeline.
 
@@ -67,7 +64,7 @@ No logs found for the selected time range.
 ```bash
 kubectl get pods -n monitoring
 kubectl get pods -n monitoring -l app.kubernetes.io/name=loki
-kubectl get pods -A | grep -E "promtail|alloy|fluent-bit"
+kubectl get pods -n monitoring -l app.kubernetes.io/name=alloy
 ```
 
 Potential unhealthy states included:
@@ -109,10 +106,6 @@ Several LogQL queries were tested in Grafana:
 ```
 
 ```logql
-{namespace="emojivoto-dev"}
-```
-
-```logql
 {namespace="monitoring"}
 ```
 
@@ -146,18 +139,18 @@ This confirmed that the ingestion problem could be reproduced independently of t
 
 ---
 
-### 3. Verify Log Collector Health
+### 3. Verify Log Collector (Alloy) Health
 
-The log collector DaemonSet and its pods were inspected:
+The Alloy DaemonSet and its pods were inspected:
 
 ```bash
 kubectl get daemonsets -n monitoring
 kubectl get pods -n monitoring -o wide
-kubectl describe pod <collector-pod> -n monitoring
-kubectl logs <collector-pod> -n monitoring --since=30m
+kubectl describe pod <alloy-pod> -n monitoring
+kubectl logs <alloy-pod> -n monitoring --since=30m
 ```
 
-The collector logs were checked for:
+The Alloy logs were checked for:
 
 - HTTP 429 responses
 - HTTP 500 responses
@@ -186,24 +179,23 @@ Loki services and endpoints were reviewed:
 
 ```bash
 kubectl get svc -n monitoring
-kubectl get endpoints -n monitoring
 kubectl get endpointslices -n monitoring
 ```
 
 The collector push URL was compared with the active Loki service:
 
 ```text
-http://<loki-service>.monitoring.svc.cluster.local/loki/api/v1/push
+http://loki.monitoring.svc.cluster.local/loki/api/v1/push
 ```
 
 DNS resolution was tested from inside the cluster:
 
 ```bash
-kubectl run dns-test \
+kubectl run dns-test -it \
   --image=busybox:1.36 \
   --restart=Never \
   -n monitoring \
-  -- nslookup <loki-service>.monitoring.svc.cluster.local
+  -- nslookup loki.monitoring.svc.cluster.local
 ```
 
 This test determined whether the collector could resolve the configured Loki service.
@@ -215,11 +207,11 @@ This test determined whether the collector could resolve the configured Loki ser
 Connectivity to the Loki endpoint was tested from a temporary pod:
 
 ```bash
-kubectl run curl-test \
+kubectl run curl-test -it \
   --image=curlimages/curl \
   --restart=Never \
   -n monitoring \
-  -- curl -sv http://<loki-service>:<port>/ready
+  -- curl -sv http://loki.monitoring.svc.cluster.local:3100/ready
 ```
 
 This test helped identify:
@@ -244,9 +236,7 @@ kubectl describe pod <loki-pod> -n monitoring
 
 The investigation checked for:
 
-- Readiness probe failures
 - Storage write failures
-- Loki ring membership errors
 - Ingester unavailability
 - Resource exhaustion
 - Repeated pod restarts
@@ -256,14 +246,11 @@ The investigation checked for:
 
 ---
 
-### 7. Review Recent GitOps Changes
+### 7. Review Recent Git Repo Changes
 
-The deployed configuration was compared with the last known-good Git revision:
+Compare the deployed configuration with the last known-good Git revision.
 
-```bash
-git log --oneline --all -- monitoring/
-git diff <last-known-good-commit>..<current-commit> -- monitoring/
-```
+Nagivate to https://github.com/jresmith/workhorse-aws-terraform/commits/main/ to review repo commit history and compare last known good commit with current commit.
 
 The review focused on changes to:
 
@@ -312,7 +299,18 @@ Prometheus provided an independent source of evidence while the centralized logg
 
 ### Root Cause Statement
 
-A GitOps configuration change introduced an incorrect Loki ingestion endpoint in the development environment overlay.
+A Git repo configuration change introduced an incorrect Loki ingestion endpoint in the development environment overlay.
+
+The MR looked like:
+
+```bash
+loki.write "default" {
+  endpoint {
+-   url = "http://loki-gateway.monitoring.svc.cluster.local/loki/api/v1/push"
++   url = "http://loki.monitoring.svc.cluster.local/loki/api/v1/push"
+  }
+}
+```
 
 The log collectors continued reading container logs from the Kubernetes nodes, but they could not successfully deliver log batches to the active Loki write endpoint.
 
@@ -496,12 +494,7 @@ Recovery was confirmed when:
 
 ### Rollback Strategy
 
-If the corrected configuration had not restored ingestion, the change could be reverted:
-
-```bash
-git revert <problematic-commit>
-git push
-```
+If the corrected configuration had not restored ingestion, the change could be reverted to a previous commit.
 
 The GitOps controller would then reconcile the last known-good configuration without requiring an undocumented manual cluster change.
 
@@ -511,7 +504,7 @@ The GitOps controller would then reconcile the last known-good configuration wit
 
 ### Configuration Controls
 
-- Define Loki endpoints in the common base where possible.
+- Define Loki endpoints in the common 'base' where possible.
 - Limit environment overlays to settings that genuinely differ.
 - Validate that referenced services and ports exist.
 - Use schema validation for Helm values and rendered manifests.
@@ -524,12 +517,6 @@ The GitOps controller would then reconcile the last known-good configuration wit
 ### Automated Validation
 
 Render and validate the final development configuration during CI:
-
-```bash
-kubectl kustomize kubernetes/overlays/dev
-```
-
-If Helm chart inflation is required:
 
 ```bash
 kubectl kustomize --enable-helm kubernetes/overlays/dev

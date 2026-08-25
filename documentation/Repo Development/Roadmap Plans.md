@@ -9,6 +9,7 @@
 *  Implement HashiCorp Vault or AWS Secrets Manager to manage Production secrets instead of Bitnami Sealed Secrets
 * Implement across multiple AWS Regions (as part of SLI/SLO resiliancy plan)
 * Implement Cluster Autoscaler/Karpenter
+* Implement liveness and readiness probes for Emojivoto application
 
 ## EKS 
 
