@@ -52,18 +52,30 @@ The incident presented the following symptoms:
 
 ### Example Container State
 
+Running the command:
+```text
+kubectl describe pod web-7f6d56f8f7-abcde -n emojivoto-dev
+```
+Returned result includes:
 ```text
 Last State:     Terminated
-Reason:         OOMKilled
-Exit Code:      137
+  Reason:         OOMKilled
+  Exit Code:      137
 ```
 
 ### Example Node Condition
 
+Running the command:
 ```text
-MemoryPressure   True
+kubectl describe node ip-10-0-12-45
 ```
-
+Returned result includes:
+```text
+Events:
+  Type Reason Age
+  ---- ------ ----
+  Warning MemoryPressure 5m
+```
 ---
 
 ## Investigation
@@ -129,11 +141,9 @@ Because `kubectl top` only provides current usage, Prometheus was used to examin
 Example working set query:
 
 ```promql
-sum by (namespace, pod, container) (
+sum by (namespace, pod) (
   container_memory_working_set_bytes{
-    namespace=~"emojivoto-.*",
-    container!="",
-    image!=""
+    namespace=~"emojivoto-.*"
   }
 )
 ```
@@ -141,15 +151,13 @@ sum by (namespace, pod, container) (
 Example comparison between memory usage and configured limits:
 
 ```promql
-sum by (namespace, pod, container) (
+sum by (namespace, pod) (
   container_memory_working_set_bytes{
-    namespace=~"emojivoto-.*",
-    container!="",
-    image!=""
+    namespace=~"emojivoto-.*"
   }
 )
 /
-sum by (namespace, pod, container) (
+sum by (namespace, pod) (
   kube_pod_container_resource_limits{
     namespace=~"emojivoto-.*",
     resource="memory",
@@ -165,8 +173,7 @@ sum by (namespace, pod, container) (
 The effective resource configuration was inspected:
 
 ```bash
-kubectl get pod <pod-name> -n <namespace> \
-  -o jsonpath='{range .spec.containers[*]}{.name}{"\nrequests: "}{.resources.requests}{"\nlimits: "}{.resources.limits}{"\n\n"}{end}'
+kubectl get pod <pod-name> -n <namespace> -o yaml
 ```
 
 The Git-managed workload contained a configuration similar to:
@@ -266,7 +273,7 @@ The pod's Kubernetes Quality of Service class was checked:
 ```bash
 kubectl get pod <pod-name> \
   -n <namespace> \
-  -o jsonpath='{.status.qosClass}{"\n"}'
+  -o yaml | grep -i qosClass
 ```
 
 The investigation considered how missing or mismatched requests and limits affected:
@@ -409,10 +416,47 @@ flowchart LR
 
 The affected workload was temporarily scaled or restarted to restore availability while node memory use was reviewed:
 
+**Option 1: Restart the Deployment**
+
+If the pod was stuck in a bad state or we wanted to get service restored quickly:
+
 ```bash
 kubectl get deployment -n <namespace>
+kubectl rollout restart deployment/<deployment-name> -n <namespace>
 kubectl rollout status deployment/<deployment-name> -n <namespace>
 ```
+
+**Option 2: Scale Down and Back Up**
+
+Sometimes we need to evict workloads from an overloaded node.
+
+```bash
+kubectl scale deployment <deployment-name> \
+  --replicas=0 \
+  -n <namespace>
+```
+Wait a few moments:
+```bash
+kubectl scale deployment <deployment-name> \
+  --replicas=1 \
+  -n <namespace>
+```
+Then verify:
+```bash
+kubectl rollout status deployment/<deployment-name> \
+  -n <namespace>
+```
+
+**Option 3: Delete the OOMKilled Pod**
+
+Often the fastest operational response.
+```bash
+kubectl delete pod <pod-name> \
+  -n <namespace>
+```
+The Deployment creates a replacement pod. This doesn't fix the root cause, but it restores service.
+
+---
 
 Any emergency command was treated as temporary.
 
@@ -617,7 +661,6 @@ Example node memory headroom alert:
 - Review pod density and aggregate resource requests.
 - Maintain sufficient node memory headroom for bursts.
 - Test node failure and workload rescheduling.
-- Ensure cluster scaling can respond before nodes are exhausted.
 - Consider separating observability and application workloads if resource contention becomes a recurring risk.
 
 ---
@@ -670,7 +713,7 @@ Create an OOM troubleshooting runbook containing:
 ## Lessons Learned
 
 - Memory requests are scheduling inputs, not optional documentation.
-- A request below normal usage can cause Kubernetes to overpack a node.
+- A request below normal usage can cause Kubernetes to overload a node.
 - A missing memory limit can allow one workload to affect unrelated workloads.
 - A memory limit that is too low moves the failure to the container boundary.
 - Resource values should be based on measurements rather than guesses.
@@ -678,89 +721,3 @@ Create an OOM troubleshooting runbook containing:
 - Restart alerts detect the consequence, while memory headroom alerts can detect the developing condition.
 - Resource configuration must be reviewed as application behaviour changes.
 - GitOps ensures that remediation is repeatable, reviewable, and auditable.
-
----
-
-# Cross-Incident Improvements
-
-Both incidents identified broader reliability improvements for Workhorse.
-
-## End-to-End Health Validation
-
-Component readiness should be supplemented with outcome-based validation:
-
-- Can applications emit logs?
-- Can collectors read those logs?
-- Can Loki accept them?
-- Can Grafana retrieve them?
-- Can workloads remain stable under expected load?
-- Can nodes retain safe resource headroom?
-
----
-
-## Independent Observability Signals
-
-A failure in one observability system should not remove every source of diagnostic evidence.
-
-| Failure | Independent Evidence |
-|---|---|
-| Loki ingestion outage | Prometheus metrics, Kubernetes events, and collector logs |
-| Application OOMKill | Kubernetes status, kube-state-metrics, and node-exporter metrics |
-| Prometheus issue | Kubernetes events, application logs, and direct health endpoints |
-| Grafana issue | Direct Prometheus and Loki API checks |
-
----
-
-## GitOps Requirements
-
-All permanent fixes should be:
-
-- Defined declaratively
-- Stored in version control
-- Reviewed through pull requests
-- Validated before merge
-- Applied by the GitOps controller
-- Verified after reconciliation
-- Reversible through Git history
-
----
-
-## Incident Evidence Checklist
-
-Future Workhorse reliability exercises should capture:
-
-- Alert screenshot
-- Grafana dashboard screenshot
-- Relevant PromQL or LogQL queries
-- Kubernetes event output
-- Pod description output
-- Previous container logs
-- Before-and-after manifest diff
-- Git commit containing the fix
-- Post-deployment validation output
-- Ishikawa fishbone diagram
-- Follow-up actions
-
----
-
-# Conclusion
-
-The Loki ingestion outage demonstrated that healthy components do not necessarily indicate a healthy telemetry pipeline.
-
-End-to-end validation is required to prove that logs are successfully produced, collected, transported, ingested, stored, and queried.
-
-The OOM incident demonstrated that Kubernetes resource requests and limits are core reliability controls.
-
-Inaccurate requests can lead to poor scheduling decisions, while missing or unsuitable limits can allow one workload to destabilize a worker node.
-
-Together, these incidents resulted in improvements to:
-
-- Alerting coverage
-- Resource governance
-- GitOps validation
-- Deployment smoke testing
-- Capacity management
-- Troubleshooting documentation
-- Controlled failure-mode testing
-
-These improvements reduce the probability of recurrence and make similar incidents easier to detect, diagnose, and resolve.

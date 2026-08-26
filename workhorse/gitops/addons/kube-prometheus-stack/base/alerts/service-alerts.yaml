@@ -12,9 +12,51 @@ spec:
     - name: emojivoto.service.alerts
       interval: 1m
       rules:
+        # Alert when more than 5% of web requests have failed over the last
+        # 5 minutes and the condition persists for 5 consecutive minutes.
+        #
+        # rate(response_total[5m])
+        #   Converts the request counters into requests-per-second averages
+        #   over the previous 5 minutes.
+        #
+        # classification="failure"
+        #   Selects only failed requests for the numerator.
+        #
+        # sum by (namespace)
+        #   Aggregates all web pods within each namespace into a single value.
+        #   This produces one error rate per environment (dev, staging, prod)
+        #   rather than a separate value for every pod.
+        #
+        # Numerator
+        #   Total failed request rate over the last 5 minutes.
+        #
+        # Denominator
+        #   Total request rate over the last 5 minutes, including both
+        #   successful and failed requests.
+        #
+        # Error Rate
+        #   failed requests / total requests.
+        #
+        # clamp_min(..., 1e-9)
+        #   Prevents divide-by-zero errors when no requests have been received.
+        #
+        # 1e-9
+        #   A very small value (0.000000001) used as a safety guard when
+        #   request traffic is zero.
+        #
+        # > 0.05
+        #   Fires when the error rate exceeds 5%.
+        #
+        # Example:
+        #   1 failed request out of 100 requests  = 1%  = no alert
+        #   5 failed requests out of 100 requests = 5%  = threshold reached
+        #   6 failed requests out of 100 requests = 6%  = alert condition true
+        #
+        # for: 5m
+        #   Requires the error rate to remain above 5% continuously for
+        #   5 minutes before firing to reduce noise from temporary spikes.
+        #
 
-        # Alert when more than 5% of requests have failed over the
-        # previous 5 minutes and the condition persists for 5 minutes.
         - alert: EmojivotoHighErrorRate
           expr: |
             (

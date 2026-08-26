@@ -1,4 +1,4 @@
-# Phase 4 (Documentation & Resiliancy Planning)
+# Phase 4 (Final Infra changes)
 
 ## Terraform
 
@@ -9,7 +9,7 @@
 * Manual approval required in deployment scenario 
 * In prod ensure argocd config [syncPolicy: automated: prune: false]
 
-# Phase 5 (Documentation)
+# Phase 5 (Documentation & Monitoring)
 
 ## Documentation
 
