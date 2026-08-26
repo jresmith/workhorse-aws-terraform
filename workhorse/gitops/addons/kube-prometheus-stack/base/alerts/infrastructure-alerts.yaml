@@ -15,7 +15,7 @@ spec:
       rules:
 
         # Alert when the number of available replicas is lower than
-        # the desired replica count for 15 minutes.
+        # the desired replica count for 15 minutes
         - alert: DeploymentReplicasMismatch
           expr: |
             kube_deployment_status_replicas_available{

@@ -9,7 +9,7 @@ variable "tags" {
   description = "Tags for Production environment workoad"
 }
 
-# VPC Variables
+# VPC Variables.
 variable "vpc_name" {
   type        = string
   description = "Name of the VPC used in the Production enivironment"
