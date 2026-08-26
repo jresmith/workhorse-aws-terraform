@@ -13,7 +13,7 @@
 
 ## Documentation
 
-* x2 Runbooks
+* +1 Runbook
 
 ## Prometheus
 

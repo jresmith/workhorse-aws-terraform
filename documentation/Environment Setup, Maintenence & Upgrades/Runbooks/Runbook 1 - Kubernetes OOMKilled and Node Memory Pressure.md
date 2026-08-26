@@ -1,4 +1,4 @@
-# Runbook: Kubernetes OOMKilled and Node Memory Pressure
+# Runbook 1: Kubernetes OOMKilled and Node Memory Pressure
 
 ## Purpose
 
@@ -16,10 +16,10 @@ This runbook should be followed when one or more of the following symptoms are o
 
 ### Platform Alerts
 
-- WorkhorseContainerOOMKilled
-- WorkhorseNodeMemoryHeadroomLow
-- KubernetesNodeMemoryPressure
-- High Pod Restart Rate
+- ContainerOOMKilled
+- NodeMemoryHeadroomLow __(Alert to be implement in the future)__
+- KubernetesNodeMemoryPressure __(Alert to be implement in the future)__
+- High Pod Restart Rate __(Alert to be implement in the future)__
 
 ### User Symptoms
 
@@ -44,7 +44,7 @@ MemoryPressure=True
 Status: Evicted
 ```
 
-### Grafana Indicators
+### Prometheus Indicators
 
 - Sudden drop in application availability
 - Increased pod restart metrics
@@ -89,31 +89,31 @@ Widespread impact.
 ### Kubernetes Cluster Overview
 
 ```text
-Grafana > Kubernetes / Compute Resources / Cluster
+Grafana > Kubernetes / Views / Global
 ```
 
 ### Kubernetes Nodes
 
 ```text
-Grafana > Kubernetes / Compute Resources / Nodes
+Grafana > Kubernetes / Views / Nodes
 ```
 
 ### Kubernetes Pods
 
 ```text
-Grafana > Kubernetes / Compute Resources / Pod
+Grafana > Kubernetes / Views / Pods
 ```
 
 ### Workhorse Application Dashboard
 
 ```text
-Grafana > Workhorse / Application Overview
+Grafana > Application Reliability
 ```
 
 ### Alertmanager
 
 ```text
-Grafana > Alerting > Alert Groups
+Alertmanager > Alerts
 ```
 
 ---
@@ -315,11 +315,9 @@ the workload has not restarted since creation.
 ### Working Set Memory
 
 ```promql
-sum by (namespace,pod,container)(
+sum by (namespace,pod)(
   container_memory_working_set_bytes{
-    namespace=~"emojivoto-.*",
-    container!="",
-    image!=""
+    namespace=~"emojivoto-.*"
   }
 )
 ```
@@ -329,15 +327,13 @@ sum by (namespace,pod,container)(
 ### Memory Usage Relative to Limits
 
 ```promql
-sum by (namespace,pod,container)(
+sum by (namespace,pod)(
   container_memory_working_set_bytes{
-    namespace=~"emojivoto-.*",
-    container!="",
-    image!=""
+    namespace=~"emojivoto-.*"
   }
 )
 /
-sum by (namespace,pod,container)(
+sum by (namespace,pod)(
   kube_pod_container_resource_limits{
     namespace=~"emojivoto-.*",
     resource="memory",
@@ -381,7 +377,7 @@ Retrieve configured values:
 ```bash
 kubectl get pod <pod-name> \
   -n <namespace> \
-  -o jsonpath='{range .spec.containers[*]}{.name}{"\nrequests: "}{.resources.requests}{"\nlimits: "}{.resources.limits}{"\n\n"}{end}'
+  -o yaml
 ```
 
 Example:
@@ -507,7 +503,7 @@ Scale back when resources are available.
 
 ---
 
-## Option 4 - Scale Node Capacity
+## Option 4 - Scale Node Capacity (Planned Feature)
 
 If Cluster Autoscaler is available:
 
