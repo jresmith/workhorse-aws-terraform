@@ -13,8 +13,6 @@
 
 ## Documentation
 
-* x2 Case Studies
-* Postmortem
 * x2 Runbooks
 
 ## Prometheus
