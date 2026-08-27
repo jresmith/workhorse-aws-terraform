@@ -161,7 +161,7 @@ Last State:
 
 ### OOMKilled
 
-Container exceeded available memory and was terminated by the Linux kernel. Only the affected container is terminated. 【1-92e7cf】【2-195b63】
+Container exceeded available memory and was terminated by the Linux kernel. Only the affected container is terminated. 
 
 Evidence:
 
@@ -172,7 +172,7 @@ Exit Code: 137
 
 ### Pod Eviction
 
-Kubelet removed the entire pod because the node was under memory pressure. 【1-92e7cf】【3-f91036】
+Kubelet removed the entire pod because the node was under memory pressure.
 
 Evidence:
 
@@ -248,7 +248,7 @@ Conditions:
 MemoryPressure   True
 ```
 
-Node memory pressure indicates that available node memory is critically low. 【3-f91036】【1-92e7cf】
+Node memory pressure indicates that available node memory is critically low.
 
 ---
 

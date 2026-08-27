@@ -85,3 +85,11 @@
 * Misc Runbooks
 * Misc Case Studies
 
+## Polish
+
+* Additional Videos demoing:
+  - CI/CD Pipeline
+  - Tour of Terraform, module structure and how I deploy using `plan`/`apply`
+  - Incident Alerting: cause a failure, should dashboards, alertmanger firing and slack notifications
+  - Code walkthough of K8s config 
+

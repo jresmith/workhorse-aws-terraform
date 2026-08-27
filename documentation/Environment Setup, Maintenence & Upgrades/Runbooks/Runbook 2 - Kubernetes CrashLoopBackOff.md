@@ -6,7 +6,7 @@ This runbook provides a standard process for diagnosing, mitigating, and resolvi
 
 Use this runbook when containers repeatedly restart and cannot remain healthy long enough to serve traffic.
 
-A CrashLoopBackOff is not the root cause itself. It indicates that Kubernetes is repeatedly attempting to restart a container that starts and then exits or crashes. Kubernetes uses an exponential backoff delay between restart attempts. 【1-d2f10d】【2-625ea3】
+A CrashLoopBackOff is not the root cause itself. It indicates that Kubernetes is repeatedly attempting to restart a container that starts and then exits or crashes. Kubernetes uses an exponential backoff delay between restart attempts.
 
 ---
 
@@ -99,7 +99,7 @@ Critical service unavailable.
 ## Kubernetes Cluster Overview
 
 ```text
-Grafana > Kubernetes / Compute Resources / Cluster
+Grafana > Kubernetes / Views / Global
 ```
 
 Purpose:
@@ -113,7 +113,7 @@ Purpose:
 ## Kubernetes Pods Dashboard
 
 ```text
-Grafana > Kubernetes / Compute Resources / Pods
+Grafana > Kubernetes / Views / Pods
 ```
 
 Purpose:
@@ -124,10 +124,10 @@ Purpose:
 
 ---
 
-## Kubernetes Deployments Dashboard
+## Kubernetes Namespaces Dashboard
 
 ```text
-Grafana > Kubernetes / Compute Resources / Deployments
+Grafana > Kubernetes / Views / Namespaces
 ```
 
 Purpose:
@@ -141,7 +141,7 @@ Purpose:
 ## Workhorse Application Dashboard
 
 ```text
-Grafana > Workhorse / Application Overview
+Grafana > Application Reliability
 ```
 
 Purpose:
@@ -152,7 +152,7 @@ Purpose:
 
 ---
 
-## Grafana Explore
+## Logs via Grafana Explore
 
 ```text
 Grafana > Explore
@@ -169,7 +169,7 @@ Purpose:
 ## ArgoCD
 
 ```text
-ArgoCD > Applications
+ArgoCD UI > Applications
 ```
 
 Purpose:
@@ -248,8 +248,6 @@ CrashLoopBackOff can be caused by:
 - Failed health probes
 - OOMKilled containers
 - Dependency failures
-
-【1-d2f10d】【2-625ea3】
 
 ---
 
@@ -397,8 +395,6 @@ Startup probe failed
 
 Container itself may be healthy but Kubernetes continuously restarts it.
 
-【1-d2f10d】【2-625ea3】
-
 ---
 
 ### Missing Configuration
@@ -482,8 +478,8 @@ Application History
 
 Git:
 
-```bash
-git log --oneline
+```text
+Review most recent commit with last known healthy commit - https://github.com/jresmith/workhorse-aws-terraform/commits/main/
 ```
 
 Look for:
@@ -495,7 +491,7 @@ Look for:
 - Probe changes
 - Container image changes
 
-A CrashLoopBackOff frequently begins immediately after a deployment. 【1-d2f10d】【3-488706】
+A CrashLoopBackOff frequently begins immediately after a deployment.
 
 ---
 
@@ -578,8 +574,6 @@ Typical causes:
 - Application startup takes longer than expected
 - Timeout values too aggressive
 - Dependency check included in liveness probe
-
-【1-d2f10d】【2-625ea3】
 
 ---
 

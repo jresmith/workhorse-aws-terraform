@@ -9,12 +9,6 @@
 * Manual approval required in deployment scenario 
 * In prod ensure argocd config [syncPolicy: automated: prune: false]
 
-# Phase 5 (Documentation & Monitoring)
-
-## Documentation
-
-* +1 Runbook
-
 ## Prometheus
 
 * New Dashboard based on SLIs. Stat Panel at the top, more detail below.
@@ -23,13 +17,15 @@
 * New Dashboard Level 1: Service Health OverView. "Is Everything Okay?"
 * New Dashboard Executive Dashboard 
 
-## R
-
-* Update JT & JD for last 2 positions to tailor more towards. Include IC, PostM etc.
+# Phase 5 (Documentation & Monitoring)
 
 ## Final Polish
 
-* Video demoing the environment (what should I cover?)
+* Main Video demoing the environment:
+	- Infra Diagram
+	- Walk through AWS Console
+	- Grafana dashboards
+	- App working End-to-end
 * Add UI of Prometheus Dashboards App to Readme
 * Update Monitoring Strategy documentation with Dashboard screenshots
 * Photos on site (x4 P and x1 Headshot)
