@@ -126,13 +126,24 @@ Planned for future multi-region resiliency work.
 
 ---
 
-## 3.2 Manual Promotion to Production
-**Decision:** Staging uses automated sync; production requires manual approval.
+## 3.2 Manual Synchronization in Production
+
+**Decision:** Development and staging environments use automated synchronization with pruning and self-healing enabled. Production applications require manual synchronization.
 
 **Rationale:**
-- Prevents accidental production rollouts  
-- Demonstrates controlled release governance  
-- Mirrors real-world change management processes
+- Prevents ArgoCD from automatically applying changes to production
+- Prevents accidental resource deletion through automated pruning
+- Allows production changes to be reviewed before deployment
+- Reduces the risk of unexpected changes caused by automatic drift remediation
+
+**Tradeoff:**
+- Production deployments require manual intervention
+- Configuration drift remains until reviewed and synchronized
+
+**Why it fits:**
+- **Reliability:** Reduces the risk of unintended production changes
+- **Operational Safety:** Introduces additional safeguards around production deployments
+- **Simplicity:** Uses native ArgoCD functionality without additional tooling
 
 # 4. Terraform Architecture Decisions
 

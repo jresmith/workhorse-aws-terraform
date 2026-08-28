@@ -1,9 +1,5 @@
 # Phase 4 (Final Infra changes)
 
-## Terraform
-
-* There do seem to be conflicts with DNS records when both staging and production are deployed the same time - seem to get created and then disappear. Will require investigation.
-
 ## ArgoCD
 
 * Manual approval required in deployment scenario 
