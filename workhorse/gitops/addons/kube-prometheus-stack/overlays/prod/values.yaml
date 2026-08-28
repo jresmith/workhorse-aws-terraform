@@ -11,6 +11,7 @@ prometheus:
 grafana:
   enabled: true
   adminPassword: "admin"
+  defaultDashboardsEnabled: false
   service:
     type: ClusterIP
   ingress:
@@ -19,6 +20,8 @@ grafana:
     dashboards:
       enabled: true
       label: grafana_dashboard
+      provider:
+        foldersFromFilesStructure: false
     datasources:
       enabled: true
       label: grafana_datasource

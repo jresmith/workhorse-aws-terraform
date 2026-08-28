@@ -20,13 +20,6 @@ grafana:
     dashboards:
       enabled: true
       label: grafana_dashboard
-    datasources:
-      enabled: true
-      label: grafana_datasource
-  sidecar:
-    dashboards:
-      enabled: true
-      label: grafana_dashboard
       provider:
         foldersFromFilesStructure: false
     datasources:
