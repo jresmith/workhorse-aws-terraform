@@ -1,10 +1,5 @@
 # Phase 4 (Final Infra changes)
 
-## ArgoCD
-
-* Manual approval required in deployment scenario 
-* In prod ensure argocd config [syncPolicy: automated: prune: false]
-
 ## Prometheus
 
 * New Dashboard based on SLIs. Stat Panel at the top, more detail below.

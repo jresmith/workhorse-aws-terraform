@@ -1,71 +1,39 @@
----
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+
 namespace: monitoring
 
 resources:
   - alerts
 
 configMapGenerator:
-  - name: grafana-dashboard-emojivoto
-    files:
-      - dashboards/emojivoto-voting-dashboard.json
 
-  - name: application-reliability
+  - name: grafana-dashboard-platform
     files:
-      - dashboards/application-reliability.json
+      - dashboards/platform/application-reliability.json
+      - dashboards/platform/emojivoto-voting-dashboard.json
+      - dashboards/platform/aws-alb-cloudwatch-metrics.json
 
-  - name: aws-alb-cloudwatch-metrics.json
+  - name: grafana-dashboard-kubernetes
     files:
-      - dashboards/aws-alb-cloudwatch-metrics.json
+      - dashboards/kubernetes/kubernetes-views-global.json
+      - dashboards/kubernetes/kubernetes-views-namespaces.json
+      - dashboards/kubernetes/kubernetes-views-pods.json
+      - dashboards/kubernetes/kubernetes-views-nodes.json
+      - dashboards/kubernetes/node-exporter-full.json
+      - dashboards/kubernetes/kubernetes-system-coredns.json
+      - dashboards/kubernetes/kubernetes-system-apiserver.json
 
-  - name: node-exporter-full.json
+  - name: grafana-dashboard-observability
     files:
-      - dashboards/node-exporter-full.json
+      - dashboards/observability/loki-kubernetes-logs.json
+      - dashboards/observability/vpc-flow-logs.json
 
-  - name: loki-kubernetes-logs.json
+  - name: grafana-dashboard-aws
     files:
-      - dashboards/loki-kubernetes-logs.json
-
-  - name: kubernetes-views-global.json
-    files:
-      - dashboards/kubernetes-views-global.json
-
-  - name: kubernetes-views-namespaces.json
-    files:
-      - dashboards/kubernetes-views-namespaces.json
-
-  - name: vpc-flow-logs.json
-    files:
-      - dashboards/vpc-flow-logs.json
-
-  - name: route53-dns-activity.json
-    files:
-      - dashboards/route53-dns-activity.json
-
-  - name: kubernetes-views-pods.json
-    files:
-      - dashboards/kubernetes-views-pods.json
-
-  - name: kubernetes-views-nodes.json
-    files:
-      - dashboards/kubernetes-views-nodes.json
-
-  - name: kubernetes-system-coredns.json
-    files:
-      - dashboards/kubernetes-system-coredns.json
-
-  - name: kubernetes-system-apiserver.json
-    files:
-      - dashboards/kubernetes-system-apiserver.json
-
-  - name: eks-controlplane.json
-    files:
-      - dashboards/eks-controlplane.json
-
-  - name: cloudtrail-activity-logs.json
-    files:
-      - dashboards/cloudtrail-activity-logs.json
+      - dashboards/aws/eks-controlplane.json
+      - dashboards/aws/cloudtrail-activity-logs.json
+      - dashboards/aws/route53-dns-activity.json
 
 generatorOptions:
   disableNameSuffixHash: true

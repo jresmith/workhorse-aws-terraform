@@ -24,6 +24,7 @@ grafana:
     datasources:
       enabled: true
       label: grafana_datasource
+  defaultDashboardsEnabled: false
 
 alertmanager:
   enabled: true
