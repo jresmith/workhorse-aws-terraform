@@ -8,34 +8,73 @@ resources:
 
 configMapGenerator:
 
-  - name: grafana-dashboard-platform
+  # Platform
+  - name: application-reliability
     files:
       - dashboards/platform/application-reliability.json
+
+  - name: grafana-dashboard-emojivoto
+    files:
       - dashboards/platform/emojivoto-voting-dashboard.json
+
+  - name: aws-alb-cloudwatch-metrics
+    files:
       - dashboards/platform/aws-alb-cloudwatch-metrics.json
 
-  - name: grafana-dashboard-kubernetes
+  # Kubernetes
+  - name: node-exporter-full
+    files:
+      - dashboards/kubernetes/node-exporter-full.json
+
+  - name: kubernetes-views-global
     files:
       - dashboards/kubernetes/kubernetes-views-global.json
+
+  - name: kubernetes-views-namespaces
+    files:
       - dashboards/kubernetes/kubernetes-views-namespaces.json
+
+  - name: kubernetes-views-pods
+    files:
       - dashboards/kubernetes/kubernetes-views-pods.json
+
+  - name: kubernetes-views-nodes
+    files:
       - dashboards/kubernetes/kubernetes-views-nodes.json
-      - dashboards/kubernetes/node-exporter-full.json
+
+  - name: kubernetes-system-coredns
+    files:
       - dashboards/kubernetes/kubernetes-system-coredns.json
+
+  - name: kubernetes-system-apiserver
+    files:
       - dashboards/kubernetes/kubernetes-system-apiserver.json
 
-  - name: grafana-dashboard-observability
+  # Observability
+  - name: loki-kubernetes-logs
     files:
       - dashboards/observability/loki-kubernetes-logs.json
+
+  - name: vpc-flow-logs
+    files:
       - dashboards/observability/vpc-flow-logs.json
 
-  - name: grafana-dashboard-aws
+  # AWS
+  - name: eks-controlplane
     files:
       - dashboards/aws/eks-controlplane.json
+
+  - name: cloudtrail-activity-logs
+    files:
       - dashboards/aws/cloudtrail-activity-logs.json
+
+  - name: route53-dns-activity
+    files:
       - dashboards/aws/route53-dns-activity.json
 
 generatorOptions:
   disableNameSuffixHash: true
   labels:
+    grafana_dashboard: "1"
+
     grafana_dashboard: "1"
