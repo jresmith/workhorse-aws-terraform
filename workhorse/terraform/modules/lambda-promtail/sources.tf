@@ -32,10 +32,10 @@ resource "aws_lambda_permission" "allow_cloudwatch" {
   statement_id   = "AllowExecutionFromCloudWatch-${substr(md5(each.value), 0, 12)}"
   action         = "lambda:InvokeFunction"
   function_name  = aws_lambda_function.this.function_name
-  principal      = "logs.${data.aws_region.current.name}.amazonaws.com"
+  principal      = "logs.${data.aws_region.current.region}.amazonaws.com"
   source_account = data.aws_caller_identity.current.account_id
 
-  source_arn = "arn:aws:logs:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:log-group:${each.value}:*"
+  source_arn = "arn:aws:logs:${data.aws_region.current.region}:${data.aws_caller_identity.current.account_id}:log-group:${each.value}:*"
 }
 
 resource "aws_cloudwatch_log_subscription_filter" "this" {

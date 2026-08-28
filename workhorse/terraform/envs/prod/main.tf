@@ -23,7 +23,6 @@ module "eks" {
   kubernetes_version = var.kubernetes_version
 
   vpc_id             = module.vpc.vpc_id
-  public_subnet_ids  = module.vpc.public_subnets
   private_subnet_ids = module.vpc.private_subnets
 
   endpoint_public_access  = true

@@ -28,7 +28,7 @@ single_nat_gateway = true
 
 # EKS Variables
 cluster_name       = "workhorse-prod-eks"
-kubernetes_version = "1.30"
+kubernetes_version = "1.34"
 
 node_group_instance_types = ["t3.large"]
 desired_size              = 2
