@@ -322,9 +322,63 @@ This helps validate that monitoring data reflects real-world user experience.
 
 Grafana dashboards provide operational visibility into the platform.
 
-# 🚧 Work in Progress
+## Platform Dashboards
 
+### Application Reliability
 
+<img width="1915" height="954" alt="Application Reliability" src="https://github.com/user-attachments/assets/d86a4047-2b80-4369-bf6b-8dd272231502" />
+
+### Kubernetes Views Pods
+
+<img width="1912" height="952" alt="Kubernetes Views Pods" src="https://github.com/user-attachments/assets/e870ab40-c03c-45a2-bfc6-46814151d28a" />
+
+### Kubernetes Views Nodes
+
+<img width="1908" height="953" alt="Kubernetes Views Nodes" src="https://github.com/user-attachments/assets/a1c097b9-e9c3-460e-85d5-a636fbdd2330" />
+
+### Kubernetes Views Namespaces
+
+<img width="1915" height="958" alt="Kubernetes Views Namespaces" src="https://github.com/user-attachments/assets/ebaca1f3-d847-47c5-8889-7de0dab89786" />
+
+### Kubernetes Views Global
+
+<img width="1914" height="953" alt="Kubernetes Views Global" src="https://github.com/user-attachments/assets/d8a7818a-f6c8-45dd-bbbf-fb15b7e0f4d2" />
+
+### Kubernetes System CoreDNS
+
+<img width="1917" height="961" alt="Kubernetes System CoreDNS" src="https://github.com/user-attachments/assets/f1279b7e-baa0-4ded-b06e-f7aab2603827" />
+
+### Kubernetes System API Server
+
+<img width="1920" height="947" alt="Kubernetes System API Server" src="https://github.com/user-attachments/assets/bb73183f-0444-48e4-94c4-7a5972004581" />
+
+### Node Exporter Full
+
+<img width="1912" height="952" alt="Kubernetes Views Pods" src="https://github.com/user-attachments/assets/f560f8df-9a1e-4f8d-8ddd-e59778852253" />
+
+## Logging Dashboards
+
+### Loki Kubernetes Logs
+
+<img width="1906" height="957" alt="Loki Kubernetes Logs" src="https://github.com/user-attachments/assets/100dfb57-bb67-4041-a3e9-5f4c58d8991e" />
+
+### EKS Control Plane Logs
+
+<img width="1909" height="959" alt="EKS Control Plane" src="https://github.com/user-attachments/assets/f16c1e47-87f4-47be-b404-df2ee0403d34" />
+
+### AWS Route 53 DNS Logs
+
+<img width="1880" height="955" alt="Route53 DNS Activity" src="https://github.com/user-attachments/assets/245463f9-6e2f-4331-bfa7-4f1f1c486e0a" />
+
+### VPC Flow Logs
+
+<img width="1912" height="893" alt="VPC Flow Logs" src="https://github.com/user-attachments/assets/03c5ffba-d880-4faf-8a8e-b956722dc43d" />
+
+## Misc
+
+### Voting Dashboard
+
+<img width="1887" height="798" alt="Voting Dashboard" src="https://github.com/user-attachments/assets/77e8eb52-c4a4-402d-be07-febeed22e1c7" />
 
 # Alert Routing Strategy
 
