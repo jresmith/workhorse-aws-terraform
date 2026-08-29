@@ -226,9 +226,15 @@ Illustrates the complete delivery lifecycle:
 
 ## 🔎 Observability Dashboards Samples
 
-Application Reliability Dashboard
+Full list of Dashboards - [Monitoring & Alerting Strategy](https://github.com/jresmith/workhorse-aws-terraform/blob/main/documentation/Architecture,%20Design%20&%20Reliability/Monitoring%20&%20Alerting%20Strategy.md)
 
-Kubernetes Global Dashboard
+Application Reliability Dashboard:
+
+<img width="1915" height="954" alt="Application Reliability" src="https://github.com/user-attachments/assets/05cdeeed-e1a5-42f8-b444-563a543b432b" />
+
+Kubernetes Global Dashboard:
+
+<img width="1914" height="953" alt="Kubernetes Views Global" src="https://github.com/user-attachments/assets/0f6083a2-b4cd-413f-8d7d-167399bdfb71" />
 
 ### Included Components
 
