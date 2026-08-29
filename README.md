@@ -224,6 +224,12 @@ Illustrates the complete delivery lifecycle:
 
 <img width="1633" height="980" alt="workhorse-cicd-pipeline-architecture drawio" src="https://github.com/user-attachments/assets/2421910e-f5fe-4376-9552-79f3d9615378" />
 
+## 🔎 Observability Dashboards Samples
+
+Application Reliability Dashboard
+
+Kubernetes Global Dashboard
+
 ### Included Components
 
 - GitHub Actions
