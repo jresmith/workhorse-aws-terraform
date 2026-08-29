@@ -352,10 +352,6 @@ Grafana dashboards provide operational visibility into the platform.
 
 <img width="1920" height="947" alt="Kubernetes System API Server" src="https://github.com/user-attachments/assets/bb73183f-0444-48e4-94c4-7a5972004581" />
 
-### Node Exporter Full
-
-<img width="1912" height="952" alt="Kubernetes Views Pods" src="https://github.com/user-attachments/assets/f560f8df-9a1e-4f8d-8ddd-e59778852253" />
-
 ## Logging Dashboards
 
 ### Loki Kubernetes Logs
