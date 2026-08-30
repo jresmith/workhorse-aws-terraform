@@ -69,6 +69,11 @@ As an infrastructure and operations leader, this lab serves as a reference archi
 
 ---
 
+# Video Demonstration
+
+📺 [Workhorse: EKS Platform Demo](https://youtu.be/e0XvYE-SUSs?si=0eZRm00hVfOkMNkB)
+
+---
 # 🏗 Macro Architecture Diagram
 
 The diagram below represents the high-level architecture of the Workhorse platform.
