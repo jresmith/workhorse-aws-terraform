@@ -71,6 +71,8 @@ As an infrastructure and operations leader, this lab serves as a reference archi
 
 # Video Demonstration
 
+![Uploading Screenshot 2026-08-29 at 7.32.22 PM.png…]()
+
 📺 [Workhorse: EKS Platform Demo](https://youtu.be/e0XvYE-SUSs?si=0eZRm00hVfOkMNkB)
 
 ---
