@@ -69,11 +69,11 @@ As an infrastructure and operations leader, this lab serves as a reference archi
 
 ---
 
-# Video Demonstration
+# 📺 Video Demonstration
 
 <img width="320" height="180" alt="Workhorse_EKS_Platform_Demo" src="https://github.com/user-attachments/assets/a75a2471-f250-491e-81a0-7c2f66beb5b3" />
 
-📺 [Workhorse: EKS Platform Demo](https://youtu.be/e0XvYE-SUSs?si=0eZRm00hVfOkMNkB)
+▶️ [Workhorse: EKS Platform Demo](https://youtu.be/e0XvYE-SUSs?si=0eZRm00hVfOkMNkB)
 
 ---
 # 🏗 Macro Architecture Diagram
