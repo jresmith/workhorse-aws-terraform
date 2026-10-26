@@ -17,7 +17,7 @@ aws s3 mb s3://workhorse-terraform-state --region us-west-2
 ```
 ### How to regenerate and reconfigure PAT got github repo when it expires
 
-* [TBD]
+* [TBD] Create a fine-grained token that has permissions: Read access to code and metadata
 
 ## Dev
 
